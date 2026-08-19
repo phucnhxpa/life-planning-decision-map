@@ -20,7 +20,7 @@ noscript{position:fixed;inset:100px 20px 20px;overflow:auto;background:white;bor
 </style>
 </head>
 <body>
-<header><div><div class="eyebrow">First-principles two-goal strategy · 24/24 reports complete</div><h1>Goals → evidence → branch decisions → 10-year strategy</h1><div class="subtitle">Questions are now ordered by dependency, every researched branch has an answer, and instruments stay downstream of the goals.</div></div><div class="toolbar">
+<header><div><div class="eyebrow">First-principles three-goal strategy · 24/24 reports complete</div><h1>Goals → evidence → branch decisions → 10-year strategy</h1><div class="subtitle">Questions are now ordered by dependency, every researched branch has an answer, and instruments stay downstream of the goals.</div></div><div class="toolbar">
 <button class="tool primary" id="planOpen">10-year plan</button><button class="tool" id="zoomOut" aria-label="Zoom out">−</button><button class="tool" id="zoomIn" aria-label="Zoom in">+</button><button class="tool text-tool" id="fit">Fit map</button><button class="tool text-tool" id="reset">100%</button><button class="tool text-tool" id="expandAll">Expand all</button><button class="tool text-tool" id="collapseAll">Collapse all</button>
 </div></header>
 <main id="viewport" aria-label="Pan and zoom mind map canvas">
@@ -35,7 +35,7 @@ noscript{position:fixed;inset:100px 20px 20px;overflow:auto;background:white;bor
 </aside>
 </main>
 <dialog id="planDialog" class="plan-dialog" aria-labelledby="planTitle">
-  <div class="plan-head"><div><div class="eyebrow">Conditional decade strategy · review annually</div><h2 id="planTitle">What to do from 2026 to 2036</h2><p>Derived from the two terminal goals and the 24 completed research reports.</p></div><button id="planClose" class="plan-close" aria-label="Close 10-year plan">×</button></div>
+  <div class="plan-head"><div><div class="eyebrow">Conditional decade strategy · review annually</div><h2 id="planTitle">What to do from 2026 to 2036</h2><p>Derived from the three terminal goals and the 24 completed research reports.</p></div><button id="planClose" class="plan-close" aria-label="Close 10-year plan">×</button></div>
   <div class="plan-body">
     <div class="plan-rule"><strong>Priority rule:</strong> protect legal, health, financial and deadline constraints → require a socially sustainable weekly life with protected French-learning time → maximise scarce technical capability and ownership → preserve options → buy prestige only for a verified mechanism → use citizenship, location, degrees and company structures as tools.</div>
     <div class="plan-grid">
@@ -50,7 +50,7 @@ noscript{position:fixed;inset:100px 20px 20px;overflow:auto;background:white;bor
     <div class="plan-foot">This is a conditional strategy, not a prediction or legal/admissions guarantee. The full synthesis is preserved in <code>ten-year-strategy.md</code>.</div>
   </div>
 </dialog>
-<noscript><h2>Two-goal strategy tree</h2><p>This interactive map requires JavaScript. The decade plan is also preserved in the project as <code>ten-year-strategy.md</code>.</p></noscript>
+<noscript><h2>Three-goal strategy tree</h2><p>This interactive map requires JavaScript. The decade plan is also preserved in the project as <code>ten-year-strategy.md</code>.</p></noscript>
 <script>
 (()=>{
 const N=(id,text,type='question',branch='g1',children=[],note='',answer='')=>({id,text,type,branch,children,note,answer,binary:false,collapsed:false,x:0,y:0,side:1});
@@ -113,22 +113,25 @@ const data=N('hidden-root','','hidden-root','root',[
      Q('S1','Prerequisite B — How long can an elite-university offer be deferred?','route','Normally one academic year at most and only with course/College approval; multi-year offer-holding is not robust.',[],'Evidence: Q20'),
      B('S2','Prerequisite C — Can France be used as a Cambridge transfer bridge?','question route','route',[],'Evidence: Q21','NO as a normal transfer. Apply fresh and expect to restart Cambridge Year 1; choose France only if willing to complete it.'),
      B('S3','Prerequisite D — Can I study in France while retaining a work/entrepreneur permit?','question route','route',[],'Evidence: Q22','USUALLY YES if qualifying work/business genuinely continues; full-time study is evidence-sensitive and exact permit wording controls.'),
-    Q('H1','Prerequisite E — Will this route support personal happiness while I prepare, including more social life and protected time to learn French?','route','Not decided until each route is converted into a realistic weekly timetable. Apply a hard floor: reject a route that predictably causes prolonged isolation, leaves no recurring social time, or makes serious French learning consistently unrealistic.',[
-      Q('H1.1','How much recurring weekly time will I protect for friends, community, dating or other social life?','route','Set the minimum before comparing programmes, then test it against teaching, independent study, paid work, commute, sleep and recovery. Do not treat social life as whatever time remains.',[],'Personal happiness criterion requested by Phuc.'),
-      Q('H1.2','How much protected weekly time will I allocate to French learning and integration?','route','Define a sustainable weekly floor and include classes, conversation, local activities and independent study. A France-based route should create real integration, not merely a French address.',[],'Personal happiness and French-learning criterion requested by Phuc.'),
-      Q('H1.3','Will the programme, commute and workload leave enough energy—not merely theoretical hours—for relationships, exercise, hobbies and rest?','route','Compare ordinary weeks and peak assessment weeks. International commuting and maintaining two partial lives should score badly if they consume sleep, spontaneity or stable community.',[],'Evaluate lived weekly experience, not only timetable arithmetic.'),
-      Q('H1.4','If MIT, Cambridge or the publication goal never happens, would I still be glad I lived these years this way?','route','Prefer a route that remains a good education and a good life even when the elite upside does not materialise.',[],'Personal happiness robustness test.')
-    ],'Personal happiness is a first-class decision criterion, not a tie-breaker. Exact weekly floors still need to be chosen.'),
+
      O('route-y','YES — wait only if every essential gate passes plus a major value gate: status, unique capability, defined remediation, or a bridge as valuable as 2027 study','route'),
      O('route-n','NO — default: start the best strong, affordable, research-accessible 2027 route','route')
    ],'Evidence: Q19; answer this only after the prerequisites below.','DEFAULT: start in 2027. Wait for 2028 only if every essential gate—including the personal-happiness floor—is met.'),
    Q('G2-final','Goal 2 conclusion','g2','Accumulate founder advantage before founding: scarce capability, owned systems, a validated problem, a complementary team, product/regulatory skill and financing. Europe-first is a revisable current prior; company only when it is the best agency vehicle.',[],'Return to the original agency goal.','question conclusion-card')
+ ]),
+ N('goal3','Have a personally happy and socially connected life while preparing for my long-term goals','goal','g3',[
+   Q('H1','Will my plan support personal happiness while I prepare, including more social life and protected time to learn French?','g3','Not decided until each route is converted into a realistic weekly timetable. Apply a hard floor: reject a route that predictably causes prolonged isolation, leaves no recurring social time, or makes serious French learning consistently unrealistic.',[
+     Q('H1.1','How much recurring weekly time will I protect for friends, community, dating or other social life?','g3','Set the minimum before comparing programmes, then test it against teaching, independent study, paid work, commute, sleep and recovery. Do not treat social life as whatever time remains.',[],'Personal happiness criterion requested by Phuc.'),
+     Q('H1.2','How much protected weekly time will I allocate to French learning and integration?','g3','Define a sustainable weekly floor and include classes, conversation, local activities and independent study. A France-based route should create real integration, not merely a French address.',[],'Personal happiness and French-learning criterion requested by Phuc.'),
+     Q('H1.3','Will the programme, commute and workload leave enough energy—not merely theoretical hours—for relationships, exercise, hobbies and rest?','g3','Compare ordinary weeks and peak assessment weeks. International commuting and maintaining two partial lives should score badly if they consume sleep, spontaneity or stable community.',[],'Evaluate lived weekly experience, not only timetable arithmetic.'),
+     Q('H1.4','If MIT, Cambridge or the publication goal never happens, would I still be glad I lived these years this way?','g3','Prefer a route that remains a good education and a good life even when the elite upside does not materialise.',[],'Personal happiness robustness test.')
+   ],'Personal happiness is a first-class goal, not a tie-breaker. Exact weekly floors still need to be chosen.')
  ])
 ]);
-data.children[0].side=1;data.children[1].side=1;data.children.forEach(root=>root.collapsed=true);
+data.children.forEach(root=>{root.side=1;root.collapsed=true});
 const viewport=document.getElementById('viewport'),world=document.getElementById('world'),nodesEl=document.getElementById('nodes'),edgesEl=document.getElementById('edges'),readout=document.getElementById('zoomReadout'),listPanel=document.getElementById('listPanel'),listTab=document.getElementById('listTab'),listTree=document.getElementById('listTree');
 let scale=1,tx=0,ty=0,drag=null;const ROOT_X=250,GAP_X=490,GAP_Y=280,TOP_GAP=.9;
-const branchColor={g1:'#534ab7',g2:'#0f6e56',route:'#185fa5',root:'#d97757'};
+const branchColor={g1:'#534ab7',g2:'#0f6e56',g3:'#c24170',route:'#185fa5',root:'#d97757'};
 function isQuestion(n){return n.type.includes('question')||n.id==='route'}
 function conclusionText(n){return n.answer|| (n.binary?'YES / NO — not decided; deep research pending':'not decided — deep research pending')}
 function nodeKind(n){return n.type.includes('outcome')?'Conditional branch':n.type==='root'?'Root':n.type.includes('goal')?'Terminal goal':n.type.includes('conclusion-card')?'Goal conclusion':n.type.includes('stage')?'Reasoning stage':n.id==='route'?'Route decision':`Question ${n.id}`}
