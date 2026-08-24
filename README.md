@@ -3,7 +3,7 @@
 The repository root publishes Phuc's private-planning dashboard as a static site. The visible product is intentionally focused on **Life Roadmap** only, with three internal views:
 
 - Roadmap — 2028 education route and original 2027 route
-- Timeline & Citizenship — the original full-page aligned route UI, now with a sticky year-synchronised Personal planning heuristic and selectable route highlighting
+- Timeline & Citizenship — the original aligned route UI rendered directly as a native same-page tab (no iframe and no separate page), with a sticky year-synchronised Personal planning heuristic and selectable route highlighting
 - Relationship & Family — the Personal planning heuristic only, derived from the confirmed reference PDF
 
 ## Source

@@ -1,6 +1,7 @@
 import { useState, useMemo, Fragment } from 'react'
 import './App.css'
 import RelationshipFamilyTimeline from './RelationshipFamilyTimeline'
+import InlineTimelineCitizenship from './InlineTimelineCitizenship'
 
 // ── PHUC'S LIFE DATA ──
 const BIRTH = new Date(2001, 10, 21) // Nov 21, 2001
@@ -1332,131 +1333,6 @@ function LifeRoadmap({ scenario = 'current' }) {
   )
 }
 
-const ROUTE_COMPARISON = [
-  {
-    id: 'baseline',
-    route: 'Baseline · 2027 UK university',
-    path: 'UK bachelor 2027–30 → UK master 2030–31/32',
-    phd: '2031–35',
-    phdNote: 'earliest 2031',
-    delay: '0 years',
-    delayWidth: 0,
-    citizenship: 'UK · 2038–39',
-    citizenDelta: 'baseline · about 12–13 years from 2026',
-    upside: 'Fastest possible PhD start; simplest route to execute.',
-    constraint: 'Treats the pending French-citizenship route as lost; the 0–3-year preparation range is unique to this route.',
-  },
-  {
-    id: 'a',
-    route: 'Option A · Cambridge 2028',
-    path: 'Cambridge 2028–31 → UK master 2031–32/33',
-    phd: '2032–33',
-    phdNote: 'finish 2035–38',
-    delay: '+1–2 years',
-    delayWidth: 40,
-    citizenship: 'UK · 2039–44',
-    citizenDelta: 'about 1–5 years later than baseline',
-    upside: 'Highest Cambridge prestige and research-access upside.',
-    constraint: 'One-year wait plus fresh admission risk; does not preserve the French naturalisation route.',
-  },
-  {
-    id: 'b',
-    route: 'Option B · France Year 1 → Cambridge Year 2',
-    path: 'France Y1 2028–29 → Cambridge Y2–3 2029–31 → UK master 2031–32/33',
-    phd: '2032–33',
-    phdNote: 'finish 2035–38',
-    delay: '+1–2 years',
-    delayWidth: 40,
-    citizenship: 'France · 2030–31',
-    citizenDelta: 'about 8 years earlier than baseline',
-    upside: 'Best theoretical combination of French citizenship and Cambridge speed.',
-    constraint: 'Fragile assumption: direct Cambridge Year-2 entry needs written course-and-College confirmation.',
-  },
-  {
-    id: 'c',
-    route: 'Option C · Structured France year → Cambridge 2029',
-    path: 'France 2028–29 → Cambridge 2029–32 → UK master 2032–33/34',
-    phd: '2033–34',
-    phdNote: 'finish 2036–39',
-    delay: '+2–3 years',
-    delayWidth: 60,
-    citizenship: 'France · 2030–31',
-    citizenDelta: 'about 8 years earlier than baseline',
-    upside: 'Protects a France-centred citizenship path while retaining Cambridge upside.',
-    constraint: 'Largest Cambridge-route delay; still depends on later admission and a genuinely useful France year.',
-  },
-  {
-    id: 'd',
-    route: 'Option D · Full France undergraduate + master',
-    path: 'France undergraduate 2028–31 → France master 2031–33',
-    phd: '2033',
-    phdNote: 'finish 2036–38',
-    delay: '+2 years',
-    delayWidth: 40,
-    citizenship: 'France · 2030–31',
-    citizenDelta: 'about 8 years earlier than baseline',
-    upside: 'Most coherent and robust France-first route; no transfer dependency.',
-    constraint: 'Two-year speed cost to PhD start and less direct UK-network exposure than Cambridge.',
-  },
-]
-
-function TimelineCitizenshipComparison() {
-  return (
-    <section className="route-comparison" aria-labelledby="route-comparison-title">
-      <div className="route-comparison-head">
-        <div>
-          <div className="timeline-citizenship-kicker">Native comparison · no embedded page</div>
-          <h2 id="route-comparison-title">Education speed vs. citizenship security</h2>
-          <p>Every route is compared with starting a UK university in 2027. Time cost is shown directly as <strong>extra calendar years to PhD start</strong>.</p>
-        </div>
-        <div className="roadmap-updated">Updated: 23 Aug 2026</div>
-      </div>
-
-      <div className="route-summary-grid">
-        <div className="route-summary-card"><span>Fastest to PhD</span><strong>2027 UK baseline</strong><small>Earliest start: 2031</small></div>
-        <div className="route-summary-card"><span>Fastest citizenship</span><strong>France-first routes</strong><small>Planning outcome: 2030–31</small></div>
-        <div className="route-summary-card"><span>Most robust France route</span><strong>Option D</strong><small>No Cambridge-transfer dependency</small></div>
-        <div className="route-summary-card"><span>Highest upside / fragility</span><strong>Option B</strong><small>Only if Year-2 entry is confirmed</small></div>
-      </div>
-
-      <table className="route-comparison-table">
-        <thead>
-          <tr>
-            <th>Route</th>
-            <th>Education path</th>
-            <th>PhD timing</th>
-            <th>Time cost vs 2027</th>
-            <th>Citizenship planning outcome</th>
-            <th>Main trade-off</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ROUTE_COMPARISON.map(r => (
-            <tr key={r.id} className={r.id === 'baseline' ? 'baseline-row' : ''}>
-              <td data-label="Route"><strong className="route-name">{r.route}</strong></td>
-              <td data-label="Education path">{r.path}</td>
-              <td data-label="PhD timing"><strong>{r.phd}</strong><small>{r.phdNote}</small></td>
-              <td data-label="Time cost vs 2027">
-                <strong className={r.id === 'baseline' ? 'delay-zero' : 'delay-value'}>{r.delay}</strong>
-                <div className="delay-track" aria-hidden="true"><i style={{ width: `${r.delayWidth}%` }} /></div>
-              </td>
-              <td data-label="Citizenship"><strong>{r.citizenship}</strong><small>{r.citizenDelta}</small></td>
-              <td data-label="Main trade-off"><strong className="trade-upside">{r.upside}</strong><small>{r.constraint}</small></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="route-decision-note">
-        <strong>How to use this:</strong> the extra years measure calendar delay only—not quality lost. Option D reaches PhD entry about 2 years later than the earliest 2027 case, but buys a much earlier French-citizenship planning outcome and removes the transfer gamble. Option B wins only if Cambridge confirms direct Year-2 admission in writing. Option C is rational only if the extra France year is substantively useful or genuinely needed to protect the citizenship route.
-      </div>
-      <div className="route-legal-note">
-        Citizenship dates are planning scenarios, not guarantees. French naturalisation requires continued France-centred residence through the signed decree and remains discretionary. UK student years may count toward ten-year Long Residence, but not toward separate Skilled Worker or Global Talent settlement clocks.
-      </div>
-    </section>
-  )
-}
-
 // ── MAIN APP ──
 export default function App() {
   const [roadmapView, setRoadmapView] = useState('roadmap')
@@ -1478,7 +1354,7 @@ export default function App() {
         </button>
         <button
           className={roadmapView === 'timeline' ? 'active' : ''}
-          onClick={() => { window.location.href = './timeline-citizenship-original.html?view=timeline' }}
+          onClick={() => setRoadmapView('timeline')}
         >
           Timeline &amp; Citizenship
         </button>
@@ -1514,6 +1390,8 @@ export default function App() {
             </>
           )}
         </>
+      ) : roadmapView === 'timeline' ? (
+        <InlineTimelineCitizenship />
       ) : (
         <RelationshipFamilyTimeline />
       )}
