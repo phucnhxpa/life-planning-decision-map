@@ -1,5 +1,6 @@
 import { useState, useMemo, Fragment } from 'react'
 import './App.css'
+import RelationshipFamilyTimeline from './RelationshipFamilyTimeline'
 
 // ── PHUC'S LIFE DATA ──
 const BIRTH = new Date(2001, 10, 21) // Nov 21, 2001
@@ -1465,10 +1466,10 @@ export default function App() {
     <div className="app">
       <div className="header">
         <h1>Life Roadmap</h1>
-        <p>Education, career, citizenship, and the route to retirement at 65.</p>
+        <p>Education, career, citizenship, relationships, family, and the route to retirement at 65.</p>
       </div>
 
-      <div className="roadmap-subnav" aria-label="Life Roadmap views">
+      <div className="roadmap-subnav life-view-nav" aria-label="Life Roadmap views">
         <button
           className={roadmapView === 'roadmap' ? 'active' : ''}
           onClick={() => setRoadmapView('roadmap')}
@@ -1480,6 +1481,12 @@ export default function App() {
           onClick={() => { window.location.href = './timeline-citizenship-original.html?view=timeline' }}
         >
           Timeline &amp; Citizenship
+        </button>
+        <button
+          className={roadmapView === 'family' ? 'active' : ''}
+          onClick={() => setRoadmapView('family')}
+        >
+          Relationship &amp; Family
         </button>
       </div>
 
@@ -1508,7 +1515,7 @@ export default function App() {
           )}
         </>
       ) : (
-        <TimelineCitizenshipComparison />
+        <RelationshipFamilyTimeline />
       )}
     </div>
   )
