@@ -1344,6 +1344,15 @@ const ROUTE_COMPARISON = [
     citizenDelta: 'baseline · about 12–13 years from 2026',
     upside: 'Fastest possible PhD start; simplest route to execute.',
     constraint: 'Treats the pending French-citizenship route as lost; the 0–3-year preparation range is unique to this route.',
+    academicStages: [
+      { label: 'UK bachelor', dates: '2027–30', start: 2027, end: 2030, tone: 'degree' },
+      { label: 'UK master', dates: '2030–31/32', start: 2030, end: 2032, tone: 'master' },
+      { label: 'PhD entry window', dates: '2031–35', start: 2031, end: 2035, tone: 'phd' },
+    ],
+    citizenshipStages: [
+      { label: 'UK lawful residence', dates: '2027–37', start: 2027, end: 2037, tone: 'residence' },
+      { label: 'ILR + naturalisation', dates: '2037–39', start: 2037, end: 2039, tone: 'citizenship' },
+    ],
   },
   {
     id: 'a',
@@ -1357,6 +1366,15 @@ const ROUTE_COMPARISON = [
     citizenDelta: 'about 1–5 years later than baseline',
     upside: 'Highest Cambridge prestige and research-access upside.',
     constraint: 'One-year wait plus fresh admission risk; does not preserve the French naturalisation route.',
+    academicStages: [
+      { label: 'Cambridge bachelor', dates: '2028–31', start: 2028, end: 2031, tone: 'degree' },
+      { label: 'UK master', dates: '2031–32/33', start: 2031, end: 2033, tone: 'master' },
+      { label: 'PhD', dates: '2032/33–35/38', start: 2032, end: 2038, tone: 'phd' },
+    ],
+    citizenshipStages: [
+      { label: 'UK study/residence', dates: '2028–38', start: 2028, end: 2038, tone: 'residence' },
+      { label: 'Settlement + citizenship cases', dates: '2039–44', start: 2039, end: 2044, tone: 'citizenship' },
+    ],
   },
   {
     id: 'b',
@@ -1370,6 +1388,16 @@ const ROUTE_COMPARISON = [
     citizenDelta: 'about 8 years earlier than baseline',
     upside: 'Best theoretical combination of French citizenship and Cambridge speed.',
     constraint: 'Fragile assumption: direct Cambridge Year-2 entry needs written course-and-College confirmation.',
+    academicStages: [
+      { label: 'France Year 1', dates: '2028–29', start: 2028, end: 2029, tone: 'france' },
+      { label: 'Cambridge Years 2–3', dates: '2029–31', start: 2029, end: 2031, tone: 'degree' },
+      { label: 'UK master', dates: '2031–32/33', start: 2031, end: 2033, tone: 'master' },
+      { label: 'PhD', dates: '2032/33–35/38', start: 2032, end: 2038, tone: 'phd' },
+    ],
+    citizenshipStages: [
+      { label: 'French qualifying residence', dates: '2024–29', start: 2024, end: 2029, tone: 'residence' },
+      { label: 'Apply + remain France-centred', dates: '2029–31', start: 2029, end: 2031, tone: 'citizenship' },
+    ],
   },
   {
     id: 'c',
@@ -1383,6 +1411,16 @@ const ROUTE_COMPARISON = [
     citizenDelta: 'about 8 years earlier than baseline',
     upside: 'Protects a France-centred citizenship path while retaining Cambridge upside.',
     constraint: 'Largest Cambridge-route delay; still depends on later admission and a genuinely useful France year.',
+    academicStages: [
+      { label: 'Structured France year', dates: '2028–29', start: 2028, end: 2029, tone: 'france' },
+      { label: 'Cambridge bachelor', dates: '2029–32', start: 2029, end: 2032, tone: 'degree' },
+      { label: 'UK master', dates: '2032–33/34', start: 2032, end: 2034, tone: 'master' },
+      { label: 'PhD', dates: '2033/34–36/39', start: 2033, end: 2039, tone: 'phd' },
+    ],
+    citizenshipStages: [
+      { label: 'French qualifying residence', dates: '2024–29', start: 2024, end: 2029, tone: 'residence' },
+      { label: 'Apply + remain France-centred', dates: '2029–31', start: 2029, end: 2031, tone: 'citizenship' },
+    ],
   },
   {
     id: 'd',
@@ -1396,19 +1434,98 @@ const ROUTE_COMPARISON = [
     citizenDelta: 'about 8 years earlier than baseline',
     upside: 'Most coherent and robust France-first route; no transfer dependency.',
     constraint: 'Two-year speed cost to PhD start and less direct UK-network exposure than Cambridge.',
+    academicStages: [
+      { label: 'French + preparation', dates: '2024–28', start: 2024, end: 2028, tone: 'france' },
+      { label: 'France undergraduate', dates: '2028–31', start: 2028, end: 2031, tone: 'degree' },
+      { label: 'France master', dates: '2031–33', start: 2031, end: 2033, tone: 'master' },
+      { label: 'PhD', dates: '2033–36/38', start: 2033, end: 2038, tone: 'phd' },
+    ],
+    citizenshipStages: [
+      { label: 'French qualifying residence', dates: '2024–29', start: 2024, end: 2029, tone: 'residence' },
+      { label: 'Apply + remain France-centred', dates: '2029–31', start: 2029, end: 2031, tone: 'citizenship' },
+    ],
   },
 ]
 
+const PATH_TIMELINE_START = 2024
+const PATH_TIMELINE_END = 2044
+
+function PathTimelineLane({ title, stages }) {
+  const span = PATH_TIMELINE_END - PATH_TIMELINE_START
+  return (
+    <div className="path-timeline-lane">
+      <h4>{title}</h4>
+      <div className="path-timeline-axis" aria-hidden="true">
+        {[2024, 2029, 2034, 2039, 2044].map(year => <span key={year}>{year}</span>)}
+      </div>
+      <div className="path-stage-list">
+        {stages.map(stage => {
+          const left = ((stage.start - PATH_TIMELINE_START) / span) * 100
+          const width = ((stage.end - stage.start) / span) * 100
+          return (
+            <div className="path-stage-row" key={`${stage.label}-${stage.dates}`}>
+              <div className="path-stage-copy"><strong>{stage.label}</strong><span>{stage.dates}</span></div>
+              <div className="path-stage-track" aria-hidden="true">
+                <i className={`path-stage-bar ${stage.tone}`} style={{ left: `${left}%`, width: `${width}%` }} />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function TimelineCitizenshipComparison() {
+  const [selectedRouteId, setSelectedRouteId] = useState('baseline')
+  const selectedRoute = ROUTE_COMPARISON.find(route => route.id === selectedRouteId) || ROUTE_COMPARISON[0]
+
   return (
     <section className="route-comparison" aria-labelledby="route-comparison-title">
       <div className="route-comparison-head">
         <div>
-          <div className="timeline-citizenship-kicker">Native comparison · no embedded page</div>
+          <div className="timeline-citizenship-kicker">Native path timelines + comparison · no embedded page</div>
           <h2 id="route-comparison-title">Education speed vs. citizenship security</h2>
           <p>Every route is compared with starting a UK university in 2027. Time cost is shown directly as <strong>extra calendar years to PhD start</strong>.</p>
         </div>
-        <div className="roadmap-updated">Updated: 23 Aug 2026</div>
+        <div className="roadmap-updated">Updated: 24 Aug 2026</div>
+      </div>
+
+      <div className="path-timeline-panel" aria-labelledby="path-timeline-title">
+        <div className="path-timeline-panel-head">
+          <div>
+            <span className="path-timeline-eyebrow">Path timelines</span>
+            <h3 id="path-timeline-title">Choose a route to see its education and citizenship clocks</h3>
+          </div>
+          <span className="path-timeline-range">2024–44</span>
+        </div>
+        <div className="path-route-options" role="tablist" aria-label="Education and citizenship route options">
+          {ROUTE_COMPARISON.map(route => (
+            <button
+              key={route.id}
+              role="tab"
+              aria-selected={route.id === selectedRoute.id}
+              className={route.id === selectedRoute.id ? 'active' : ''}
+              onClick={() => setSelectedRouteId(route.id)}
+            >
+              <span>{route.id === 'baseline' ? 'Baseline' : `Option ${route.id.toUpperCase()}`}</span>
+              <small>{route.route.replace(/^.*?· /, '')}</small>
+            </button>
+          ))}
+        </div>
+        <div className="path-timeline-selected" role="tabpanel" aria-live="polite">
+          <div className="path-selected-head">
+            <div><span>Selected path</span><h3>{selectedRoute.route}</h3></div>
+            <div className="path-selected-outcome"><span>Citizenship outcome</span><strong>{selectedRoute.citizenship}</strong></div>
+          </div>
+          <PathTimelineLane title="Education → PhD" stages={selectedRoute.academicStages} />
+          <PathTimelineLane title="Residence → citizenship" stages={selectedRoute.citizenshipStages} />
+          <div className="path-selected-summary">
+            <span><strong>Time cost:</strong> {selectedRoute.delay}</span>
+            <span><strong>PhD:</strong> {selectedRoute.phd} · {selectedRoute.phdNote}</span>
+            <span><strong>Citizenship:</strong> {selectedRoute.citizenDelta}</span>
+          </div>
+        </div>
       </div>
 
       <div className="route-summary-grid">

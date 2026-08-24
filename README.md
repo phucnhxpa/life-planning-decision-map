@@ -3,7 +3,7 @@
 The repository root publishes Phuc's private-planning dashboard as a static site. The visible product is intentionally focused on **Life Roadmap** only, with two internal views:
 
 - Roadmap — 2028 education route and original 2027 route
-- Timeline & Citizenship — native route-comparison table
+- Timeline & Citizenship — interactive route-by-route path timelines plus the native five-route comparison table
 
 ## Source
 
