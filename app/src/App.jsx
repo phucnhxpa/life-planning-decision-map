@@ -1477,7 +1477,7 @@ export default function App() {
         </button>
         <button
           className={roadmapView === 'timeline' ? 'active' : ''}
-          onClick={() => setRoadmapView('timeline')}
+          onClick={() => { window.location.href = './timeline-citizenship-original.html?view=timeline' }}
         >
           Timeline &amp; Citizenship
         </button>
