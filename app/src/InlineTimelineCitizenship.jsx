@@ -49,8 +49,8 @@ export default function InlineTimelineCitizenship() {
       routeLabels.forEach((label, labelIndex) => label.setAttribute('aria-pressed', String(!all && labelIndex === index)))
 
       status.textContent = all
-        ? 'Showing all routes · choose a route below to compare its education, PhD and citizenship timing.'
-        : `Comparing ${routeNames[index]} against the relationship and family ranges below.`
+        ? 'Axis locked to every education, PhD and citizenship row below · choose a route to compare.'
+        : `Comparing ${routeNames[index]} on the same 2024–2048 calendar columns · 1 column = 1 year.`
 
       if (!all && scrollToRoute) routeLabels[index].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
     }
