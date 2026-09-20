@@ -1,6 +1,7 @@
 import { useState, useMemo, Fragment } from 'react'
 import './App.css'
 import RelationshipFamilyTimeline from './RelationshipFamilyTimeline'
+import HomeCarTimeline from './HomeCarTimeline'
 import InlineTimelineCitizenship from './InlineTimelineCitizenship'
 
 // ── PHUC'S LIFE DATA ──
@@ -1364,6 +1365,12 @@ export default function App() {
         >
           Relationship &amp; Family
         </button>
+        <button
+          className={roadmapView === 'homecar' ? 'active' : ''}
+          onClick={() => setRoadmapView('homecar')}
+        >
+          Home &amp; Car
+        </button>
       </div>
 
       {roadmapView === 'roadmap' ? (
@@ -1392,6 +1399,8 @@ export default function App() {
         </>
       ) : roadmapView === 'timeline' ? (
         <InlineTimelineCitizenship />
+      ) : roadmapView === 'homecar' ? (
+        <HomeCarTimeline />
       ) : (
         <RelationshipFamilyTimeline />
       )}
