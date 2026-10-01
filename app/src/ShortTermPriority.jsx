@@ -24,12 +24,16 @@ export default function ShortTermPriority() {
     // ── Data (verbatim from the standalone site) ──
     const TODAY = '2026-09-15'
     const START = '2026-09-01'
-    const END = '2027-02-28'
+    const END = '2028-12-31'
 
     const rows = [
-      { group: 'French', title: 'A1.1 · beginner foundations', start: '2026-09-01', end: '2026-10-31', tone: 'green', detail: 'A1.1: Sep 1 → Oct 31 (2 months). Alphabet, numbers, greetings, basic present-tense sentences.' },
-      { group: 'French', title: 'A1 · beginner', start: '2026-11-01', end: '2026-12-31', tone: 'blue', detail: 'A1: Nov 1 → Dec 31 (2 months). Daily-life vocabulary, simple exchanges, present + near future.' },
-      { group: 'French', title: 'A2 · elementary', start: '2027-01-01', end: '2027-02-28', tone: 'purple', detail: 'A2: Jan 1 → Feb 28 (2 months). Past tenses, everyday situations, short connected text.' },
+      { group: 'French', title: 'A1.1 → A2 progression', start: '2026-09-01', end: '2027-02-28', tone: 'green',
+        segments: [
+          { start: '2026-09-01', end: '2026-10-31', label: 'A1.1', tone: 'green', detail: 'A1.1 · Sep 1 → Oct 31 2026. Alphabet, numbers, greetings, basic present-tense sentences.' },
+          { start: '2026-11-01', end: '2026-12-31', label: 'A1.2', tone: 'blue', detail: 'A1.2 · Nov 1 → Dec 31 2026. Daily-life vocabulary, simple exchanges, present + near future.' },
+          { start: '2027-01-01', end: '2027-02-28', label: 'A2', tone: 'purple', detail: 'A2 · Jan 1 → Feb 28 2027. Past tenses, everyday situations, short connected text.' },
+        ],
+        detail: 'French CEFR progression: A1.1 (Sep–Oct) → A1.2 (Nov–Dec) → A2 (Jan–Feb).' },
     ]
 
     const startMs = new Date(START).getTime()
@@ -71,8 +75,9 @@ export default function ShortTermPriority() {
       const left = pctAt(segment.start)
       const width = Math.max(1.2, pctAt(segment.end) - left)
       const label = segment.label || row.title
+      const tone = segment.tone || row.tone
       const dates = segment.dates || `${fmt(segment.start)} → ${fmt(segment.end)}`
-      return `<div class="block ${row.tone}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${dates}</small>${tip(row.title + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, row.detail)}</div>`
+      return `<div class="block ${tone}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${dates}</small>${tip(row.title + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, segment.detail || row.detail)}</div>`
     }
 
     function pause(p) {

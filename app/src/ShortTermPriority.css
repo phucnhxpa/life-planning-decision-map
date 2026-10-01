@@ -17,7 +17,7 @@
   --green: #34c759;
   --purple: #6d5dfc;
   --label-w: 204px;
-  --canvas-w: 3900px;
+  --canvas-w: 1560px;
 }
 
 .stp-root *, .stp-root *::before, .stp-root *::after { box-sizing: border-box; }
@@ -353,7 +353,7 @@
   position: absolute;
   top: 3px;
   bottom: 3px;
-  min-width: 34px;
+  min-width: 26px;
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -378,7 +378,7 @@
   position: absolute;
   top: 3px;
   bottom: 3px;
-  min-width: 34px;
+  min-width: 26px;
   border-radius: 999px;
   border: 1px dashed rgba(0,0,0,0.28);
   background: repeating-linear-gradient(135deg, rgba(0,0,0,0.035), rgba(0,0,0,0.035) 4px, rgba(255,255,255,0.72) 4px, rgba(255,255,255,0.72) 8px);
@@ -448,7 +448,7 @@
 }
 
 @media (max-width: 760px) {
-  .stp-root { --label-w: 150px; --canvas-w: 3200px; }
+  .stp-root { --label-w: 150px; --canvas-w: 1280px; }
   .stp-root header { grid-template-columns: 1fr; align-items: start; }
   .stp-root .row-label, .stp-root .axis-label { padding-left: 10px; }
   .stp-root .name { font-size: 12px; }
