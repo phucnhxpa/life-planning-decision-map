@@ -17,7 +17,7 @@
   --green: #34c759;
   --purple: #6d5dfc;
   --label-w: 204px;
-  --canvas-w: 1560px;
+  --canvas-w: 2200px;
 }
 
 .stp-root *, .stp-root *::before, .stp-root *::after { box-sizing: border-box; }
@@ -448,7 +448,7 @@
 }
 
 @media (max-width: 760px) {
-  .stp-root { --label-w: 150px; --canvas-w: 1280px; }
+  .stp-root { --label-w: 150px; --canvas-w: 1700px; }
   .stp-root header { grid-template-columns: 1fr; align-items: start; }
   .stp-root .row-label, .stp-root .axis-label { padding-left: 10px; }
   .stp-root .name { font-size: 12px; }
