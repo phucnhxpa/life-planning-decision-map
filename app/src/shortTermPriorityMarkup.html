@@ -1,0 +1,55 @@
+<div class="stp-root">
+
+  <div class="page">
+    <header>
+      <div>
+        <h1>Short-term priority timeline</h1>
+        <div class="sub">Full-width planning view. No dashboard side gutters. Drag horizontally, use the buttons, and hover blocks/markers for detailed notes.</div>
+      </div>
+      <div class="now-pill">Today marker: 24 May 2026</div>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Website sections">
+      <button class="tab-btn active" type="button" data-tab="timeline" role="tab" aria-selected="true">Timeline</button>
+      <button class="tab-btn" type="button" data-tab="capacity" role="tab" aria-selected="false">Study capacity</button>
+    </div>
+    <div class="controls" id="stpControls"></div>
+    <main class="timeline-wrap view active" id="stpTimelineView" aria-label="Scrollable short-term priority timeline">
+      <div class="timeline-canvas">
+        <div class="axis-label">Date line</div>
+        <div class="axis" id="stpAxis"></div>
+        <div class="grid" id="stpGrid"><div class="grid-lines" id="stpGridLines"></div></div>
+      </div>
+    </main>
+    <section class="capacity-view view" id="stpCapacityView" aria-label="Study capacity calculations">
+      <div class="capacity-shell">
+        <article class="capacity-card">
+          <h2>Study capacity</h2>
+          <p>Separate from the timeline so the hour math is readable instead of hidden inside hover tooltips.</p>
+          <div class="metric-grid">
+            <div class="metric"><div class="value">18h</div><div class="label">per week</div></div>
+            <div class="metric"><div class="value">≈78h</div><div class="label">per month</div></div>
+            <div class="metric"><div class="value">≈410h</div><div class="label">to end Oct</div></div>
+            <div class="metric"><div class="value">≈636h</div><div class="label">to 25 Jan</div></div>
+          </div>
+          <div class="capacity-list" id="stpCapacityList"></div>
+        </article>
+        <aside class="capacity-table-card">
+          <h3>Workload verdict</h3>
+          <table class="capacity-table">
+            <thead><tr><th>Window</th><th>Need</th><th>Verdict</th></tr></thead>
+            <tbody>
+              <tr><td><strong>October</strong><br>P1 P2 P3 P4 M1 S1 M2 + Physics U1-3</td><td>≈202-298h depending on 3-6 papers/unit</td><td><strong>Enough</strong><br>≈354h before first Oct exam, ≈410h to end window.</td></tr>
+              <tr><td><strong>January</strong><br>FP1 FP2 FP3 S2 M3 + Physics U4-6</td><td>≈156-234h depending on 3-6 papers/unit</td><td><strong>Enough for 3-5 papers/unit</strong><br>6 papers/unit needs preloading before Oct ends.</td></tr>
+              <tr><td><strong>Languages</strong><br>English 2h + French 2.5h</td><td>4.5h/week, ≈19.5h/month</td><td><strong>Maintenance only</strong><br>Leaves A-levels at 13.5h/week.</td></tr>
+              <tr><td><strong>French only</strong></td><td>2.5h/week, ≈10.8h/month</td><td><strong>Safer</strong><br>Leaves A-levels at 15.5h/week.</td></tr>
+            </tbody>
+          </table>
+        </aside>
+      </div>
+    </section>
+    <div class="footer-note">Drive check: current Paris Attitude #8482 lease at 43 Ave Jean Jaurès ends 7 Mar 2027. Sep date belongs to old Houilles lease anniversary, not this apartment. Permit renewal assumes early-July 2027 expiry.</div>
+  </div>
+
+  
+</div>

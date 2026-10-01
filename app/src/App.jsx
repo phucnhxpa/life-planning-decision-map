@@ -2,6 +2,7 @@ import { useState, useMemo, Fragment } from 'react'
 import './App.css'
 import RelationshipFamilyTimeline from './RelationshipFamilyTimeline'
 import HomeCarTimeline from './HomeCarTimeline'
+import ShortTermPriority from './ShortTermPriority'
 import InlineTimelineCitizenship from './InlineTimelineCitizenship'
 
 // ── PHUC'S LIFE DATA ──
@@ -1419,6 +1420,12 @@ export default function App() {
         >
           Home &amp; Car
         </button>
+        <button
+          className={roadmapView === 'priority' ? 'active' : ''}
+          onClick={() => setRoadmapView('priority')}
+        >
+          Short-term Priority
+        </button>
       </div>
 
       {roadmapView === 'roadmap' ? (
@@ -1456,6 +1463,8 @@ export default function App() {
         <InlineTimelineCitizenship />
       ) : roadmapView === 'homecar' ? (
         <HomeCarTimeline />
+      ) : roadmapView === 'priority' ? (
+        <ShortTermPriority />
       ) : (
         <RelationshipFamilyTimeline />
       )}

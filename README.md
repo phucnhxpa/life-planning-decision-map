@@ -1,10 +1,12 @@
 # Life Roadmap
 
-The repository root publishes Phuc's private-planning dashboard as a static site. The visible product is intentionally focused on **Life Roadmap** only, with three internal views:
+The repository root publishes Phuc's private-planning dashboard as a static site. The visible product is intentionally focused on **Life Roadmap** only, with these internal views:
 
 - Roadmap — 2028 education route and original 2027 route
 - Timeline & Citizenship — the original aligned route UI rendered directly as a native same-page tab (no iframe and no separate page), with a sticky year-synchronised Personal planning heuristic and selectable route highlighting
 - Relationship & Family — the Personal planning heuristic only, derived from the confirmed reference PDF
+- Home & Car — house/car ownership timing research anchored to confirmed PDFs
+- Short-term Priority — a 1:1 port of the standalone [short-term-priority-timeline](https://phucnhxpa.github.io/short-term-priority-timeline/) site (timeline board + study-capacity view + quick-jump controls) as an internal tab: same markup, CSS and behaviour (`app/src/ShortTermPriority.jsx` + `shortTermPriorityMarkup.html` + `ShortTermPriority.css`), no iframe and no navigation
 
 ## Source
 
