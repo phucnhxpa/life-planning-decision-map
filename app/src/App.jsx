@@ -50,6 +50,31 @@ const ROADMAP_2028_PHASES = [
 ]
 
 // ── KEY MILESTONES ──
+// October 2026 version - near-term runway derived from the Short-term Priority Timeline (verified rows).
+// IAL Oct 2026: P1 9 Oct, M1 13 Oct, P2 15 Oct, S1 19 Oct, P3 21 Oct, M2 22 Oct, P4 28 Oct.
+// ESAT window 12-16 Oct 2026. Oxbridge UCAS 15 Oct. My Cambridge Application 22 Oct.
+// IAL Jan 2027: FP1 14 Jan, S2 18 Jan, FP2 20 Jan, FP3 21 Jan, M3 25 Jan. General UCAS 13 Jan 2027.
+const ROADMAP_OCT2026_PHASES = [
+  { id: 'prep', label: 'A-Levels + admissions runway', startAge: 24.9, endAge: 25.8, startDate: 'Oct 2026', endDate: 'Sep 2027', color: '#30d158', emoji: '\u{1F52C}', desc: 'Oct 2026 IAL units (P1-P4, M1 M2 S1) finish 28 Oct; ESAT 12-16 Oct; Oxbridge UCAS 15 Oct + MCA 22 Oct; then FP1 FP2 FP3 S2 M3 + Physics 4-6 to Jan 2027 exams; general UCAS 13 Jan; interviews Dec-Feb; IELTS Mar-May 2027.' },
+  { id: 'undergrad', label: 'Undergraduate (3 years)', startAge: 25.8, endAge: 28.8, startDate: 'Sep 2027', endDate: 'Jun 2030', color: '#007aff', emoji: '\u{1F393}', desc: 'Three-year theoretical physics undergraduate degree beginning Sep 2027 (UK route), or Sep 2028 under the France-first branch.' },
+  { id: 'masters', label: 'Master (1-2 years)', startAge: 28.8, endAge: 30.8, startDate: 'Sep 2030', endDate: 'Jun 2032', color: '#0071e3', emoji: '\u{1F4D0}', desc: 'Integrated master year (Part III / MMathPhys / MSci) or 1-2-year standalone MSc, depending on admitted route.' },
+  { id: 'phd', label: 'PhD (3-5 years)', startAge: 30.8, endAge: 34.8, startDate: 'Sep 2032', endDate: 'Jun 2035-37', color: '#5856d6', emoji: '\u{1F9EA}', desc: 'Doctoral research; visual width uses the 4-year midpoint.', durationLabel: '3-5 yr', weeksLabel: '156-260', ageLabel: '30.8 -> 33.8-35.8', pctLabel: '7.4-12.3%' },
+  { id: 'career', label: 'Post-PhD career', startAge: 34.8, endAge: 65, startDate: 'Jul 2035-37', endDate: '2066', color: '#af52de', emoji: '\u{1F680}', desc: 'Post-PhD career to retirement at 65; visual start uses the midpoint.', durationLabel: '28.2-30.2 yr', weeksLabel: '1,466-1,570', ageLabel: '33.8-35.8 -> 65', pctLabel: '69.3-74.2%' },
+]
+
+// Near-term milestone strip (rows from the Short-term Priority Timeline, all verified).
+const OCT2026_EVENTS = [
+  { date: '2026-10-09', label: 'IAL Oct exams begin (P1)', tone: '#ff3b30' },
+  { date: '2026-10-12', label: 'ESAT test window opens', tone: '#ff9500' },
+  { date: '2026-10-15', label: 'Oxbridge UCAS deadline', tone: '#af52de' },
+  { date: '2026-10-22', label: 'My Cambridge Application', tone: '#5856d6' },
+  { date: '2026-10-28', label: 'Last Oct IAL paper (P4)', tone: '#ff3b30' },
+  { date: '2027-01-13', label: 'General UCAS deadline', tone: '#af52de' },
+  { date: '2027-01-14', label: 'IAL Jan exams begin (FP1)', tone: '#ff3b30' },
+  { date: '2027-03-07', label: 'Paris lease ends -> move', tone: '#30d158' },
+  { date: '2027-07-09', label: 'Permit expiry (renew by May)', tone: '#ff9500' },
+]
+
 const MILESTONES = [
   { age: 0, year: 2001, label: 'Born in Tay Ninh, Vietnam', done: true },
   { age: 15, year: 2016, label: 'Finished 9th grade, began self-study', done: true },
@@ -1049,7 +1074,8 @@ function NeitherWeeksCard({ idealCounts, currentCounts }) {
 
 function LifeRoadmap({ scenario = 'current' }) {
   const is2028 = scenario === '2028'
-  const phases = is2028 ? ROADMAP_2028_PHASES : ROADMAP_PHASES
+  const isOct2026 = scenario === 'oct2026'
+  const phases = isOct2026 ? ROADMAP_OCT2026_PHASES : is2028 ? ROADMAP_2028_PHASES : ROADMAP_PHASES
   const totalSpan = ROADMAP_END_AGE - ROADMAP_START_AGE // 40.7 years
   const totalWeeks = Math.round(totalSpan * 52)
   const totalHours = Math.round(totalSpan * 365.25 * 24)
@@ -1335,6 +1361,28 @@ function LifeRoadmap({ scenario = 'current' }) {
 }
 
 // ── MAIN APP ──
+
+function Oct2026NearTerm() {
+  const evs = [...OCT2026_EVENTS].sort((a, b) => a.date.localeCompare(b.date))
+  return (
+    <div className="card">
+      <div className="card-title">Near-term runway (Oct 2026 - mid 2027)</div>
+      <p style={{ color: '#86868b', fontSize: 12, marginBottom: 12 }}>
+        Dates from the Short-term Priority Timeline (verified rows).
+      </p>
+      <div className="timeline">
+        {evs.map((e, i) => (
+          <div key={i} className="timeline-item">
+            <div className="timeline-dot current" style={{ background: e.tone }} />
+            <div className="timeline-age">{new Date(e.date + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+            <div className="timeline-title">{e.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [roadmapView, setRoadmapView] = useState('roadmap')
   const [roadmapScenario, setRoadmapScenario] = useState('2028')
@@ -1383,6 +1431,12 @@ export default function App() {
               2028 · 3y UG → 2y Master → 3–5y PhD
             </button>
             <button
+              className={roadmapScenario === 'oct2026' ? 'active' : ''}
+              onClick={() => setRoadmapScenario('oct2026')}
+            >
+              Oct 2026 update \u00b7 exams &amp; admissions runway
+            </button>
+            <button
               className={roadmapScenario === 'current' ? 'active' : ''}
               onClick={() => setRoadmapScenario('current')}
             >
@@ -1390,6 +1444,7 @@ export default function App() {
             </button>
           </div>
           <LifeRoadmap scenario={roadmapScenario} />
+          {roadmapScenario === 'oct2026' && <Oct2026NearTerm />}
           {roadmapScenario === 'current' && (
             <>
               <LifeInWeeks futureOnly={false} />
