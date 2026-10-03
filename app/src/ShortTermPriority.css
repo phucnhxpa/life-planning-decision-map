@@ -468,3 +468,54 @@
   .stp-root .name { font-size: 12px; }
   .stp-root .block small { display: none; }
 }
+
+/* Cambridge/Imperial admissions section: visually distinct band */
+.stp-root .row.admissions-section {
+  background: linear-gradient(90deg, rgba(109,93,252,0.055) 0%, rgba(109,93,252,0.0) 70%);
+  border-left: 3px solid var(--purple);
+  border-radius: 6px;
+  padding: 2px 0;
+}
+.stp-root .row.admissions-section .group {
+  color: var(--purple);
+}
+/* Section divider bar with title, injected as its own grid row */
+.stp-root .section-divider {
+  display: grid;
+  grid-template-columns: var(--label-w) minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(109,93,252,0.35);
+}
+.stp-root .section-divider .section-title {
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--purple);
+  padding-left: 12px;
+}
+.stp-root .section-divider .section-sub {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--soft);
+}
+/* Percentage-left badge on admissions rows */
+.stp-root .row .pct-left {
+  position: sticky;
+  left: calc(var(--label-w) - 90px);
+  margin-left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8.5px;
+  font-weight: 900;
+  color: var(--purple);
+  background: rgba(109,93,252,0.1);
+  border: 1px solid rgba(109,93,252,0.25);
+  border-radius: 999px;
+  padding: 2px 7px;
+  white-space: nowrap;
+  z-index: 5;
+}
