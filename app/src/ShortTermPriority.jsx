@@ -34,6 +34,23 @@ export default function ShortTermPriority() {
           { start: '2027-01-01', end: '2027-02-28', label: 'A2', tone: 'purple', detail: 'A2 · Jan 1 → Feb 28 2027. Past tenses, everyday situations, short connected text.' },
         ],
         detail: 'French CEFR progression: A1.1 (Sep–Oct) → A1.2 (Nov–Dec) → A2 (Jan–Feb).' },
+      { group: 'French · AF intensive reference', title: 'Alliance Française — intensive pace', start: '2026-09-01', end: '2027-05-31', tone: 'blue',
+        segments: [
+          { start: '2026-09-01', end: '2026-09-30', label: 'A1.1', tone: 'green', detail: 'AF intensive month 1 · A1.1 — 20h/week. Source: alliancefr.org intensive course progression (1 sub-level = 1 month).' },
+          { start: '2026-10-01', end: '2026-10-31', label: 'A1.2', tone: 'green', detail: 'AF intensive month 2 · A1.2. Cumulative: 2/9 months (22%) of the AF staircase to B2.3.' },
+          { start: '2026-11-01', end: '2026-11-30', label: 'A2.1', tone: 'blue', detail: 'AF intensive month 3 · A2.1. Cumulative: 3/9 (33%).' },
+          { start: '2026-12-01', end: '2026-12-31', label: 'A2.2', tone: 'blue', detail: 'AF intensive month 4 · A2.2 — A2 complete. Cumulative: 4/9 (44%).' },
+          { start: '2027-01-01', end: '2027-01-31', label: 'B1.1', tone: 'teal', detail: 'AF intensive month 5 · B1.1. Cumulative: 5/9 (56%).' },
+          { start: '2027-02-01', end: '2027-02-28', label: 'B1.2', tone: 'teal', detail: 'AF intensive month 6 · B1.2 — B1 complete. Cumulative: 6/9 (67%).' },
+          { start: '2027-03-01', end: '2027-03-31', label: 'B2.1', tone: 'purple', detail: 'AF intensive month 7 · B2.1. Cumulative: 7/9 (78%).' },
+          { start: '2027-04-01', end: '2027-04-30', label: 'B2.2', tone: 'purple', detail: 'AF intensive month 8 · B2.2. Cumulative: 8/9 (89%).' },
+          { start: '2027-05-01', end: '2027-05-31', label: 'B2.3', tone: 'purple', detail: 'AF intensive month 9 · B2.3 — B2 COMPLETE. Reference staircase from alliancefr.org intensive in-person course.' },
+        ],
+        marker: true, markerDate: '2027-05-31', markerLabel: 'B2 done',
+        detail: 'Alliance Française official intensive staircase (A1.1→A1.2→A2.1→A2.2→B1.1→B1.2→B2.1→B2.2→B2.3, 1 month each = 9 months). Anchored at the real Sep 1 2026 start → B2 complete 31 May 2027. Continuous reference pace, not a commitment.' },
+      { group: 'French · AF intensive reference', title: 'Progress to B2 (continuous)', start: '2026-09-01', end: '2027-05-31', tone: 'teal',
+        progress: true, progressLabel: '→ B2',
+        detail: 'Continuous fill: 0% on Sep 1 2026 → 100% (B2.3 complete) on 31 May 2027, filling linearly at the AF intensive pace. The bar keeps growing past A2 even though the personal plan (row above) stops at A2 in Feb.' },
       { group: 'University', title: 'Sorbonne starts', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
         detail: 'University start · Sorbonne, September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
     ]
@@ -88,6 +105,14 @@ export default function ShortTermPriority() {
       return `<div class="pause" style="left:${left}%;width:${width}%"><span>${p.label}</span>${tip(p.label, `${fmtLong(p.start)} → ${fmtLong(p.end)}`, 'Protected blank break — no scheduling here.')}</div>`
     }
 
+    // SECURITY: progressBlock builds HTML only from hardcoded row constants (same as block/marker above); no user input.
+    function progressBlock(row) {
+      const left = pctAt(row.start)
+      const width = Math.max(1.2, pctAt(row.end) - left)
+      const nowPct = Math.max(0, Math.min(100, ((new Date(TODAY).getTime() - new Date(row.start).getTime()) / (new Date(row.end).getTime() - new Date(row.start).getTime())) * 100))
+      return `<div class="block ${row.tone} progress-block" style="left:${left}%;width:${width}%"><span class="pct">${nowPct.toFixed(0)}% ${row.progressLabel || ''} · today</span>${tip(row.title, `${fmtLong(row.start)} → ${fmtLong(row.end)}`, row.detail + ` · As of ${fmtLong(TODAY)}: ${nowPct.toFixed(0)}% of the way to B2.`)}</div>`
+    }
+
     for (const m of months()) {
       axis.insertAdjacentHTML('beforeend', `<div class="tick ${m.year ? 'year' : ''}" style="left:${pctAt(m.date)}%"><span>${m.label}</span></div>`)
       lines.insertAdjacentHTML('beforeend', `<span style="left:${pctAt(m.date)}%"></span>`)
@@ -96,9 +121,11 @@ export default function ShortTermPriority() {
     lines.insertAdjacentHTML('beforeend', `<span class="today" style="left:${pctAt(TODAY)}%"></span>`)
 
     for (const row of rows.filter(r => r.group !== 'Capacity')) {
-      const content = row.marker
+      const content = row.marker && !row.segments
         ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone)
-        : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}`
+        : row.progress
+          ? progressBlock(row) + (row.markerDate ? marker(row, row.markerDate, row.markerLabel || 'B2', row.tone, row.markerLabel || row.title) : '')
+          : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}`
       grid.insertAdjacentHTML('beforeend', `<div class="row"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.title}</div></div><div class="track">${content}</div></div>`)
     }
 

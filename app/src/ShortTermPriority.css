@@ -372,7 +372,21 @@
 .stp-root .orange { background: var(--orange); }
 .stp-root .green { background: var(--green); }
 .stp-root .purple { background: var(--purple); }
+.stp-root .teal { background: var(--teal, #0f9d8f); }
 .stp-root .neutral { background: var(--muted); }
+
+/* Continuous progress row (AF reference): track fills left→right, % label rides the fill edge */
+.stp-root .block.progress-block {
+  border-radius: 999px;
+  min-width: 0;
+  padding: 0 10px;
+  justify-content: flex-end;
+}
+.stp-root .block.progress-block .pct {
+  font-size: 8.5px;
+  font-weight: 900;
+  opacity: 0.95;
+}
 
 .stp-root .pause {
   position: absolute;
