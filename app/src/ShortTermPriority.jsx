@@ -51,8 +51,8 @@ export default function ShortTermPriority() {
       { group: 'French · AF intensive reference', title: 'Progress to B2 (continuous)', start: '2026-09-01', end: '2027-05-31', tone: 'teal',
         progress: true, progressLabel: '→ B2',
         detail: 'Continuous fill: 0% on Sep 1 2026 → 100% (B2.3 complete) on 31 May 2027, filling linearly at the AF intensive pace. The bar keeps growing past A2 even though the personal plan (row above) stops at A2 in Feb.' },
-      { group: 'University', title: 'Sorbonne starts', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
-        detail: 'University start · Sorbonne, September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
+      { group: 'University', title: 'Sorbonne administrative', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
+        detail: 'Sorbonne administrative · September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
     ]
 
     const startMs = new Date(START).getTime()
