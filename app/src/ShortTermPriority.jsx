@@ -110,7 +110,7 @@ export default function ShortTermPriority() {
       ['←', () => wrap.scrollBy({ left: -Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
       ['Today', () => scrollToDate(TODAY)],
       ['A1.1', () => scrollToDate('2026-09-01')],
-      ['A1', () => scrollToDate('2026-11-01')],
+      ['A1.2', () => scrollToDate('2026-11-01')],
       ['A2', () => scrollToDate('2027-01-01')],
       ['→', () => wrap.scrollBy({ left: Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
     ]
