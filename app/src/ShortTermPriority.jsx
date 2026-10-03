@@ -51,6 +51,13 @@ export default function ShortTermPriority() {
       { group: 'French · AF intensive reference', title: 'Progress to B2', start: '2026-09-01', end: '2027-05-31', tone: 'teal',
         progress: true, progressLabel: '→ B2',
         detail: 'Continuous fill: 0% on Sep 1 2026 → 100% (B2.3 complete) on 31 May 2027, filling linearly at the AF intensive pace. The bar keeps growing past A2 even though the personal plan (row above) stops at A2 in Feb.' },
+      { group: 'French · AF semi-intensive path', title: 'Semi-intensive B1 → B2', start: '2027-03-01', end: '2027-12-31', tone: 'teal',
+        segments: [
+          { start: '2027-03-01', end: '2027-06-30', label: 'B1.1–B1.4', tone: 'green', detail: 'B1 at AF semi pace: 4 sub-levels × 1 session (36h / 4 weeks, 9h/week) = 4 months. Source: AF semi-intensive progression chart (Semi intensifs 06/2026).' },
+          { start: '2027-07-01', end: '2027-12-31', label: 'B2.1–B2.6', tone: 'blue', detail: 'B2 at AF semi pace: 6 sub-levels × 1 session = 6 months. B2 complete end of Dec 2027 — 6 weeks before the TCF DAP last-chance date (13 Feb 2028).' },
+        ],
+        markerDate: '2027-12-31', markerLabel: 'B2 done', tone: 'purple',
+        detail: 'Reference: finish A1+A2 intensive (rows above), then switch to semi-intensive (Mon/Tue/Thu, 9h/week, €730 per 4-week session) for B1 (4 months) + B2 (6 months) → B2 complete Dec 2027. AF chart notes semi uses more sub-levels than intensive (A1: 3, A2: 4, B1: 4, B2: 6) but 1 sub-level = 1 session either way. Doesn’t include the €2,630 cost shift vs intensive — ask if you want it budgeted.' },
       { group: 'University', title: 'Sorbonne administrative', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
         detail: 'Sorbonne administrative · September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
       { group: 'Sorbonne 2028 · A-level', title: 'A-level — Jan 2028', start: '2028-01-05', end: '2028-01-25', tone: 'blue',
