@@ -53,38 +53,46 @@ export default function ShortTermPriority() {
         detail: 'Continuous fill: 0% on Sep 1 2026 → 100% (B2.3 complete) on 31 May 2027, filling linearly at the AF intensive pace. The bar keeps growing past A2 even though the personal plan (row above) stops at A2 in Feb.' },
       { group: 'University', title: 'Sorbonne administrative', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
         detail: 'Sorbonne administrative · September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
-      { group: 'Sorbonne 2028 · Dossier vert', title: 'TCF DAP online registration closes', start: '2027-12-15', marker: true, markerDate: '2027-12-15', markerLabel: 'TCF reg', tone: 'red',
-        detail: 'TCF DAP online registration at France Éducation international closes 15 Dec 2027, 23:59 French time (annual cycle date). After this, only an approved centre until 13 Feb 2028. Source: Sorbonne Licence Physique Admission Reference 2028 Intake [5][8].' },
-      { group: 'Sorbonne 2028 · Dossier vert', title: 'Dossier vert — ministry deadline (postal)', start: '2027-12-15', marker: true, markerDate: '2027-12-15', markerLabel: 'ministry', tone: 'red',
-        detail: 'Ministry délai de rigueur: 15 December 2027, postal stamp counts. The conservative true target — preserves the university TCF session window. Same day as TCF reg close.' },
-      { group: 'Sorbonne 2028 · Dossier vert', title: 'A-level Jan 2028 series', start: '2028-01-05', end: '2028-01-25', tone: 'blue', markerDate: '2028-03-05', markerLabel: 'results ~5 Mar',
-        detail: 'LAST exam sitting that works. Results ~5 Mar 2028, certificates by ~Mar 2028 — both land before the 30 Apr 2028 decisions, so the file completes just in time. May/June 2028 series = too late. One bad paper and there is no second chance.' },
-      { group: 'Sorbonne 2028 · Dossier vert', title: 'Dossier vert — Sorbonne Sciences email deadline', start: '2028-01-15', marker: true, markerDate: '2028-01-15', markerLabel: 'faculty', tone: 'red',
-        detail: 'Sorbonne Sciences faculty’s own stated DAP reception deadline: 15 January 2028 — the true last date the faculty documents accept. Sworn translations + certificates must be in the envelope by this date.' },
-      { group: 'Sorbonne 2028 · Dossier vert', title: 'TCF DAP absolute latest (approved centre)', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF last', tone: 'red',
-        detail: 'Last possible TCF DAP pass: 13 February 2028 at an approved centre — results out ~2 weeks later, just before the 16 Mar commissions. No fallback: a retake needs a 30-day gap, which lands past the commissions.' },
-      { group: 'Sorbonne 2028 · Dossier vert', title: 'Pedagogical commissions begin', start: '2028-03-16', marker: true, markerDate: '2028-03-16', markerLabel: 'commissions', tone: 'purple',
-        detail: 'Commissions begin 16 March 2028 (annual pattern). All marks, certificates and TCF results must already be in the file by then.' },
-      { group: 'Sorbonne 2028 · Decisions', title: 'Universities respond by', start: '2028-04-30', marker: true, markerDate: '2028-04-30', markerLabel: 'decision', tone: 'purple',
-        detail: 'All three dossier-vert universities respond by 30 April 2028 at the latest.' },
-      { group: 'Sorbonne 2028 · Decisions', title: 'Accept deadline — silence = refusal', start: '2028-05-31', marker: true, markerDate: '2028-05-31', markerLabel: 'accept', tone: 'purple',
-        detail: 'Candidate acceptance deadline 31 May 2028. Silence after 1 June = automatic refusal.' },
-      { group: 'Sorbonne 2028 · Post-acceptance', title: 'Admin registration closes', start: '2028-09-30', marker: true, markerDate: '2028-09-30', markerLabel: 'reg closes', tone: 'blue',
-        detail: 'Licence administrative registration closes 30 September 2028. Opens ~July; CVEC must be paid before registering. Titre de séjour renewal is on its own schedule: file 120–60 days before permit expiry — not tied to this cycle.' },
-      { group: 'Cambridge 2028 · Registration', title: 'ESAT booking closes', admissions: true, deadline: '2027-09-28', start: '2027-09-28', marker: true, markerDate: '2027-09-28', markerLabel: 'closes', tone: 'red',
-        detail: '2028 entry: official UAT-UK October booking deadline, expected 28 Sep 2027, 6pm BST (2027-entry cycle closed 28 Sep 2026 — same annual pattern; confirm when UAT-UK publishes the 2028 cycle).' },
-      { group: 'Cambridge 2028 · Admissions', title: 'Oxford/Cambridge UCAS deadline', admissions: true, deadline: '2027-10-15', start: '2027-10-15', marker: true, markerDate: '2027-10-15', markerLabel: 'UCAS', tone: 'red',
-        detail: '2028 entry: Oxford and Cambridge UCAS application deadline is 15 Oct 2027, 18:00 UK time — same annual date, one year later than the 2027-entry cycle.' },
-      { group: 'Cambridge 2028 · Admissions', title: 'My Cambridge Application', admissions: true, deadline: '2027-10-22', start: '2027-10-22', marker: true, markerDate: '2027-10-22', markerLabel: 'MCA', tone: 'purple',
-        detail: 'Cambridge-specific form deadline for most 2028-entry undergraduate applicants: 22 Oct 2027, 18:00 UK time.' },
-      { group: 'Cambridge 2028 · Admissions', title: 'General UCAS / Imperial deadline', admissions: true, deadline: '2028-01-13', start: '2028-01-13', marker: true, markerDate: '2028-01-13', markerLabel: 'UCAS', tone: 'red',
-        detail: 'General UCAS equal-consideration deadline for most 2028-entry undergraduate courses: expected 13 Jan 2028, 18:00 UK time. Also the Imperial Physics/Theoretical Physics equal-consideration deadline; later applications are not guaranteed equal consideration.' },
-      { group: 'Cambridge 2028 · Admissions', title: 'Imperial interview window', admissions: true, deadline: '2028-02-28', start: '2027-11-01', end: '2028-02-28', tone: 'blue',
-        markerDate: '2028-03-31', markerLabel: 'decision aim',
-        detail: 'Imperial interviews for 2028 entry usually run Nov 2027 – Feb 2028 if shortlisted; Physics/Theoretical Physics uses ESAT in selection; decisions aimed by end Mar 2028 (annual pattern).' },
-      { group: 'Cambridge 2028 · Admissions', title: 'Cambridge interview window', admissions: true, deadline: '2027-12-21', start: '2027-12-01', end: '2027-12-21', tone: 'purple',
-        markerDate: '2028-01-27', markerLabel: 'decision',
-        detail: 'Most Cambridge College interviews for 2028 entry take place in the first 3 weeks of Dec 2027. Invites mostly arrive in Nov 2027, some early Dec. Outcome for the main interview period: ~27 Jan 2028 (annual pattern; confirm when Cambridge publishes the 2028 cycle).' },
+      { group: 'Sorbonne 2028 · A-level', title: 'A-level — last sitting (Jan 2028 series)', start: '2028-01-05', end: '2028-01-25', tone: 'blue',
+        markers: [
+          { date: '2028-03-05', label: 'results ~5 Mar' },
+          { date: '2028-03-31', label: 'certificates ~Mar' },
+        ],
+        detail: 'Last exam sitting that works: January 2028 series. Results ~5 Mar 2028, certificates by ~Mar 2028 — both land before the 30 Apr decisions, so the file is complete just in time. Anything later (May/June 2028) = too late, certificates would not exist before the commissions decide. One bad paper → no second chance.' },
+      { group: 'Sorbonne 2028 · Application', title: 'Dossier vert — submission window', start: '2027-11-15', end: '2028-01-15', tone: 'red',
+        markers: [
+          { date: '2027-12-15', label: 'TCF reg + ministry deadline' },
+          { date: '2028-01-15', label: 'Sorbonne Sciences last' },
+          { date: '2028-02-13', label: 'TCF DAP last' },
+        ],
+        detail: 'Submission window with both deadlines inside: ministry délai de rigueur 15 Dec 2027 (postal stamp counts; same day TCF DAP online registration closes) → conservative target. Sorbonne Sciences faculty email deadline 15 Jan 2028 = true outer edge; sworn translations + certificates must be in the envelope by then. TCF DAP absolute last pass 13 Feb 2028 (approved centre; results precede the 16 Mar commissions). No fallback after that — a retake needs a 30-day gap, landing past commissions. Source: Admission Reference 2028 Intake PDF [2][5][8].' },
+      { group: 'Sorbonne 2028 · Decisions', title: 'Decisions — commissions to acceptance', start: '2028-03-16', end: '2028-05-31', tone: 'purple',
+        markers: [
+          { date: '2028-04-30', label: 'respond by' },
+          { date: '2028-05-31', label: 'accept (silence = refusal)' },
+        ],
+        detail: 'Pedagogical commissions begin 16 Mar 2028. All three dossier-vert universities respond by 30 Apr 2028. You accept by 31 May 2028 — silence after 1 June = automatic refusal.' },
+      { group: 'Cambridge/Imperial 2028 · Application', title: 'UCAS — apply window', start: '2027-09-05', end: '2027-10-15', tone: 'red',
+        markers: [
+          { date: '2027-09-28', label: 'ESAT booking closes' },
+          { date: '2027-10-15', label: 'UCAS deadline' },
+          { date: '2027-10-22', label: 'My Cambridge Application' },
+        ],
+        deadline: '2027-10-15',
+        detail: 'One UCAS form covers Oxford/Cambridge/Imperial: deadline 15 Oct 2027, 18:00 UK. ESAT booking closes 28 Sep 2027. Cambridge extra form (My Cambridge Application) due 22 Oct 2027.' },
+      { group: 'Cambridge/Imperial 2028 · Interviews & decisions', title: 'Interviews → offers', start: '2027-11-01', end: '2028-02-28', tone: 'blue',
+        segments: [
+          { start: '2027-12-01', end: '2027-12-21', label: 'Cambridge interviews', tone: 'purple' },
+        ],
+        markers: [
+          { date: '2028-01-13', label: 'UCAS/Imperial equal consideration' },
+          { date: '2028-01-27', label: 'Cambridge decision' },
+          { date: '2028-02-28', label: 'Imperial interviews end' },
+          { date: '2028-03-31', label: 'Imperial decision aim' },
+        ],
+        deadline: '2028-03-31',
+        detail: 'Cambridge interviews in the first 3 weeks of Dec 2027, decision ~27 Jan 2028. General UCAS/Imperial equal-consideration deadline 13 Jan 2028. Imperial interviews Nov 2027 – Feb 2028, decisions aimed by end Mar 2028.' },
+
     ]
 
     const startMs = new Date(START).getTime()
@@ -178,11 +186,12 @@ export default function ShortTermPriority() {
       const pctBadge = pctV !== null
         ? `<span class="pct-left ${pctTone(pctV)}" title="Runway left: from 1 Oct 2026 to ${fmtLong(dl)}">${pctV.toFixed(1)}% left</span>`
         : ''
+      const extra = (row.markers || []).map(m => marker(row, m.date, m.label, m.tone || row.tone, m.label)).join('')
       const content = row.marker && !row.segments
-        ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone)
+        ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone) + extra
         : row.progress
-          ? progressBlock(row) + (row.markerDate ? marker(row, row.markerDate, row.markerLabel || 'B2', row.tone, row.markerLabel || row.title) : '')
-          : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}`
+          ? progressBlock(row) + (row.markerDate ? marker(row, row.markerDate, row.markerLabel || 'B2', row.tone, row.markerLabel || row.title) : '') + extra
+          : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}` + extra
       grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.title}</div></div><div class="track">${content}</div>${pctBadge}</div>`)
     }
 
