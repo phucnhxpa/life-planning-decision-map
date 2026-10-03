@@ -53,6 +53,13 @@ export default function ShortTermPriority() {
         detail: 'Continuous fill: 0% on Sep 1 2026 → 100% (B2.3 complete) on 31 May 2027, filling linearly at the AF intensive pace. The bar keeps growing past A2 even though the personal plan (row above) stops at A2 in Feb.' },
       { group: 'University', title: 'Sorbonne administrative', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
         detail: 'Sorbonne administrative · September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
+      { group: 'Cambridge 2028 · Admissions', title: 'Oxford/Cambridge UCAS deadline', start: '2027-10-15', marker: true, markerDate: '2027-10-15', markerLabel: 'UCAS', tone: 'red',
+        detail: '2028 entry: Oxford and Cambridge UCAS application deadline is 15 Oct 2027, 18:00 UK time — same annual date, one year later than the 2027-entry cycle.' },
+      { group: 'Cambridge 2028 · Admissions', title: 'My Cambridge Application', start: '2027-10-22', marker: true, markerDate: '2027-10-22', markerLabel: 'MCA', tone: 'purple',
+        detail: 'Cambridge-specific form deadline for most 2028-entry undergraduate applicants: 22 Oct 2027, 18:00 UK time.' },
+      { group: 'Cambridge 2028 · Admissions', title: 'Cambridge interview window', start: '2027-12-01', end: '2027-12-21', tone: 'purple',
+        markerDate: '2028-01-27', markerLabel: 'decision',
+        detail: 'Most Cambridge College interviews for 2028 entry take place in the first 3 weeks of Dec 2027. Invites mostly arrive in Nov 2027, some early Dec. Outcome for the main interview period: ~27 Jan 2028 (annual pattern; confirm when Cambridge publishes the 2028 cycle).' },
     ]
 
     const startMs = new Date(START).getTime()
@@ -141,6 +148,7 @@ export default function ShortTermPriority() {
       ['A1.1', () => scrollToDate('2026-09-01')],
       ['A1.2', () => scrollToDate('2026-11-01')],
       ['A2', () => scrollToDate('2027-01-01')],
+      ['Cambridge', () => scrollToDate('2027-10-15')],
       ['Sorbonne', () => scrollToDate('2028-09-01')],
       ['→', () => wrap.scrollBy({ left: Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
     ]
