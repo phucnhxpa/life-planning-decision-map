@@ -522,3 +522,5 @@
 
 .stp-root .row .pct-left.warn { color: #b45309; background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.3); }
 .stp-root .row .pct-left.crit { color: var(--red); background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.3); }
+/* lane-up: label sits above the row so stacked markers don't collide */
+.stp-root .marker.lane-up .marker-label { top: -12px; transform: translateY(0); }

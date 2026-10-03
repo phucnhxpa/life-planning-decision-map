@@ -126,8 +126,18 @@ export default function ShortTermPriority() {
       return `<span class="tip"><strong>${title}</strong><em>${date}</em>${detail}</span>`
     }
 
+    // Track placed label boxes per row so consecutive markers nudge instead of overlapping.
+    let placedLabels = []
+    function resetLabels() { placedLabels = [] }
     function marker(row, date, label, tone, detailTitle = row.title) {
-      return `<div class="marker ${tone}" style="left:${pctAt(date)}%"><span class="marker-line"></span><span class="marker-dot"></span><span class="marker-label">${label}</span>${tip(detailTitle, fmtLong(date), row.detail)}</div>`
+      const leftPct = pctAt(date)
+      // estimated label box in % of track width (label ~6.1px/char at 8.5px font, canvas ~1800px)
+      const estW = Math.min(40, (label.length * 6.1 + 16) / 18)
+      const lane = placedLabels.length % 2 // alternate up/down
+      placedLabels.push({ lane, left: leftPct, w: estW })
+      const topStyle = lane === 1 ? 'top:-13px;transform:translateY(0)' : 'transform:translateY(-50%)'
+      const shiftStyle = ''
+      return `<div class="marker ${tone}${lane === 1 ? ' lane-up' : ''}" style="left:${leftPct}%"><span class="marker-line"></span><span class="marker-dot"></span><span class="marker-label" style="${[topStyle, shiftStyle].filter(Boolean).join(';')}">${label}</span>${tip(detailTitle, fmtLong(date), row.detail)}</div>`
     }
 
     function block(row, segment = row) {
@@ -180,6 +190,7 @@ export default function ShortTermPriority() {
         grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">Sorbonne 2028 \u00b7 dossier vert \u2014 verified against the Admission Reference PDF</div><div class="section-sub">Hard walls: dossier vert 15 Jan \u2192 TCF DAP 13 Feb \u2192 accept 31 May \u00b7 % left = live runway</div></div>`)
         dividerDone = true
       }
+      resetLabels()
       const cls = row.admissions ? ' row admissions-section' : ''
       const dl = row.deadline || row.end || row.markerDate
       const pctV = dl ? pctLeft(dl) : null
@@ -195,6 +206,41 @@ export default function ShortTermPriority() {
       grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.title}</div></div><div class="track">${content}</div>${pctBadge}</div>`)
     }
 
+    // Second layout pass: measure real label boxes and nudge any same-lane overlaps to the right.
+    // (Estimates at render time underestimate long labels; real rects are authoritative.)
+    requestAnimationFrame(() => {
+      root.querySelectorAll('.row').forEach(row => {
+        const laneOf = el => el.closest('.marker')?.classList.contains('lane-up') ? 1 : 0
+        const byLane = new Map()
+        row.querySelectorAll('.marker-label').forEach(el => {
+          const lane = laneOf(el)
+          if (!byLane.has(lane)) byLane.set(lane, [])
+          byLane.get(lane).push(el)
+        })
+        byLane.forEach(labels => {
+          let prevRight = null
+          labels.forEach(el => {
+            const r = el.getBoundingClientRect()
+            const canvas = el.closest('.timeline-canvas')
+            if (!canvas) return
+            const cw = canvas.getBoundingClientRect().width
+            const leftPct = ((r.left - canvas.getBoundingClientRect().left) / cw) * 100
+            let nudgePct = 0
+            if (prevRight !== null) {
+              const prevLeftPct = prevRight.pct
+              const myRightPct = leftPct + (r.width / cw) * 100
+              if (leftPct < prevRight.pct + (prevRight.w / cw) * 100) {
+                nudgePct = prevRight.pct + (prevRight.w / cw) * 100 + 0.6 - leftPct
+              }
+            }
+            if (nudgePct > 0) el.style.left = `calc(7px + ${(nudgePct / 100) * cw}px)`
+            const nr = el.getBoundingClientRect()
+            const canvasRect = el.closest('.timeline-canvas').getBoundingClientRect()
+            prevRight = { pct: ((nr.left - canvasRect.left) / canvasRect.width) * 100, w: nr.width }
+          })
+        })
+      })
+    })
     const scrollToDate = (date) => {
       const canvas = root.querySelector('.timeline-canvas')
       const target = (pctAt(date) / 100) * canvas.scrollWidth
