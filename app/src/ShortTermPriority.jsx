@@ -53,6 +53,24 @@ export default function ShortTermPriority() {
         detail: 'Continuous fill: 0% on Sep 1 2026 → 100% (B2.3 complete) on 31 May 2027, filling linearly at the AF intensive pace. The bar keeps growing past A2 even though the personal plan (row above) stops at A2 in Feb.' },
       { group: 'University', title: 'Sorbonne administrative', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
         detail: 'Sorbonne administrative · September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
+      { group: 'Sorbonne 2028 · Dossier vert', title: 'TCF DAP online registration closes', start: '2027-12-15', marker: true, markerDate: '2027-12-15', markerLabel: 'TCF reg', tone: 'red',
+        detail: 'TCF DAP online registration at France Éducation international closes 15 Dec 2027, 23:59 French time (annual cycle date). After this, only an approved centre until 13 Feb 2028. Source: Sorbonne Licence Physique Admission Reference 2028 Intake [5][8].' },
+      { group: 'Sorbonne 2028 · Dossier vert', title: 'Dossier vert — ministry deadline (postal)', start: '2027-12-15', marker: true, markerDate: '2027-12-15', markerLabel: 'ministry', tone: 'red',
+        detail: 'Ministry délai de rigueur: 15 December 2027, postal stamp counts. The conservative true target — preserves the university TCF session window. Same day as TCF reg close.' },
+      { group: 'Sorbonne 2028 · Dossier vert', title: 'A-level Jan 2028 series', start: '2028-01-05', end: '2028-01-25', tone: 'blue', markerDate: '2028-03-05', markerLabel: 'results ~5 Mar',
+        detail: 'LAST exam sitting that works. Results ~5 Mar 2028, certificates by ~Mar 2028 — both land before the 30 Apr 2028 decisions, so the file completes just in time. May/June 2028 series = too late. One bad paper and there is no second chance.' },
+      { group: 'Sorbonne 2028 · Dossier vert', title: 'Dossier vert — Sorbonne Sciences email deadline', start: '2028-01-15', marker: true, markerDate: '2028-01-15', markerLabel: 'faculty', tone: 'red',
+        detail: 'Sorbonne Sciences faculty’s own stated DAP reception deadline: 15 January 2028 — the true last date the faculty documents accept. Sworn translations + certificates must be in the envelope by this date.' },
+      { group: 'Sorbonne 2028 · Dossier vert', title: 'TCF DAP absolute latest (approved centre)', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF last', tone: 'red',
+        detail: 'Last possible TCF DAP pass: 13 February 2028 at an approved centre — results out ~2 weeks later, just before the 16 Mar commissions. No fallback: a retake needs a 30-day gap, which lands past the commissions.' },
+      { group: 'Sorbonne 2028 · Dossier vert', title: 'Pedagogical commissions begin', start: '2028-03-16', marker: true, markerDate: '2028-03-16', markerLabel: 'commissions', tone: 'purple',
+        detail: 'Commissions begin 16 March 2028 (annual pattern). All marks, certificates and TCF results must already be in the file by then.' },
+      { group: 'Sorbonne 2028 · Decisions', title: 'Universities respond by', start: '2028-04-30', marker: true, markerDate: '2028-04-30', markerLabel: 'decision', tone: 'purple',
+        detail: 'All three dossier-vert universities respond by 30 April 2028 at the latest.' },
+      { group: 'Sorbonne 2028 · Decisions', title: 'Accept deadline — silence = refusal', start: '2028-05-31', marker: true, markerDate: '2028-05-31', markerLabel: 'accept', tone: 'purple',
+        detail: 'Candidate acceptance deadline 31 May 2028. Silence after 1 June = automatic refusal.' },
+      { group: 'Sorbonne 2028 · Post-acceptance', title: 'Admin registration closes', start: '2028-09-30', marker: true, markerDate: '2028-09-30', markerLabel: 'reg closes', tone: 'blue',
+        detail: 'Licence administrative registration closes 30 September 2028. Opens ~July; CVEC must be paid before registering. Titre de séjour renewal is on its own schedule: file 120–60 days before permit expiry — not tied to this cycle.' },
       { group: 'Cambridge 2028 · Registration', title: 'ESAT booking closes', admissions: true, deadline: '2027-09-28', start: '2027-09-28', marker: true, markerDate: '2027-09-28', markerLabel: 'closes', tone: 'red',
         detail: '2028 entry: official UAT-UK October booking deadline, expected 28 Sep 2027, 6pm BST (2027-entry cycle closed 28 Sep 2026 — same annual pattern; confirm when UAT-UK publishes the 2028 cycle).' },
       { group: 'Cambridge 2028 · Admissions', title: 'Oxford/Cambridge UCAS deadline', admissions: true, deadline: '2027-10-15', start: '2027-10-15', marker: true, markerDate: '2027-10-15', markerLabel: 'UCAS', tone: 'red',
@@ -150,8 +168,8 @@ export default function ShortTermPriority() {
     function pctTone(v) { return v <= 15 ? 'crit' : v <= 40 ? 'warn' : '' }
     let dividerDone = false
     for (const row of rows.filter(r => r.group !== 'Capacity')) {
-      if (row.admissions && !dividerDone) {
-        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">Cambridge / Imperial \u00b7 2028 entry</div><div class="section-sub">% left measured from 1 Oct 2026 \u2192 each deadline</div></div>`)
+      if ((row.admissions || (row.group || '').startsWith('Sorbonne 2028')) && !dividerDone) {
+        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">Sorbonne 2028 \u00b7 dossier vert \u2014 verified against the Admission Reference PDF</div><div class="section-sub">Hard walls: dossier vert 15 Jan \u2192 TCF DAP 13 Feb \u2192 accept 31 May \u00b7 % left = live runway</div></div>`)
         dividerDone = true
       }
       const cls = row.admissions ? ' row admissions-section' : ''
