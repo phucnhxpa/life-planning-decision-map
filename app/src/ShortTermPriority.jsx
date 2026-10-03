@@ -110,7 +110,8 @@ export default function ShortTermPriority() {
       const label = segment.label || row.title
       const tone = segment.tone || row.tone
       const dates = segment.dates || `${fmt(segment.start)} → ${fmt(segment.end)}`
-      return `<div class="block ${tone}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${dates}</small>${tip(row.title + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, segment.detail || row.detail)}</div>`
+      const showDates = width >= 6 // short bars: drop in-bar date text so end markers stay readable
+      return `<div class="block ${tone}" style="left:${left}%;width:${width}%"><span>${label}</span>${showDates ? `<small>${dates}</small>` : ''}${tip(row.title + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, segment.detail || row.detail)}</div>`
     }
 
     function pause(p) {
