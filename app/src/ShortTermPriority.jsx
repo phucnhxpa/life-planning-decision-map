@@ -138,23 +138,27 @@ export default function ShortTermPriority() {
     // Percentage of runway left to each deadline, measured from the start of October 2027 (i.e. the
     // admissions-cycle kickoff). pctLeft = (deadline - TODAY) / (deadline - 2027-10-01). 100% = full runway
     // remaining at Oct 1; 0% = deadline reached. Values >100% mean the deadline sits before Oct 1 (ESAT booking).
-    const RUNWAY_START = '2027-10-01'
+    const RUNWAY_START = '2026-10-01'
     function pctLeft(deadline) {
-      const dl = new Date(deadline).getTime()
-      const rs = new Date(RUNWAY_START).getTime()
-      const now = new Date(TODAY).getTime()
-      const elapsedFrom = Math.max(now, rs)
-      return Math.max(0, Math.min(100, Math.round(((dl - elapsedFrom) / (dl - rs)) * 100)))
+      // Live share of the runway [1 Oct 2026 -> deadline] still remaining, real clock, 1 decimal.
+      const dl = new Date(deadline + 'T23:59:59').getTime()
+      const rs = new Date(RUNWAY_START + 'T00:00:00').getTime()
+      const now = Date.now()
+      const val = ((dl - now) / (dl - rs)) * 100
+      return Math.max(0, val)
     }
+    function pctTone(v) { return v <= 15 ? 'crit' : v <= 40 ? 'warn' : '' }
     let dividerDone = false
     for (const row of rows.filter(r => r.group !== 'Capacity')) {
       if (row.admissions && !dividerDone) {
-        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">Cambridge / Imperial \u00b7 2028 entry</div><div class="section-sub">% left measured from 1 Oct 2027 \u2192 each deadline</div></div>`)
+        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">Cambridge / Imperial \u00b7 2028 entry</div><div class="section-sub">% left measured from 1 Oct 2026 \u2192 each deadline</div></div>`)
         dividerDone = true
       }
       const cls = row.admissions ? ' row admissions-section' : ''
-      const pctBadge = row.admissions && row.deadline
-        ? `<span class="pct-left" title="Runway left: from 1 Oct 2027 to ${fmtLong(row.deadline)}">${pctLeft(row.deadline)}% left</span>`
+      const dl = row.deadline || row.end || row.markerDate
+      const pctV = dl ? pctLeft(dl) : null
+      const pctBadge = pctV !== null
+        ? `<span class="pct-left ${pctTone(pctV)}" title="Runway left: from 1 Oct 2026 to ${fmtLong(dl)}">${pctV.toFixed(1)}% left</span>`
         : ''
       const content = row.marker && !row.segments
         ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone)
