@@ -40,11 +40,11 @@ export default function ShortTermPriority() {
       { group: 'French · semi-intensive', title: 'Intensive A1 A2 → semi B1 B2', start: '2026-09-01', end: '2027-12-31', tone: 'teal',
         segments: [
           { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026 — the only intensive stretch of this path (20h/week), identical to the personal plan.' },
-          { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · semi', tone: 'blue', detail: 'A2.1–A2.2 · Nov 2026 → Feb 2027, semi-intensive (36h/month at 9h/week = 1 sub-level per 2 months). Then B1.1–B1.2 · Mar → Jun 2027 semi.' },
-          { start: '2027-03-01', end: '2027-12-31', label: 'B1 → B2 · semi', tone: 'purple', detail: 'B1.1–B1.2 semi · Mar → Jun 2027, then B2.1–B2.3 semi · Jul → Dec 2027 (1 sub-level per 2 months at 9h/week). B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
+          { start: '2026-11-01', end: '2027-06-30', label: 'A2 → B1 · semi', tone: 'blue', detail: 'A2.1 Nov–Dec 26 · A2.2 Jan–Feb 27 · B1.1 Mar–Apr 27 · B1.2 May–Jun 27 — semi pace = 1 sub-level per 2 months (36h/month at 9h/week). B1 complete 30 Jun 2027 — 4 months after the intensive path.' },
+          { start: '2027-07-01', end: '2027-12-31', label: 'B1 → B2 · semi', tone: 'purple', detail: 'B2.1 Jul–Aug 27 · B2.2 Sep–Oct 27 · B2.3 Nov–Dec 27 (1 sub-level per 2 months). B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
         ],
         marker: true, markerDate: '2027-12-31', markerLabel: 'B2 done',
-        detail: 'Semi-intensive path: A1 → A2 intensive (Sep–Oct 2026), then A2 → B1 semi (Nov 2026 – Feb 2027) and B1 → B2 semi (Mar – Dec 2027). B2 done 31 Dec 2027. AF semi chart: B1 = 4 sessions, B2 = 6 sessions, 1 session = 4 weeks at 9h/week.' },
+        detail: 'Semi-intensive path: A1 → A2 intensive (Sep–Oct 2026), then everything semi at half speed: A2 → B1 spans Nov 2026 → 30 Jun 2027, B1 → B2 spans Jul → Dec 2027. B2 done 31 Dec 2027. AF Paris: intensive 72h/4wk = 1 sub-level/month; semi 36h/4wk = 1 sub-level/2 months.' },
       // ── FRENCH · INTENSIVE A1 → B1, THEN SEMI-INTENSIVE B2 ──
       { group: 'French · intensive → semi', title: 'Intensive A1 → B1 → semi B2', start: '2026-09-01', end: '2027-08-31', tone: 'blue',
         segments: [
