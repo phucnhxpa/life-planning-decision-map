@@ -88,18 +88,18 @@ export default function ShortTermPriority() {
         deadline: '2027-10-15',
         detail: 'One UCAS form covers Oxford/Cambridge/Imperial: deadline to apply 15 Oct 2027, 18:00 UK (MCA Cambridge extra form 22 Oct). Cambridge interviews first 3 weeks of Dec 2027; Imperial interviews Nov 2027 - Feb 2028. Cambridge decision 27 Jan 2028; Imperial decisions aimed by 31 Mar 2028.' },
       // ── ADMINISTRATIVE ──
-      { group: 'Administrative', title: 'Tax · 2025 declaration', rowLabel: 'Tax: 2025 income declaration (2026)', start: '2026-04-01', marker: true, markerDate: '2026-05-20', markerLabel: 'e-filing deadline', tone: 'orange',
+      { group: 'Administrative', title: 'Tax · 2026 declaration', rowLabel: 'Tax: 2026 income declaration (2027)', start: '2027-04-01', marker: true, markerDate: '2027-05-20', markerLabel: '', tone: 'orange',
         markers: [
-          { date: '2026-04-10', label: 'paper deadline' },
-          { date: '2026-05-20', label: 'e-filing deadline' },
-          { date: '2026-08-31', label: 'tax assessed' },
+          { date: '2027-04-10', label: 'paper deadline' },
+          { date: '2027-05-20', label: 'e-filing deadline' },
+          { date: '2027-08-31', label: 'tax assessed' },
         ],
-        deadline: '2026-05-20',
-        detail: 'Déclaration des revenus 2025, filed in 2026 (auto-entrepeneur turnover + any wages). Paper deadline ~mid-Apr; online ~20 May (départements vary by a few days). AVI/balance usually debited late Sep 2026. Done for 2025 — next window opens Apr 2027 for the 2026 year.' },
+        deadline: '2027-05-20',
+        detail: 'Déclaration des revenus 2026, filed spring 2027 (auto-entrepreneur turnover + any wages). Paper deadline ~10 Apr 2027; online ~20 May 2027 (départements vary by a few days). AVI/balance usually debited late Sep 2027. The spring-2027 avis is the income proof for the CROUS dossier social and the residence-permit renewal filed the same summer. Exact zone dates publish on impots.gouv.fr in April.' },
       { group: 'Administrative', title: 'Change company status', rowLabel: 'Change auto-entreprise status', start: '2027-01-15', marker: true, markerDate: '2027-01-15', markerLabel: 'target filing', tone: 'blue',
         deadline: '2027-01-15',
         detail: 'Guichet unique (INPI) filing to move from micro-entrepreneur to a société (or adjust APE/activity). Plan ~1 month for SIRET update + bank/social-security follow-ups. Target filing 15 Jan 2027 — placeholder date, move freely.' },
-      { group: 'Administrative', title: 'Residence permit', rowLabel: 'Residence permit · renew', start: '2027-05-10', marker: true, markerDate: '2027-05-10', markerLabel: 'contact InExpat', tone: 'purple',
+      { group: 'Administrative', title: 'Residence permit', rowLabel: 'Residence permit · renew', start: '2027-05-10', marker: true, markerDate: '2027-05-10', markerLabel: '', tone: 'purple',
         markers: [
           { date: '2027-05-10', label: 'contact InExpat' },
           { date: '2027-08-10', label: 'submission' },
@@ -211,7 +211,12 @@ export default function ShortTermPriority() {
     }
     function pctTone(v) { return v <= 15 ? 'crit' : v <= 40 ? 'warn' : '' }
     let dividerDone = false
+    let adminDividerDone = false
     for (const row of rows.filter(r => r.group !== 'Capacity')) {
+      if ((row.group || '') === 'Administrative' && !adminDividerDone) {
+        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">Administrative \u2014 tax \u00b7 company \u00b7 residence permit</div><div class="section-sub">French administrative calendar \u00b7 % = time elapsed since 1 Sep 2026, per deadline</div></div>`)
+        adminDividerDone = true
+      }
       if ((row.admissions || (row.group || '').startsWith('French university') || (row.group || '').startsWith('Cambridge/Imperial')) && !dividerDone) {
         grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">University deadlines \u2014 verified against the Admission Reference PDF</div><div class="section-sub">French: apply 15 Jan \u2192 TCF DAP 13 Feb \u2192 decision 30 Apr \u00b7 UK: UCAS 15 Oct 2027 \u2192 decision Jan\u2013Mar 2028 \u00b7 % = time elapsed since 1 Sep 2026, per deadline</div></div>`)
         dividerDone = true
