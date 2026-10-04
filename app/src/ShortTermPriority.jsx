@@ -51,12 +51,12 @@ export default function ShortTermPriority() {
       { group: 'French · intensive → semi', title: 'Intensive A0 → B1 → semi B2', start: '2026-09-01', end: '2027-10-31', tone: 'blue',
         segments: [
           { start: '2026-09-01', end: '2026-10-31', label: 'A0 → A1', tone: 'green', detail: 'Complete beginner (A0) to A1: A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week, 1 sub-level per month).' },
-          { start: '2026-11-01', end: '2026-12-31', label: 'A1 → A2', tone: 'blue', detail: 'A2.1 + A2.2 · Nov → Dec 2026, intensive. A2 complete 31 Dec 2026.' },
-          { start: '2027-01-01', end: '2027-04-30', label: 'A2 → B1 · intensive', tone: 'orange', detail: 'B1.1 + B1.2 · Jan → Apr 2027, intensive (1 sub-level/month). B1 complete 30 Apr 2027 — 2 months after the full-intensive path.' },
-          { start: '2027-05-01', end: '2027-10-31', label: 'B2 · semi', tone: 'purple', detail: 'B2.1 May–Jun 27 · B2.2 Jul–Aug 27 · B2.3 Sep–Oct 27: semi pace = 1 sub-level per 2 months. B2 complete 31 Oct 2027 — 3.5 months before TCF DAP last chance 13 Feb 2028.' },
+          { start: '2026-11-01', end: '2026-12-31', label: 'A1 → A2', tone: 'blue', detail: 'A2.1 + A2.2 · Nov → Dec 2026, intensive (1 sub-level per month). A2 complete 31 Dec 2026.' },
+          { start: '2027-01-01', end: '2027-04-30', label: 'A2 → B1 · semi', tone: 'orange', detail: 'B1.1 Jan–Feb 27 · B1.2 Mar–Apr 27 — semi pace = 1 sub-level per 2 months (36h/month at 9h/week). B1 complete 30 Apr 2027 — 2 months after the full-intensive path.' },
+          { start: '2027-05-01', end: '2027-10-31', label: 'B1 → B2 · semi', tone: 'purple', detail: 'B2.1 May–Jun 27 · B2.2 Jul–Aug 27 · B2.3 Sep–Oct 27 (1 sub-level per 2 months). B2 complete 31 Oct 2027 — 3.5 months before TCF DAP last chance 13 Feb 2028.' },
         ],
         marker: true, markerDate: '2027-10-31', markerLabel: 'B2 done',
-        detail: 'Intensive from A1 through complete B1 (Sep 2026 → 28 Feb 2027), then semi-intensive B2 only (Mar → Aug 2027): semi = half the intensive hours, so 1 sub-level takes 2 months, B2.1–B2.3 = 6 months. B2 done 31 Aug 2027.' },
+        detail: 'Intensive A0 → A1 → A2 (Sep–Dec 2026, 1 sub-level/month), then semi at half speed: A2 → B1 in 4 months (Jan–Apr 2027), B1 → B2 in 6 months (May–Oct 2027). B2 done 31 Oct 2027.' },
       // ── FRENCH UNIVERSITY ──
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
