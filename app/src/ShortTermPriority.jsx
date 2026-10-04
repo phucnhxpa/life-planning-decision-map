@@ -28,31 +28,34 @@ export default function ShortTermPriority() {
 
         const rows = [
       // ── FRENCH · INTENSIVE A1 → B2 (all intensive: 20h/week, AF 1 sub-level = 1 month) ──
-      { group: 'French · intensive', title: 'Intensive A1 → B2', start: '2026-09-01', end: '2027-05-31', tone: 'blue',
+      { group: 'French · intensive', title: 'Intensive A0 → B2', start: '2026-09-01', end: '2027-05-31', tone: 'blue',
         segments: [
-          { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week). A2 reached end of Oct — matches the A1.1/A1.2 plan blocks above.' },
-          { start: '2026-11-01', end: '2026-12-31', label: 'A2 → B1', tone: 'blue', detail: 'A2.1 + A2.2 · Nov → Dec 2026, intensive. B1 entered January 2027.' },
-          { start: '2027-01-01', end: '2027-05-31', label: 'B1 → B2', tone: 'purple', detail: 'B1.1 + B1.2 + B2.1–B2.3 · Jan → May 2027, intensive. B2.3 complete 31 May 2027.' },
+          { start: '2026-09-01', end: '2026-10-31', label: 'A0 → A1', tone: 'green', detail: 'Complete beginner (A0) to A1: A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week). A1 complete 31 Oct 2026.' },
+          { start: '2026-11-01', end: '2026-12-31', label: 'A1 → A2', tone: 'blue', detail: 'A2.1 + A2.2 · Nov → Dec 2026, intensive. A2 complete 31 Dec 2026.' },
+          { start: '2027-01-01', end: '2027-02-28', label: 'A2 → B1', tone: 'orange', detail: 'B1.1 + B1.2 · Jan → Feb 2027, intensive. B1 complete 28 Feb 2027.' },
+          { start: '2027-03-01', end: '2027-05-31', label: 'B1 → B2', tone: 'purple', detail: 'B2.1 + B2.2 + B2.3 · Mar → May 2027, intensive. B2 complete 31 May 2027.' },
         ],
         marker: true, markerDate: '2027-05-31', markerLabel: 'B2 done',
-        detail: 'Intensive path A1 → B2 (all phases intensive): AF staircase 1 sub-level/month at 20h/week (A1: 2, A2: 2, B1: 2, B2: 3 months = 9 months). Sep 1 2026 → B2 done 31 May 2027.' },
+        detail: 'Intensive path A0 → B2 from complete beginner (all phases intensive): AF staircase 1 sub-level/month at 20h/week (A1: 2, A2: 2, B1: 2, B2: 3 = 9 months). Sep 1 2026 → B2 done 31 May 2027. Milestones: A1 31 Oct · A2 31 Dec · B1 28 Feb · B2 31 May.' },
       // ── FRENCH · SEMI-INTENSIVE A1 → B2 (A1→A2 intensive, then A2→B1 and B1→B2 semi-intensive) ──
-      { group: 'French · semi-intensive', title: 'Intensive A1 A2 → semi B1 B2', start: '2026-09-01', end: '2027-12-31', tone: 'teal',
+      { group: 'French · semi-intensive', title: 'Intensive A0 A1 → semi A2 B2', start: '2026-09-01', end: '2027-12-31', tone: 'teal',
         segments: [
-          { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026 — the only intensive stretch of this path (20h/week), identical to the personal plan.' },
-          { start: '2026-11-01', end: '2027-06-30', label: 'A2 → B1 · semi', tone: 'blue', detail: 'A2.1 Nov–Dec 26 · A2.2 Jan–Feb 27 · B1.1 Mar–Apr 27 · B1.2 May–Jun 27 — semi pace = 1 sub-level per 2 months (36h/month at 9h/week). B1 complete 30 Jun 2027 — 4 months after the intensive path.' },
-          { start: '2027-07-01', end: '2027-12-31', label: 'B1 → B2 · semi', tone: 'purple', detail: 'B2.1 Jul–Aug 27 · B2.2 Sep–Oct 27 · B2.3 Nov–Dec 27 (1 sub-level per 2 months). B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
+          { start: '2026-09-01', end: '2026-10-31', label: 'A0 → A1', tone: 'green', detail: 'Complete beginner (A0) to A1: A1.1 + A1.2 · Sep → Oct 2026 — the only intensive stretch of this path (20h/week). A1 complete 31 Oct 2026.' },
+          { start: '2026-11-01', end: '2027-02-28', label: 'A1 → A2 · semi', tone: 'blue', detail: 'A2.1 Nov–Dec 26 · A2.2 Jan–Feb 27 — semi pace = 1 sub-level per 2 months (36h/month at 9h/week). A2 complete 28 Feb 2027.' },
+          { start: '2027-03-01', end: '2027-06-30', label: 'A2 → B1 · semi', tone: 'orange', detail: 'B1.1 Mar–Apr 27 · B1.2 May–Jun 27 (1 sub-level per 2 months). B1 complete 30 Jun 2027 — 4 months after the intensive path.' },
+          { start: '2027-07-01', end: '2027-12-31', label: 'B1 → B2 · semi', tone: 'purple', detail: 'B2.1 Jul–Aug 27 · B2.2 Sep–Oct 27 · B2.3 Nov–Dec 27. B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
         ],
         marker: true, markerDate: '2027-12-31', markerLabel: 'B2 done',
-        detail: 'Semi-intensive path: A1 → A2 intensive (Sep–Oct 2026), then everything semi at half speed: A2 → B1 spans Nov 2026 → 30 Jun 2027, B1 → B2 spans Jul → Dec 2027. B2 done 31 Dec 2027. AF Paris: intensive 72h/4wk = 1 sub-level/month; semi 36h/4wk = 1 sub-level/2 months.' },
+        detail: 'Semi path from A0: A0 → A1 intensive (Sep–Oct 2026), then everything semi at half speed: A1 → A2 Nov 2026 → 28 Feb 2027, A2 → B1 Mar → 30 Jun 2027, B1 → B2 Jul → 31 Dec 2027. AF Paris: intensive 72h/4wk = 1 sub-level/month; semi 36h/4wk = 1 sub-level/2 months.' },
       // ── FRENCH · INTENSIVE A1 → B1, THEN SEMI-INTENSIVE B2 ──
-      { group: 'French · intensive → semi', title: 'Intensive A1 → B1 → semi B2', start: '2026-09-01', end: '2027-08-31', tone: 'blue',
+      { group: 'French · intensive → semi', title: 'Intensive A0 → B1 → semi B2', start: '2026-09-01', end: '2027-10-31', tone: 'blue',
         segments: [
-          { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week, 1 sub-level per month).' },
-          { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · intensive', tone: 'blue', detail: 'A2.1–A2.2 · Nov → Dec 2026, then B1.1–B1.2 · Jan → Feb 2027, all intensive (1 sub-level/month). B1 complete 28 Feb 2027.' },
-          { start: '2027-03-01', end: '2027-08-31', label: 'B2 · semi', tone: 'purple', detail: 'B2.1–B2.3 semi-intensive · Mar → Aug 2027: semi pace = 1 sub-level per 2 months (36h/month at 9h/week), so B2 = 6 months. B2 complete 31 Aug 2027 — 5.5 months before TCF DAP last chance 13 Feb 2028.' },
+          { start: '2026-09-01', end: '2026-10-31', label: 'A0 → A1', tone: 'green', detail: 'Complete beginner (A0) to A1: A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week, 1 sub-level per month).' },
+          { start: '2026-11-01', end: '2026-12-31', label: 'A1 → A2', tone: 'blue', detail: 'A2.1 + A2.2 · Nov → Dec 2026, intensive. A2 complete 31 Dec 2026.' },
+          { start: '2027-01-01', end: '2027-04-30', label: 'A2 → B1 · intensive', tone: 'orange', detail: 'B1.1 + B1.2 · Jan → Apr 2027, intensive (1 sub-level/month). B1 complete 30 Apr 2027 — 2 months after the full-intensive path.' },
+          { start: '2027-05-01', end: '2027-10-31', label: 'B2 · semi', tone: 'purple', detail: 'B2.1 May–Jun 27 · B2.2 Jul–Aug 27 · B2.3 Sep–Oct 27: semi pace = 1 sub-level per 2 months. B2 complete 31 Oct 2027 — 3.5 months before TCF DAP last chance 13 Feb 2028.' },
         ],
-        marker: true, markerDate: '2027-08-31', markerLabel: 'B2 done',
+        marker: true, markerDate: '2027-10-31', markerLabel: 'B2 done',
         detail: 'Intensive from A1 through complete B1 (Sep 2026 → 28 Feb 2027), then semi-intensive B2 only (Mar → Aug 2027): semi = half the intensive hours, so 1 sub-level takes 2 months, B2.1–B2.3 = 6 months. B2 done 31 Aug 2027.' },
       // ── FRENCH UNIVERSITY ──
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
