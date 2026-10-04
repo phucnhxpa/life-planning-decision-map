@@ -75,11 +75,11 @@ export default function ShortTermPriority() {
           { date: '2027-01-14', label: 'Jan exams' },
         ],
         detail: 'A-level sittings feeding the 2028-entry UCAS file: Oct 2026 series (P1 9 Oct, M1 13 Oct, P2 15 Oct, S1 19 Oct, P3 21 Oct, M2 22 Oct, P4 28 Oct) and Jan 2027 series (FP1 14 Jan, S2 18 Jan, FP2 20 Jan, FP3 21 Jan, M3 25 Jan).' },
-      { group: 'Cambridge/Imperial', title: 'ESAT', rowLabel: 'ESAT · booking & test', start: '2026-09-28', marker: true, markerDate: '2026-09-28', markerLabel: 'booking closes', tone: 'orange',
+      { group: 'Cambridge/Imperial', title: 'ESAT', rowLabel: 'ESAT · booking & test', start: '2027-09-27', marker: true, markerDate: '2027-09-27', markerLabel: 'booking closes', tone: 'orange',
         markers: [
-          { date: '2026-10-12', label: 'test window' },
+          { date: '2027-10-11', label: 'test window' },
         ],
-        detail: 'ESAT (Cambridge + Imperial Physics/Theoretical Physics): official UAT-UK booking closes 28 Sep 2026, 6pm BST; test window opens 12 Oct 2026. Math + Physics prep rows feed this.' },
+        detail: 'ESAT for Oct 2028 entry, sat in the 2027 cycle: booking closes ~27 Sep 2027 (6pm UK, following the official UAT-UK pattern — 2027 entry closed 28 Sep 2026), test window ~11–15 Oct 2027 (Cambridge applicants must sit in October). Dates are projected from the published 2027-entry calendar until UAT-UK announces the 2028 cycle.' },
       { group: 'Cambridge/Imperial', title: 'Application', rowLabel: 'Application · deadline → interview → decision', start: '2027-10-15', marker: true, markerDate: '2027-10-15', markerLabel: 'deadline to apply', tone: 'red',
         markers: [
           { date: '2027-12-01', label: 'interviews' },
@@ -213,7 +213,7 @@ export default function ShortTermPriority() {
     let dividerDone = false
     for (const row of rows.filter(r => r.group !== 'Capacity')) {
       if ((row.admissions || (row.group || '').startsWith('French university') || (row.group || '').startsWith('Cambridge/Imperial')) && !dividerDone) {
-        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">University deadlines \u2014 verified against the Admission Reference PDF</div><div class="section-sub">French: apply 15 Jan \u2192 TCF DAP 13 Feb \u2192 decision 30 Apr \u00b7 UK: UCAS 15 Oct 2027 \u2192 decision Jan\u2013Mar 2028 \u00b7 % left = live runway</div></div>`)
+        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">University deadlines \u2014 verified against the Admission Reference PDF</div><div class="section-sub">French: apply 15 Jan \u2192 TCF DAP 13 Feb \u2192 decision 30 Apr \u00b7 UK: UCAS 15 Oct 2027 \u2192 decision Jan\u2013Mar 2028 \u00b7 % = time elapsed since 1 Sep 2026, per deadline</div></div>`)
         dividerDone = true
       }
       resetLabels()
@@ -221,9 +221,13 @@ export default function ShortTermPriority() {
       const dl = row.deadline || row.end || row.markerDate
       const pctV = dl ? pctLeft(dl) : null
       const monthsLeft = dl ? ((new Date(dl + 'T23:59:59') - Date.now()) / (30.44 * 864e5)) : null
+      // % elapsed from the common plan baseline 1 Sep 2026 → this deadline (clamped, shared scale for every row)
+      const PLAN_START = new Date('2026-09-01T00:00:00')
+      const RUNWAY_END = new Date('2028-09-01T00:00:00')
+      const pctFromSep = dl === null ? null : Math.max(0, Math.min(100, Math.round(100 * (Date.now() - PLAN_START) / (new Date(dl + 'T23:59:59') - PLAN_START))))
       const badge = dl === null ? '' : monthsLeft <= 0
         ? `<span class="pct-left red" title="Deadline ${fmtLong(dl)} has passed">passed</span>`
-        : `<span class="pct-left ${pctTone(pctV)}" title="Time left until ${fmtLong(dl)} (runway ends 1 Sep 2028)">${monthsLeft >= 1 ? Math.floor(monthsLeft) + 'm ' + Math.round((monthsLeft % 1) * 4.33) + 'w' : Math.max(1, Math.round(monthsLeft * 4.33)) + 'w'} left</span>`
+        : `<span class="pct-left ${pctTone(pctV)}" title="${pctFromSep}% of the time from 1 Sep 2026 to ${fmtLong(dl)} has elapsed; ${monthsLeft >= 1 ? Math.floor(monthsLeft) + 'm ' + Math.round((monthsLeft % 1) * 4.33) + 'w' : Math.max(1, Math.round(monthsLeft * 4.33)) + 'w'} left">${pctFromSep}%</span>`
       const extra = (row.markers || []).map(m => marker(row, m.date, m.label, m.tone || row.tone, m.label)).join('')
       const content = row.marker && !row.segments
         ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone) + extra
@@ -283,6 +287,7 @@ export default function ShortTermPriority() {
       ['TCF', () => scrollToDate('2027-12-15')],
       ['apply', () => scrollToDate('2028-01-15')],
       ['decision', () => scrollToDate('2028-04-30')],
+      ['ESAT', () => scrollToDate('2027-10-11')],
       ['UCAS', () => scrollToDate('2027-10-15')],
       ['permit', () => scrollToDate('2027-08-10')],
       ['move', () => scrollToDate('2028-03-01')],
