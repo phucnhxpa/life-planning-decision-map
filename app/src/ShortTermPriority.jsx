@@ -40,20 +40,20 @@ export default function ShortTermPriority() {
       { group: 'French · semi-intensive', title: 'Intensive A1 A2 → semi B1 B2', start: '2026-09-01', end: '2027-12-31', tone: 'teal',
         segments: [
           { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026 — the only intensive stretch of this path (20h/week), identical to the personal plan.' },
-          { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · semi', tone: 'blue', detail: 'A2.3–A2.x + B1 sub-levels · Nov 2026 → Feb 2027, semi-intensive (9h/week, Mon/Tue/Thu). Slower: ~4 months for the A2→B1 span.' },
-          { start: '2027-03-01', end: '2027-12-31', label: 'B1 → B2 · semi', tone: 'purple', detail: 'B1.1–B1.4 · Mar → Jun 2027, then B2.1–B2.6 · Jul → Dec 2027, all semi-intensive. B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
+          { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · semi', tone: 'blue', detail: 'A2.1–A2.2 · Nov 2026 → Feb 2027, semi-intensive (36h/month at 9h/week = 1 sub-level per 2 months). Then B1.1–B1.2 · Mar → Jun 2027 semi.' },
+          { start: '2027-03-01', end: '2027-12-31', label: 'B1 → B2 · semi', tone: 'purple', detail: 'B1.1–B1.2 semi · Mar → Jun 2027, then B2.1–B2.3 semi · Jul → Dec 2027 (1 sub-level per 2 months at 9h/week). B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
         ],
         marker: true, markerDate: '2027-12-31', markerLabel: 'B2 done',
         detail: 'Semi-intensive path: A1 → A2 intensive (Sep–Oct 2026), then A2 → B1 semi (Nov 2026 – Feb 2027) and B1 → B2 semi (Mar – Dec 2027). B2 done 31 Dec 2027. AF semi chart: B1 = 4 sessions, B2 = 6 sessions, 1 session = 4 weeks at 9h/week.' },
       // ── FRENCH · INTENSIVE A1 → B1, THEN SEMI-INTENSIVE B2 ──
-      { group: 'French · intensive → semi', title: 'Intensive A1 → B1 → semi B2', start: '2026-09-01', end: '2027-12-31', tone: 'blue',
+      { group: 'French · intensive → semi', title: 'Intensive A1 → B1 → semi B2', start: '2026-09-01', end: '2027-08-31', tone: 'blue',
         segments: [
-          { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week).' },
-          { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · intensive', tone: 'blue', detail: 'A2.1–A2.2 · Nov → Dec 2026, then B1.1–B1.2 · Jan → Feb 2027, all intensive. B1 complete 28 Feb 2027.' },
-          { start: '2027-03-01', end: '2027-12-31', label: 'B2 · semi', tone: 'purple', detail: 'B2.1–B2.6 semi-intensive · Mar → Dec 2027 (1 session = 4 weeks at 9h/week). B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
+          { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week, 1 sub-level per month).' },
+          { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · intensive', tone: 'blue', detail: 'A2.1–A2.2 · Nov → Dec 2026, then B1.1–B1.2 · Jan → Feb 2027, all intensive (1 sub-level/month). B1 complete 28 Feb 2027.' },
+          { start: '2027-03-01', end: '2027-08-31', label: 'B2 · semi', tone: 'purple', detail: 'B2.1–B2.3 semi-intensive · Mar → Aug 2027: semi pace = 1 sub-level per 2 months (36h/month at 9h/week), so B2 = 6 months. B2 complete 31 Aug 2027 — 5.5 months before TCF DAP last chance 13 Feb 2028.' },
         ],
-        marker: true, markerDate: '2027-12-31', markerLabel: 'B2 done',
-        detail: 'Intensive from A1 through complete B1 (Sep 2026 → Feb 2027), then switch to semi-intensive for B2 only (Mar → Dec 2027). B2 done 31 Dec 2027.' },
+        marker: true, markerDate: '2027-08-31', markerLabel: 'B2 done',
+        detail: 'Intensive from A1 through complete B1 (Sep 2026 → 28 Feb 2027), then semi-intensive B2 only (Mar → Aug 2027): semi = half the intensive hours, so 1 sub-level takes 2 months, B2.1–B2.3 = 6 months. B2 done 31 Aug 2027.' },
       // ── FRENCH UNIVERSITY ──
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
@@ -167,12 +167,14 @@ export default function ShortTermPriority() {
     // remaining at Oct 1; 0% = deadline reached. Values >100% mean the deadline sits before Oct 1 (ESAT booking).
     const RUNWAY_START = '2026-10-01'
     function pctLeft(deadline) {
-      // Live share of the runway [1 Oct 2026 -> deadline] still remaining, real clock, 1 decimal.
+      // Share of the runway [today -> rentrée 1 Sep 2028] still left when this deadline arrives.
+      // 100% = far future / before today (not yet binding), 0% = at or after rentrée.
       const dl = new Date(deadline + 'T23:59:59').getTime()
       const rs = new Date(RUNWAY_START + 'T00:00:00').getTime()
       const now = Date.now()
-      const val = ((dl - now) / (dl - rs)) * 100
-      return Math.max(0, val)
+      if (dl <= now) return 0            // deadline already passed
+      const val = ((dl - now) / (rs - now)) * 100
+      return Math.min(100, Math.max(0, val))
     }
     function pctTone(v) { return v <= 15 ? 'crit' : v <= 40 ? 'warn' : '' }
     let dividerDone = false
@@ -185,16 +187,17 @@ export default function ShortTermPriority() {
       const cls = row.admissions ? ' row admissions-section' : ''
       const dl = row.deadline || row.end || row.markerDate
       const pctV = dl ? pctLeft(dl) : null
-      const pctBadge = pctV !== null
-        ? `<span class="pct-left ${pctTone(pctV)}" title="Runway left: from 1 Oct 2026 to ${fmtLong(dl)}">${pctV.toFixed(1)}% left</span>`
-        : ''
+      const monthsLeft = dl ? ((new Date(dl + 'T23:59:59') - Date.now()) / (30.44 * 864e5)) : null
+      const badge = dl === null ? '' : monthsLeft <= 0
+        ? `<span class="pct-left red" title="Deadline ${fmtLong(dl)} has passed">passed</span>`
+        : `<span class="pct-left ${pctTone(pctV)}" title="Time left until ${fmtLong(dl)} (runway ends 1 Sep 2028)">${monthsLeft >= 1 ? Math.floor(monthsLeft) + 'm ' + Math.round((monthsLeft % 1) * 4.33) + 'w' : Math.max(1, Math.round(monthsLeft * 4.33)) + 'w'} left</span>`
       const extra = (row.markers || []).map(m => marker(row, m.date, m.label, m.tone || row.tone, m.label)).join('')
       const content = row.marker && !row.segments
         ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone) + extra
         : row.progress
           ? progressBlock(row) + (row.markerDate ? marker(row, row.markerDate, row.markerLabel || 'B2', row.tone, row.markerLabel || row.title) : '') + extra
           : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}` + extra
-      grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${pctBadge}</div>`)
+      grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
     }
 
     // Second layout pass: measure real label boxes and nudge any same-lane overlaps to the right.
