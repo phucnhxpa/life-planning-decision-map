@@ -83,7 +83,36 @@ export default function ShortTermPriority() {
           { date: '2028-01-27', label: 'decision day' },
         ],
         deadline: '2027-10-15',
-        detail: 'One UCAS form covers Oxford/Cambridge/Imperial: deadline to apply 15 Oct 2027, 18:00 UK (MCA Cambridge extra form 22 Oct). Cambridge interviews first 3 weeks of Dec 2027; Imperial interviews Nov 2027 – Feb 2028. Cambridge decision 27 Jan 2028; Imperial decisions aimed by 31 Mar 2028.' },
+        detail: 'One UCAS form covers Oxford/Cambridge/Imperial: deadline to apply 15 Oct 2027, 18:00 UK (MCA Cambridge extra form 22 Oct). Cambridge interviews first 3 weeks of Dec 2027; Imperial interviews Nov 2027 - Feb 2028. Cambridge decision 27 Jan 2028; Imperial decisions aimed by 31 Mar 2028.' },
+      // ── ADMINISTRATIVE ──
+      { group: 'Administrative', title: 'Tax · 2025 declaration', rowLabel: 'Tax: 2025 income declaration (2026)', start: '2026-04-01', marker: true, markerDate: '2026-05-20', markerLabel: 'e-filing deadline', tone: 'orange',
+        markers: [
+          { date: '2026-04-10', label: 'paper deadline' },
+          { date: '2026-05-20', label: 'e-filing deadline' },
+          { date: '2026-08-31', label: 'tax assessed' },
+        ],
+        deadline: '2026-05-20',
+        detail: 'Déclaration des revenus 2025, filed in 2026 (auto-entrepeneur turnover + any wages). Paper deadline ~mid-Apr; online ~20 May (départements vary by a few days). AVI/balance usually debited late Sep 2026. Done for 2025 — next window opens Apr 2027 for the 2026 year.' },
+      { group: 'Administrative', title: 'Change company status', rowLabel: 'Change auto-entreprise status', start: '2027-01-15', marker: true, markerDate: '2027-01-15', markerLabel: 'target filing', tone: 'blue',
+        deadline: '2027-01-15',
+        detail: 'Guichet unique (INPI) filing to move from micro-entrepreneur to a société (or adjust APE/activity). Plan ~1 month for SIRET update + bank/social-security follow-ups. Target filing 15 Jan 2027 — placeholder date, move freely.' },
+      { group: 'Administrative', title: 'Residence permit', rowLabel: 'Residence permit · renew', start: '2027-05-10', marker: true, markerDate: '2027-05-10', markerLabel: 'contact InExpat', tone: 'purple',
+        markers: [
+          { date: '2027-05-10', label: 'contact InExpat' },
+          { date: '2027-08-10', label: 'submission' },
+          { date: '2027-11-10', label: 'expiry' },
+        ],
+        deadline: '2027-08-10',
+        detail: 'Titre de séjour: contact InExpat (Nathalie/Léa) 10 May 2027, compile dossier, then submit 10 Aug 2027 = 3 months before the 10 Nov 2027 expiry. ATT (récépissé) covers the gap if the decision is pending at expiry.' },
+      // ── LIFE ──
+      { group: 'Life', title: 'Rental · end → new apartment', rowLabel: 'Rental: lease ends → search → move', start: '2027-11-01', end: '2028-03-31', tone: 'orange',
+        segments: [
+          { start: '2027-11-01', end: '2028-01-31', label: 'Lease ends', tone: 'red', detail: 'End of current rental (placeholder: 31 Jan 2028). Préavis = 1 month for furnished leases, so give notice by 31 Dec 2027 at the latest.' },
+          { start: '2027-12-01', end: '2028-02-28', label: 'Find new apartment', tone: 'blue', detail: '3-month search block: dossier (garant, payslips/attestations), visits, offer. Overlaps the last lease month on purpose — never let them not overlap.' },
+          { start: '2028-03-01', end: '2028-03-31', label: 'New apt', tone: 'green', detail: 'Sign the new bail, move in March 2028 — 6 months before the Sorbonne rentrée, comfortably before the A2 2027 plan ends.' },
+        ],
+        marker: true, markerDate: '2028-03-01', markerLabel: 'moved',
+        detail: 'Rental chain: lease ends 31 Jan 2028 → 3-month find-new-apartment block (Dec 2027 – Feb 2028) → move into new apartment Mar 2028. Dates are planning placeholders — adjust to the real bail.' },
     ]
 
     const startMs = new Date(START).getTime()
@@ -121,6 +150,7 @@ export default function ShortTermPriority() {
     let placedLabels = []
     function resetLabels() { placedLabels = [] }
     function marker(row, date, label, tone, detailTitle = row.title) {
+      if (!label) { console.error('marker label missing', row && row.title, date); label = fmt(date) }
       const leftPct = pctAt(date)
       // estimated label box in % of track width (label ~6.1px/char at 8.5px font, canvas ~1800px)
       const estW = Math.min(40, (label.length * 6.1 + 16) / 18)
@@ -251,6 +281,8 @@ export default function ShortTermPriority() {
       ['apply', () => scrollToDate('2028-01-15')],
       ['decision', () => scrollToDate('2028-04-30')],
       ['UCAS', () => scrollToDate('2027-10-15')],
+      ['permit', () => scrollToDate('2027-08-10')],
+      ['move', () => scrollToDate('2028-03-01')],
       ['rentrée', () => scrollToDate('2028-09-01')],
       ['→', () => wrap.scrollBy({ left: Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
     ]
