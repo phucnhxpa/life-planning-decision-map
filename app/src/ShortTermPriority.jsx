@@ -35,9 +35,9 @@ export default function ShortTermPriority() {
           { start: '2027-01-01', end: '2027-05-31', label: 'B1 → B2', tone: 'purple', detail: 'B1.1 + B1.2 + B2.1–B2.3 · Jan → May 2027, intensive. B2.3 complete 31 May 2027.' },
         ],
         marker: true, markerDate: '2027-05-31', markerLabel: 'B2 done',
-        detail: 'Intensive path A1 → B2: AF staircase 1 sub-level/month at 20h/week (A1: 2, A2: 2, B1: 2, B2: 3 months = 9 months). Sep 1 2026 → B2 done 31 May 2027.' },
+        detail: 'Intensive path A1 → B2 (all phases intensive): AF staircase 1 sub-level/month at 20h/week (A1: 2, A2: 2, B1: 2, B2: 3 months = 9 months). Sep 1 2026 → B2 done 31 May 2027.' },
       // ── FRENCH · SEMI-INTENSIVE A1 → B2 (A1→A2 intensive, then A2→B1 and B1→B2 semi-intensive) ──
-      { group: 'French · semi-intensive', title: 'Semi A1 → B2', start: '2026-09-01', end: '2027-12-31', tone: 'teal',
+      { group: 'French · semi-intensive', title: 'Intensive A1 A2 → semi B1 B2', start: '2026-09-01', end: '2027-12-31', tone: 'teal',
         segments: [
           { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026 — the only intensive stretch of this path (20h/week), identical to the personal plan.' },
           { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · semi', tone: 'blue', detail: 'A2.3–A2.x + B1 sub-levels · Nov 2026 → Feb 2027, semi-intensive (9h/week, Mon/Tue/Thu). Slower: ~4 months for the A2→B1 span.' },
@@ -45,44 +45,40 @@ export default function ShortTermPriority() {
         ],
         marker: true, markerDate: '2027-12-31', markerLabel: 'B2 done',
         detail: 'Semi-intensive path: A1 → A2 intensive (Sep–Oct 2026), then A2 → B1 semi (Nov 2026 – Feb 2027) and B1 → B2 semi (Mar – Dec 2027). B2 done 31 Dec 2027. AF semi chart: B1 = 4 sessions, B2 = 6 sessions, 1 session = 4 weeks at 9h/week.' },
+      // ── FRENCH · INTENSIVE A1 → B1, THEN SEMI-INTENSIVE B2 ──
+      { group: 'French · intensive → semi', title: 'Intensive A1 → B1 → semi B2', start: '2026-09-01', end: '2027-12-31', tone: 'blue',
+        segments: [
+          { start: '2026-09-01', end: '2026-10-31', label: 'A1 → A2', tone: 'green', detail: 'A1.1 + A1.2 · Sep → Oct 2026, intensive (20h/week).' },
+          { start: '2026-11-01', end: '2027-02-28', label: 'A2 → B1 · intensive', tone: 'blue', detail: 'A2.1–A2.2 · Nov → Dec 2026, then B1.1–B1.2 · Jan → Feb 2027, all intensive. B1 complete 28 Feb 2027.' },
+          { start: '2027-03-01', end: '2027-12-31', label: 'B2 · semi', tone: 'purple', detail: 'B2.1–B2.6 semi-intensive · Mar → Dec 2027 (1 session = 4 weeks at 9h/week). B2 complete 31 Dec 2027 — 6 weeks before TCF DAP last chance 13 Feb 2028.' },
+        ],
+        marker: true, markerDate: '2027-12-31', markerLabel: 'B2 done',
+        detail: 'Intensive from A1 through complete B1 (Sep 2026 → Feb 2027), then switch to semi-intensive for B2 only (Mar → Dec 2027). B2 done 31 Dec 2027.' },
       // ── FRENCH UNIVERSITY ──
-      { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP submission', start: '2027-11-15', end: '2028-02-13', tone: 'orange',
-        markers: [
-          { date: '2027-12-15', label: 'TCF reg' },
-          { date: '2028-02-13', label: 'TCF DAP last' },
-        ],
+      { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
-      { group: 'French university', title: 'A-level submission', start: '2028-01-05', end: '2028-03-31', tone: 'blue',
-        markers: [
-          { date: '2028-03-05', label: 'results' },
-          { date: '2028-03-31', label: 'certificates' },
-        ],
+      { group: 'French university', title: 'A-level submission', rowLabel: 'A-level certificates deadline', start: '2028-03-31', marker: true, markerDate: '2028-03-31', markerLabel: 'deadline', tone: 'blue',
         detail: 'A-levels for the dossier: last usable sitting is the January 2028 series (exams 5–25 Jan). Results ~5 Mar 2028, certificates by ~31 Mar 2028 — in the file before decisions. Anything later is too late.' },
-      { group: 'French university', title: 'Application', rowLabel: 'Application · apply → decision → year starts', start: '2027-11-15', end: '2028-09-01', tone: 'red',
+      { group: 'French university', title: 'Application', rowLabel: 'Application · apply → decision → year starts', start: '2028-01-15', marker: true, markerDate: '2028-01-15', markerLabel: 'last day to apply', tone: 'red',
         markers: [
-          { date: '2028-01-15', label: 'last day to apply' },
           { date: '2028-04-30', label: 'decision day' },
           { date: '2028-09-01', label: 'school year' },
         ],
         deadline: '2028-01-15',
         detail: 'Dossier vert application: last day to apply 15 Jan 2028 (Sorbonne faculty outer edge; ministry target 15 Dec 2027). Decision day 30 Apr 2028 — all three dossier-vert universities respond; accept by 31 May or auto-refusal. School year starts 1 Sep 2028.' },
       // ── CAMBRIDGE / IMPERIAL ──
-      { group: 'Cambridge/Imperial', title: 'A-level', rowLabel: 'A-level · exams & results', start: '2026-05-24', end: '2027-01-25', tone: 'blue',
+      { group: 'Cambridge/Imperial', title: 'A-level', rowLabel: 'A-level · exam dates', start: '2026-10-09', marker: true, markerDate: '2026-10-09', markerLabel: 'Oct exams', tone: 'blue',
         markers: [
-          { date: '2026-10-09', label: 'Oct exams' },
           { date: '2027-01-14', label: 'Jan exams' },
         ],
         detail: 'A-level sittings feeding the 2028-entry UCAS file: Oct 2026 series (P1 9 Oct, M1 13 Oct, P2 15 Oct, S1 19 Oct, P3 21 Oct, M2 22 Oct, P4 28 Oct) and Jan 2027 series (FP1 14 Jan, S2 18 Jan, FP2 20 Jan, FP3 21 Jan, M3 25 Jan).' },
-      { group: 'Cambridge/Imperial', title: 'ESAT', rowLabel: 'ESAT · booking & test', start: '2026-09-28', end: '2026-10-16', tone: 'orange',
-        blockLabel: 'ESAT',
+      { group: 'Cambridge/Imperial', title: 'ESAT', rowLabel: 'ESAT · booking & test', start: '2026-09-28', marker: true, markerDate: '2026-09-28', markerLabel: 'booking closes', tone: 'orange',
         markers: [
-          { date: '2026-09-28', label: 'booking closes' },
           { date: '2026-10-12', label: 'test window' },
         ],
         detail: 'ESAT (Cambridge + Imperial Physics/Theoretical Physics): official UAT-UK booking closes 28 Sep 2026, 6pm BST; test window opens 12 Oct 2026. Math + Physics prep rows feed this.' },
-      { group: 'Cambridge/Imperial', title: 'Application', rowLabel: 'Application · deadline → interview → decision', start: '2027-09-05', end: '2028-03-31', tone: 'red',
+      { group: 'Cambridge/Imperial', title: 'Application', rowLabel: 'Application · deadline → interview → decision', start: '2027-10-15', marker: true, markerDate: '2027-10-15', markerLabel: 'deadline to apply', tone: 'red',
         markers: [
-          { date: '2027-10-15', label: 'deadline to apply' },
           { date: '2027-12-01', label: 'interviews' },
           { date: '2028-01-27', label: 'decision day' },
         ],
