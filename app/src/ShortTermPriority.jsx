@@ -34,72 +34,29 @@ export default function ShortTermPriority() {
           { start: '2027-01-01', end: '2027-02-28', label: 'A2', tone: 'purple', detail: 'A2 · Jan 1 → Feb 28 2027. Past tenses, everyday situations, short connected text.' },
         ],
         detail: 'French CEFR progression: A1.1 (Sep–Oct) → A1.2 (Nov–Dec) → A2 (Jan–Feb).' },
-      { group: 'French · AF intensive reference', title: 'AF intensive pace', start: '2026-09-01', end: '2027-05-31', tone: 'blue',
+      { group: 'French', title: 'Semi-intensive → Intensive → A2', start: '2027-03-01', end: '2028-08-31', tone: 'blue',
         segments: [
-          { start: '2026-09-01', end: '2026-09-30', label: 'A1.1', tone: 'green', detail: 'AF intensive month 1 · A1.1 — 20h/week. Source: alliancefr.org intensive course progression (1 sub-level = 1 month).' },
-          { start: '2026-10-01', end: '2026-10-31', label: 'A1.2', tone: 'green', detail: 'AF intensive month 2 · A1.2. Cumulative: 2/9 months (22%) of the AF staircase to B2.3.' },
-          { start: '2026-11-01', end: '2026-11-30', label: 'A2.1', tone: 'blue', detail: 'AF intensive month 3 · A2.1. Cumulative: 3/9 (33%).' },
-          { start: '2026-12-01', end: '2026-12-31', label: 'A2.2', tone: 'blue', detail: 'AF intensive month 4 · A2.2 — A2 complete. Cumulative: 4/9 (44%).' },
-          { start: '2027-01-01', end: '2027-01-31', label: 'B1.1', tone: 'teal', detail: 'AF intensive month 5 · B1.1. Cumulative: 5/9 (56%).' },
-          { start: '2027-02-01', end: '2027-02-28', label: 'B1.2', tone: 'teal', detail: 'AF intensive month 6 · B1.2 — B1 complete. Cumulative: 6/9 (67%).' },
-          { start: '2027-03-01', end: '2027-03-31', label: 'B2.1', tone: 'purple', detail: 'AF intensive month 7 · B2.1. Cumulative: 7/9 (78%).' },
-          { start: '2027-04-01', end: '2027-04-30', label: 'B2.2', tone: 'purple', detail: 'AF intensive month 8 · B2.2. Cumulative: 8/9 (89%).' },
-          { start: '2027-05-01', end: '2027-05-31', label: 'B2.3', tone: 'purple', detail: 'AF intensive month 9 · B2.3 — B2 COMPLETE. Reference staircase from alliancefr.org intensive in-person course.' },
+          { start: '2027-03-01', end: '2028-02-29', label: 'Semi-intensive', tone: 'neutral', detail: 'Semi-intensive · Mar 2027 → Feb 2028. A2 → B1 consolidation at a sustainable load alongside other priorities.' },
+          { start: '2028-03-01', end: '2028-08-31', label: 'Intensive', tone: 'red', detail: 'Intensive · Mar → Aug 2028. Full push to C1-level academic French before the Sorbonne rentrée.' },
         ],
-        marker: true, markerDate: '2027-05-31', markerLabel: 'B2 done',
-        detail: 'Alliance Française official intensive staircase (A1.1→A1.2→A2.1→A2.2→B1.1→B1.2→B2.1→B2.2→B2.3, 1 month each = 9 months). Anchored at the real Sep 1 2026 start → B2 complete 31 May 2027. Continuous reference pace, not a commitment.' },
-      { group: 'French · AF intensive reference', title: 'Progress to B2', start: '2026-09-01', end: '2027-05-31', tone: 'teal',
-        progress: true, progressLabel: '→ B2',
-        detail: 'Continuous fill: 0% on Sep 1 2026 → 100% (B2.3 complete) on 31 May 2027, filling linearly at the AF intensive pace. The bar keeps growing past A2 even though the personal plan (row above) stops at A2 in Feb.' },
-      { group: 'French · AF semi-intensive path', title: 'Semi-intensive B1 → B2', start: '2027-03-01', end: '2027-12-31', tone: 'teal',
+        markerDate: '2028-09-01', markerLabel: 'rentrée',
+        detail: 'Language runway into the Sorbonne: semi-intensive year, then intensive pre-university block.' },
+      { group: 'French', title: 'Sorbonne · dossier vert', start: '2027-10-01', end: '2028-01-15', tone: 'orange',
         segments: [
-          { start: '2027-03-01', end: '2027-06-30', label: 'B1.1–B1.4', tone: 'green', detail: 'B1 at AF semi pace: 4 sub-levels × 1 session (36h / 4 weeks, 9h/week) = 4 months. Source: AF semi-intensive progression chart (Semi intensifs 06/2026).' },
-          { start: '2027-07-01', end: '2027-12-31', label: 'B2.1–B2.6', tone: 'blue', detail: 'B2 at AF semi pace: 6 sub-levels × 1 session = 6 months. B2 complete end of Dec 2027 — 6 weeks before the TCF DAP last-chance date (13 Feb 2028).' },
+          { start: '2027-10-01', end: '2027-12-15', label: 'dossier vert window', tone: 'orange', detail: 'Dossier vert (Parcoursup FSPO gateway) · opens early Oct 2027, portal closes mid-Dec 2027. Cover letter + full file ready by early Dec.' },
+          { start: '2028-01-15', end: '2028-01-15', label: 'deadline', tone: 'red', detail: 'Dossier vert deadline · 15 Jan 2028. Last day to apply — hard Parcoursup cut-off.' },
         ],
-        markerDate: '2027-12-31', markerLabel: 'B2 done', tone: 'purple',
-        detail: 'Reference: finish A1+A2 intensive (rows above), then switch to semi-intensive (Mon/Tue/Thu, 9h/week, €730 per 4-week session) for B1 (4 months) + B2 (6 months) → B2 complete Dec 2027. AF chart notes semi uses more sub-levels than intensive (A1: 3, A2: 4, B1: 4, B2: 6) but 1 sub-level = 1 session either way. Doesn’t include the €2,630 cost shift vs intensive — ask if you want it budgeted.' },
-      { group: 'University', title: 'Sorbonne administrative', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
-        detail: 'Sorbonne administrative · September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
-      { group: 'Sorbonne 2028 · A-level', title: 'A-level — Jan 2028', start: '2028-01-05', end: '2028-01-25', tone: 'blue',
-        markers: [
-          { date: '2028-03-05', label: 'results ~5 Mar' },
-          { date: '2028-03-31', label: 'certs ~Mar' },
-        ],
-        detail: 'Last exam sitting that works: January 2028 series. Results ~5 Mar 2028, certificates by ~Mar 2028 — both land before the 30 Apr decisions, so the file is complete just in time. Anything later (May/June 2028) = too late, certificates would not exist before the commissions decide. One bad paper → no second chance.' },
-      { group: 'Sorbonne 2028 · Application', title: 'Dossier vert — apply', start: '2027-11-15', end: '2028-01-15', tone: 'red',
-        markers: [
-          { date: '2027-12-15', label: 'TCF reg · ministry' },
-          { date: '2028-01-15', label: 'Sorbonne last' },
-          { date: '2028-02-13', label: 'TCF DAP last' },
-        ],
-        detail: 'Submission window with both deadlines inside: ministry délai de rigueur 15 Dec 2027 (postal stamp counts; same day TCF DAP online registration closes) → conservative target. Sorbonne Sciences faculty email deadline 15 Jan 2028 = true outer edge; sworn translations + certificates must be in the envelope by then. TCF DAP absolute last pass 13 Feb 2028 (approved centre; results precede the 16 Mar commissions). No fallback after that — a retake needs a 30-day gap, landing past commissions. Source: Admission Reference 2028 Intake PDF [2][5][8].' },
-      { group: 'Sorbonne 2028 · Decisions', title: 'Decisions', start: '2028-03-16', end: '2028-05-31', tone: 'purple',
-        markers: [
-          { date: '2028-04-30', label: 'respond by' },
-          { date: '2028-05-31', label: 'accept' },
-        ],
-        detail: 'Pedagogical commissions begin 16 Mar 2028. All three dossier-vert universities respond by 30 Apr 2028. You accept by 31 May 2028 — silence after 1 June = automatic refusal.' },
-      { group: 'Cambridge/Imperial 2028 · Application', title: 'UCAS apply', start: '2027-09-05', end: '2027-10-15', tone: 'red',
-        markers: [
-          { date: '2027-09-28', label: 'ESAT closes' },
-          { date: '2027-10-15', label: 'UCAS deadline' },
-          { date: '2027-10-22', label: 'MCA' },
-        ],
-        deadline: '2027-10-15',
-        detail: 'One UCAS form covers Oxford/Cambridge/Imperial: deadline 15 Oct 2027, 18:00 UK. ESAT booking closes 28 Sep 2027. Cambridge extra form (My Cambridge Application) due 22 Oct 2027.' },
-      { group: 'Cambridge/Imperial 2028 · Interviews & decisions', title: 'Interviews & offers', start: '2027-11-01', end: '2028-02-28', tone: 'blue',
-        segments: [
-          { start: '2027-12-01', end: '2027-12-21', label: 'Cambridge interviews', tone: 'purple' },
-        ],
-        markers: [
-          { date: '2028-01-13', label: 'UCAS equal consid.' },
-          { date: '2028-01-27', label: 'Cambridge decision' },
-          { date: '2028-02-28', label: 'Imperial end' },
-          { date: '2028-03-31', label: 'Imperial decision' },
-        ],
-        deadline: '2028-03-31',
-        detail: 'Cambridge interviews in the first 3 weeks of Dec 2027, decision ~27 Jan 2028. General UCAS/Imperial equal-consideration deadline 13 Jan 2028. Imperial interviews Nov 2027 – Feb 2028, decisions aimed by end Mar 2028.' },
-
+        detail: 'Dossier vert is the admission route for a French bac equivalent applying to Sorbonne licence from abroad/parcoursup. Window Oct→mid-Dec, deadline mid-Jan.' },
+      { group: 'French', title: 'Sorbonne · admission decision', start: '2028-04-15', end: '2028-04-15', tone: 'purple', marker: true, markerDate: '2028-04-15', markerLabel: 'decision',
+        detail: 'Sorbonne admission decision · Parcoursup main phase releases answers from 15 Apr 2028 (2028 calendar estimated from the 2025–2026 pattern). Confirm against the official Parcoursup calendar when published.' },
+      { group: 'A-level', title: 'P1 P2 P3 P4 S1 M1 M2 prep', start: '2026-05-24', end: '2026-10-08', tone: 'blue',
+        markerDate: '2026-10-09', markerLabel: 'exams',
+        detail: 'P1 9 Oct, M1 13 Oct, P2 15 Oct, S1 19 Oct, P3 21 Oct, M2 22 Oct, P4 28 Oct' },
+      { group: 'A-level', title: 'FP1 FP2 FP3 S2 M3 prep', start: '2026-11-07', end: '2027-01-13', tone: 'purple',
+        markerDate: '2027-01-14', markerLabel: 'exams',
+        detail: 'FP1 14 Jan, S2 18 Jan, FP2 20 Jan, FP3 21 Jan, M3 25 Jan' },
+      { group: 'University', title: 'Sorbonne starts', start: '2028-09-01', marker: true, markerDate: '2028-09-01', tone: 'purple',
+        detail: 'University start · Sorbonne, September 2028 (rentrée). French at A2 by Feb 2027 leaves 19 months of runway before it.' },
     ]
 
     const startMs = new Date(START).getTime()
@@ -133,18 +90,8 @@ export default function ShortTermPriority() {
       return `<span class="tip"><strong>${title}</strong><em>${date}</em>${detail}</span>`
     }
 
-    // Track placed label boxes per row so consecutive markers nudge instead of overlapping.
-    let placedLabels = []
-    function resetLabels() { placedLabels = [] }
     function marker(row, date, label, tone, detailTitle = row.title) {
-      const leftPct = pctAt(date)
-      // estimated label box in % of track width (label ~6.1px/char at 8.5px font, canvas ~1800px)
-      const estW = Math.min(40, (label.length * 6.1 + 16) / 18)
-      const lane = placedLabels.length % 2 // alternate up/down
-      placedLabels.push({ lane, left: leftPct, w: estW })
-      const topStyle = lane === 1 ? 'top:-13px;transform:translateY(0)' : 'transform:translateY(-50%)'
-      const shiftStyle = ''
-      return `<div class="marker ${tone}${lane === 1 ? ' lane-up' : ''}" style="left:${leftPct}%"><span class="marker-line"></span><span class="marker-dot"></span><span class="marker-label" style="${[topStyle, shiftStyle].filter(Boolean).join(';')}">${label}</span>${tip(detailTitle, fmtLong(date), row.detail)}</div>`
+      return `<div class="marker ${tone}" style="left:${pctAt(date)}%"><span class="marker-line"></span><span class="marker-dot"></span><span class="marker-label">${label}</span>${tip(detailTitle, fmtLong(date), row.detail)}</div>`
     }
 
     function block(row, segment = row) {
@@ -153,22 +100,13 @@ export default function ShortTermPriority() {
       const label = segment.label || row.title
       const tone = segment.tone || row.tone
       const dates = segment.dates || `${fmt(segment.start)} → ${fmt(segment.end)}`
-      const showDates = width >= 6 // short bars: drop in-bar date text so end markers stay readable
-      return `<div class="block ${tone}" style="left:${left}%;width:${width}%"><span>${label}</span>${showDates ? `<small>${dates}</small>` : ''}${tip(row.title + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, segment.detail || row.detail)}</div>`
+      return `<div class="block ${tone}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${dates}</small>${tip(row.title + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, segment.detail || row.detail)}</div>`
     }
 
     function pause(p) {
       const left = pctAt(p.start)
       const width = Math.max(1.2, pctAt(p.end) - left)
       return `<div class="pause" style="left:${left}%;width:${width}%"><span>${p.label}</span>${tip(p.label, `${fmtLong(p.start)} → ${fmtLong(p.end)}`, 'Protected blank break — no scheduling here.')}</div>`
-    }
-
-    // SECURITY: progressBlock builds HTML only from hardcoded row constants (same as block/marker above); no user input.
-    function progressBlock(row) {
-      const left = pctAt(row.start)
-      const width = Math.max(1.2, pctAt(row.end) - left)
-      const nowPct = Math.max(0, Math.min(100, ((new Date(TODAY).getTime() - new Date(row.start).getTime()) / (new Date(row.end).getTime() - new Date(row.start).getTime())) * 100))
-      return `<div class="block ${row.tone} progress-block" style="left:${left}%;width:${width}%"><span class="pct">${nowPct.toFixed(0)}% ${row.progressLabel || ''} · today</span>${tip(row.title, `${fmtLong(row.start)} → ${fmtLong(row.end)}`, row.detail + ` · As of ${fmtLong(TODAY)}: ${nowPct.toFixed(0)}% of the way to B2.`)}</div>`
     }
 
     for (const m of months()) {
@@ -178,76 +116,13 @@ export default function ShortTermPriority() {
     axis.insertAdjacentHTML('beforeend', `<div class="today-line" style="left:${pctAt(TODAY)}%"><span>today · ${fmt(TODAY)}</span></div>`)
     lines.insertAdjacentHTML('beforeend', `<span class="today" style="left:${pctAt(TODAY)}%"></span>`)
 
-    // Percentage of runway left to each deadline, measured from the start of October 2027 (i.e. the
-    // admissions-cycle kickoff). pctLeft = (deadline - TODAY) / (deadline - 2027-10-01). 100% = full runway
-    // remaining at Oct 1; 0% = deadline reached. Values >100% mean the deadline sits before Oct 1 (ESAT booking).
-    const RUNWAY_START = '2026-10-01'
-    function pctLeft(deadline) {
-      // Live share of the runway [1 Oct 2026 -> deadline] still remaining, real clock, 1 decimal.
-      const dl = new Date(deadline + 'T23:59:59').getTime()
-      const rs = new Date(RUNWAY_START + 'T00:00:00').getTime()
-      const now = Date.now()
-      const val = ((dl - now) / (dl - rs)) * 100
-      return Math.max(0, val)
-    }
-    function pctTone(v) { return v <= 15 ? 'crit' : v <= 40 ? 'warn' : '' }
-    let dividerDone = false
     for (const row of rows.filter(r => r.group !== 'Capacity')) {
-      if ((row.admissions || (row.group || '').startsWith('Sorbonne 2028')) && !dividerDone) {
-        grid.insertAdjacentHTML('beforeend', `<div class="section-divider"><div class="section-title">Sorbonne 2028 \u00b7 dossier vert \u2014 verified against the Admission Reference PDF</div><div class="section-sub">Hard walls: dossier vert 15 Jan \u2192 TCF DAP 13 Feb \u2192 accept 31 May \u00b7 % left = live runway</div></div>`)
-        dividerDone = true
-      }
-      resetLabels()
-      const cls = row.admissions ? ' row admissions-section' : ''
-      const dl = row.deadline || row.end || row.markerDate
-      const pctV = dl ? pctLeft(dl) : null
-      const pctBadge = pctV !== null
-        ? `<span class="pct-left ${pctTone(pctV)}" title="Runway left: from 1 Oct 2026 to ${fmtLong(dl)}">${pctV.toFixed(1)}% left</span>`
-        : ''
-      const extra = (row.markers || []).map(m => marker(row, m.date, m.label, m.tone || row.tone, m.label)).join('')
-      const content = row.marker && !row.segments
-        ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone) + extra
-        : row.progress
-          ? progressBlock(row) + (row.markerDate ? marker(row, row.markerDate, row.markerLabel || 'B2', row.tone, row.markerLabel || row.title) : '') + extra
-          : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}` + extra
-      grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.title}</div></div><div class="track">${content}</div>${pctBadge}</div>`)
+      const content = row.marker
+        ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone)
+        : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}`
+      grid.insertAdjacentHTML('beforeend', `<div class="row"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.title}</div></div><div class="track">${content}</div></div>`)
     }
 
-    // Second layout pass: measure real label boxes and nudge any same-lane overlaps to the right.
-    // (Estimates at render time underestimate long labels; real rects are authoritative.)
-    requestAnimationFrame(() => {
-      root.querySelectorAll('.row').forEach(row => {
-        const laneOf = el => el.closest('.marker')?.classList.contains('lane-up') ? 1 : 0
-        const byLane = new Map()
-        row.querySelectorAll('.marker-label').forEach(el => {
-          const lane = laneOf(el)
-          if (!byLane.has(lane)) byLane.set(lane, [])
-          byLane.get(lane).push(el)
-        })
-        byLane.forEach(labels => {
-          let prevRight = null
-          labels.forEach(el => {
-            const r = el.getBoundingClientRect()
-            const canvas = el.closest('.timeline-canvas')
-            if (!canvas) return
-            const cw = canvas.getBoundingClientRect().width
-            const leftPct = ((r.left - canvas.getBoundingClientRect().left) / cw) * 100
-            let nudgePct = 0
-            if (prevRight !== null) {
-              const prevLeftPct = prevRight.pct
-              const myRightPct = leftPct + (r.width / cw) * 100
-              if (leftPct < prevRight.pct + (prevRight.w / cw) * 100) {
-                nudgePct = prevRight.pct + (prevRight.w / cw) * 100 + 0.6 - leftPct
-              }
-            }
-            if (nudgePct > 0) el.style.left = `calc(7px + ${(nudgePct / 100) * cw}px)`
-            const nr = el.getBoundingClientRect()
-            const canvasRect = el.closest('.timeline-canvas').getBoundingClientRect()
-            prevRight = { pct: ((nr.left - canvasRect.left) / canvasRect.width) * 100, w: nr.width }
-          })
-        })
-      })
-    })
     const scrollToDate = (date) => {
       const canvas = root.querySelector('.timeline-canvas')
       const target = (pctAt(date) / 100) * canvas.scrollWidth
@@ -260,8 +135,9 @@ export default function ShortTermPriority() {
       ['A1.1', () => scrollToDate('2026-09-01')],
       ['A1.2', () => scrollToDate('2026-11-01')],
       ['A2', () => scrollToDate('2027-01-01')],
-      ['Cambridge', () => scrollToDate('2027-10-15')],
-      ['Sorbonne', () => scrollToDate('2028-09-01')],
+      ['dossier', () => scrollToDate('2027-10-01')],
+      ['decision', () => scrollToDate('2028-04-15')],
+      ['rentrée', () => scrollToDate('2028-09-01')],
       ['→', () => wrap.scrollBy({ left: Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
     ]
     for (const [label, fn] of controls) {
