@@ -524,3 +524,39 @@
 .stp-root .row .pct-left.crit { color: var(--red); background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.3); }
 /* lane-up: label sits above the row so stacked markers don't collide */
 .stp-root .marker.lane-up .marker-label { top: -12px; transform: translateY(0); }
+
+/* ── Vacation & free-time finder block (appended) — light theme, matches the timeline UI ── */
+.stp-root .vacation-block {
+  margin: 22px 18px 6px;
+  padding: 18px 20px;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.88);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+}
+.stp-root .vacation-block .vacation-head h2 { margin: 0 0 4px; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; color: var(--text, #1d1d1f); }
+.stp-root .vacation-block .vacation-sub { font-size: 12.5px; color: var(--muted, #8e8e93); margin-bottom: 14px; max-width: 720px; line-height: 1.5; }
+.stp-root .vacation-strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+.stp-root .vacation-card {
+  flex: 0 0 auto; min-width: 168px; display: flex; flex-direction: column; align-items: flex-start;
+  gap: 3px; text-align: left; padding: 12px 14px; border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.10); background: #ffffff;
+  color: var(--text, #1d1d1f); font: inherit; cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.stp-root .vacation-card:hover { border-color: rgba(0,0,0,.22); box-shadow: 0 6px 18px rgba(0,0,0,.09); transform: translateY(-1px); }
+.stp-root .vacation-card.prime { border-color: rgba(15,157,143,.5); background: rgba(15,157,143,.06); }
+.stp-root .vacation-card.good  { border-color: rgba(66,133,244,.4); background: rgba(66,133,244,.05); }
+.stp-root .vacation-card.mini  { border-color: rgba(0,0,0,.12); }
+.stp-root .vacation-card .v-tier { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted, #8e8e93); }
+.stp-root .vacation-card.prime .v-tier { color: #0b7f74; }
+.stp-root .vacation-card.good .v-tier { color: #2f6fd0; }
+.stp-root .vacation-card .v-days { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--text, #1d1d1f); }
+.stp-root .vacation-card .v-range { font-size: 12.5px; color: var(--text, #1d1d1f); }
+.stp-root .vacation-card .v-why { font-size: 11px; color: var(--muted, #8e8e93); max-width: 190px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stp-root .vacation-block .vacation-legend { margin-top: 10px; font-size: 11.5px; color: var(--muted, #8e8e93); }
+.stp-root .v-chip { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border: 1px solid rgba(0,0,0,.12); margin-right: 2px; }
+.stp-root .v-chip.prime { color: #0b7f74; border-color: rgba(15,157,143,.45); }
+.stp-root .v-chip.good { color: #2f6fd0; border-color: rgba(66,133,244,.35); }
+.stp-root .v-chip.mini { color: var(--muted, #8e8e93); }
+.stp-root .v-empty { font-size: 13px; color: var(--muted, #8e8e93); padding: 8px 2px; }

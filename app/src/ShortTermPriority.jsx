@@ -330,6 +330,94 @@ export default function ShortTermPriority() {
       controlsEl.appendChild(b)
     }
 
+    // ── Vacation & free-time finder ──
+    // A day is "busy" when a hard commitment touches it: any row's block/markers (exams, deadlines,
+    // class blocks, admin windows). Soft rows (progress bars) don't block. Weekends are always lighter.
+    function busyDaysFromRows() {
+      const busy = new Map() // date -> [reasons]
+      const mark = (d, reason) => {
+        if (!d) return
+        const key = d.slice(0, 10)
+        if (key < START || key > END) return
+        if (!busy.has(key)) busy.set(key, [])
+        busy.get(key).push(reason)
+      }
+      for (const row of rows) {
+        if (row.progress) continue
+        const why = row.rowLabel || row.title
+        if (row.segments) for (const s of row.segments) {
+          let d = new Date(s.start + 'T00:00:00Z'); const end = new Date(s.end + 'T00:00:00Z')
+          for (; d <= end; d = new Date(d.getTime() + 864e5)) mark(d.toISOString().slice(0, 10), why)
+        } else {
+          let d = new Date(row.start + 'T00:00:00Z'); const end = new Date(row.end + 'T00:00:00Z')
+          for (; d <= end; d = new Date(d.getTime() + 864e5)) mark(d.toISOString().slice(0, 10), why)
+        }
+        if (row.markerDate) {
+          const m0 = new Date(row.markerDate + 'T00:00:00Z')
+          for (let i = -1; i <= 1; i++) mark(new Date(m0.getTime() + i * 864e5).toISOString().slice(0, 10), row.markerLabel || why)
+        }
+        for (const m of (row.markers || [])) {
+          const m0 = new Date(m.date + 'T00:00:00Z')
+          for (let i = -1; i <= 1; i++) mark(new Date(m0.getTime() + i * 864e5).toISOString().slice(0, 10), m.label)
+        }
+      }
+      return busy
+    }
+    function vacationWindows(busy) {
+      const out = []
+      let run = null
+      for (let d = new Date(START + 'T00:00:00Z'); d <= new Date(END + 'T00:00:00Z'); d = new Date(d.getTime() + 864e5)) {
+        const key = d.toISOString().slice(0, 10)
+        const dow = d.getUTCDay()
+        const weekend = dow === 6 || dow === 0
+        if (!busy.has(key) || (weekend && (busy.get(key) || []).every(r => /AF |French ·/.test(r)))) {
+          if (!run) run = { from: key, days: 0, reasons: new Set() }
+          run.days++; run.to = key
+          for (const r of (busy.get(key) || [])) run.reasons.add(r)
+        } else {
+          if (run && run.days >= 3) out.push(run)
+          run = null
+        }
+      }
+      if (run && run.days >= 3) out.push(run)
+      const rank = w => {
+        let score = w.days
+        const d0 = new Date(w.from + 'T00:00:00Z')
+        if (d0.getUTCDay() === 5 || d0.getUTCDay() === 6) score += 1
+        // bonus: inside AF winter break / summer (Jul-Aug)
+        const mo = d0.getUTCMonth() + 1
+        if (mo === 7 || mo === 8 || (mo === 12 && d0.getUTCDate() >= 18)) score += 2
+        w.score = score
+        return score
+      }
+      out.forEach(rank)
+      return out.sort((a, b) => b.score - a.score)
+    }
+    const vacationStrip = root.querySelector('#stpVacationStrip')
+    if (vacationStrip) {
+      const wins = vacationWindows(busyDaysFromRows()).slice(0, 10)
+      const fmd = k => k.slice(8, 10) + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+k.slice(5, 7) - 1]
+      for (const w of wins) {
+        const tier = w.days >= 7 ? 'prime' : w.days >= 4 ? 'good' : 'mini'
+        const why = w.reasons.size ? [...w.reasons].slice(0, 3).join(' · ') : 'nothing booked — completely clear'
+        // Safe DOM construction (textContent, no HTML parsing): every value here derives from
+        // the hardcoded rows constant in this file — no user-supplied content exists — but we
+        // keep it injection-proof by construction anyway.
+        const el = document.createElement('button')
+        el.type = 'button'
+        el.className = `vacation-card ${tier}`
+        el.title = `${w.days} free days · clear of: ${why}`
+        const mk = (cls, text) => { const sp = document.createElement('span'); sp.className = cls; sp.textContent = text; return sp }
+        el.appendChild(mk('v-tier', tier))
+        el.appendChild(mk('v-days', `${w.days} days`))
+        el.appendChild(mk('v-range', `${fmd(w.from)} → ${fmd(w.to)}`))
+        el.appendChild(mk('v-why', why))
+        el.onclick = () => scrollToDate(w.from)
+        vacationStrip.appendChild(el)
+      }
+      if (!wins.length) vacationStrip.innerHTML = '<div class="v-empty">No clear windows before end of 2028 — everything overlaps a commitment.</div>'
+    }
+
     for (const row of rows.filter(r => r.group === 'Capacity')) {
       capacityList.insertAdjacentHTML('beforeend', `<section class="capacity-item"><h3>${row.title}</h3><div class="dates">${fmtLong(row.start)} → ${fmtLong(row.end)}</div><p>${row.detail}</p></section>`)
     }
