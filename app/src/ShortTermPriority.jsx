@@ -235,6 +235,90 @@ export default function ShortTermPriority() {
       return Math.min(100, Math.max(0, val))
     }
     function pctTone(v) { return v <= 15 ? 'crit' : v <= 40 ? 'warn' : '' }
+    // ── Vacation & free-time finder ──
+    // A day is "busy" when a hard commitment touches it: any row's block/markers (exams, deadlines,
+    // class blocks, admin windows). Soft rows (progress bars) don't block. Weekends are always lighter.
+    function busyDaysFromRows() {
+      const busy = new Map() // date -> [reasons]
+      const mark = (d, reason) => {
+        if (!d) return
+        const key = d.slice(0, 10)
+        if (key < START || key > END) return
+        if (!busy.has(key)) busy.set(key, [])
+        busy.get(key).push(reason)
+      }
+      for (const row of rows) {
+        if (row.progress) continue
+        const why = row.rowLabel || row.title
+        if (row.segments) for (const s of row.segments) {
+          let d = new Date(s.start + 'T00:00:00Z'); const end = new Date(s.end + 'T00:00:00Z')
+          for (; d <= end; d = new Date(d.getTime() + 864e5)) mark(d.toISOString().slice(0, 10), why)
+        } else {
+          let d = new Date(row.start + 'T00:00:00Z'); const end = new Date(row.end + 'T00:00:00Z')
+          for (; d <= end; d = new Date(d.getTime() + 864e5)) mark(d.toISOString().slice(0, 10), why)
+        }
+        if (row.markerDate) {
+          const m0 = new Date(row.markerDate + 'T00:00:00Z')
+          for (let i = -1; i <= 1; i++) mark(new Date(m0.getTime() + i * 864e5).toISOString().slice(0, 10), row.markerLabel || why)
+        }
+        for (const m of (row.markers || [])) {
+          const m0 = new Date(m.date + 'T00:00:00Z')
+          for (let i = -1; i <= 1; i++) mark(new Date(m0.getTime() + i * 864e5).toISOString().slice(0, 10), m.label)
+        }
+      }
+      return busy
+    }
+    function vacationWindows(busy) {
+      const out = []
+      let run = null
+      for (let d = new Date(START + 'T00:00:00Z'); d <= new Date(END + 'T00:00:00Z'); d = new Date(d.getTime() + 864e5)) {
+        const key = d.toISOString().slice(0, 10)
+        const dow = d.getUTCDay()
+        const weekend = dow === 6 || dow === 0
+        if (!busy.has(key) || (weekend && (busy.get(key) || []).every(r => /AF |French ·/.test(r)))) {
+          if (!run) run = { from: key, days: 0, reasons: new Set() }
+          run.days++; run.to = key
+          for (const r of (busy.get(key) || [])) run.reasons.add(r)
+        } else {
+          if (run && run.days >= 3) out.push(run)
+          run = null
+        }
+      }
+      if (run && run.days >= 3) out.push(run)
+      const rank = w => {
+        let score = w.days
+        const d0 = new Date(w.from + 'T00:00:00Z')
+        if (d0.getUTCDay() === 5 || d0.getUTCDay() === 6) score += 1
+        // bonus: inside AF winter break / summer (Jul-Aug)
+        const mo = d0.getUTCMonth() + 1
+        if (mo === 7 || mo === 8 || (mo === 12 && d0.getUTCDate() >= 18)) score += 2
+        w.score = score
+        return score
+      }
+      out.forEach(rank)
+      return out.sort((a, b) => b.score - a.score)
+    }
+
+    const VACATION_WINS = vacationWindows(busyDaysFromRows())
+
+    // Vacation windows as rows IN the timeline grid (same coordinate system as other rows).
+    // Rendered after the main loop as a dedicated section with translucent teal bars.
+    function renderVacationRows() {
+      if (!VACATION_WINS.length) return
+      const grid2 = root.querySelector('#stpGrid')
+      const wins = VACATION_WINS.slice(0, 6)
+      grid2.insertAdjacentHTML('beforeend', `<div class="section-divider vacation-divider"><div class="section-title">Vacation windows \u2014 computed from every row above</div><div class="section-sub">Free day-runs with zero hard commitments \u00b7 ranked best first \u00b7 hover a bar for dates</div></div>`)
+      for (const w of wins) {
+        const tier = w.days >= 7 ? 'prime' : w.days >= 4 ? 'good' : 'mini'
+        const why = w.reasons.size ? [...w.reasons].slice(0, 3).join(' \u00b7 ') : 'nothing booked \u2014 completely clear'
+        const left = pctAt(w.from)
+        const width = Math.max(1.2, pctAt(w.to) - left)
+        const label = `${w.days}d \u00b7 ${tier}`
+        const detail = `${w.days} free days (${tier}) \u00b7 clear of: ${why}`
+        grid2.insertAdjacentHTML('beforeend', `<div class="row vacation-row"><div class="row-label"><div class="group">Vacation</div><div class="name">${fmt(w.from)} \u2192 ${fmt(w.to)}</div></div><div class="track"><div class="block vacation-block-bar ${tier}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${fmt(w.from)} \u2192 ${fmt(w.to)}</small>${tip(`Vacation window \u00b7 ${tier}`, `${fmtLong(w.from)} \u2192 ${fmtLong(w.to)}`, detail)}</div></div></div>`)
+      }
+    }
+
     let dividerDone = false
     let adminDividerDone = false
     for (const row of rows.filter(r => r.group !== 'Capacity')) {
@@ -266,6 +350,8 @@ export default function ShortTermPriority() {
           : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}` + extra
       grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
     }
+
+    renderVacationRows()
 
     // Second layout pass: measure real label boxes and nudge any same-lane overlaps to the right.
     // (Estimates at render time underestimate long labels; real rects are authoritative.)
@@ -330,72 +416,9 @@ export default function ShortTermPriority() {
       controlsEl.appendChild(b)
     }
 
-    // ── Vacation & free-time finder ──
-    // A day is "busy" when a hard commitment touches it: any row's block/markers (exams, deadlines,
-    // class blocks, admin windows). Soft rows (progress bars) don't block. Weekends are always lighter.
-    function busyDaysFromRows() {
-      const busy = new Map() // date -> [reasons]
-      const mark = (d, reason) => {
-        if (!d) return
-        const key = d.slice(0, 10)
-        if (key < START || key > END) return
-        if (!busy.has(key)) busy.set(key, [])
-        busy.get(key).push(reason)
-      }
-      for (const row of rows) {
-        if (row.progress) continue
-        const why = row.rowLabel || row.title
-        if (row.segments) for (const s of row.segments) {
-          let d = new Date(s.start + 'T00:00:00Z'); const end = new Date(s.end + 'T00:00:00Z')
-          for (; d <= end; d = new Date(d.getTime() + 864e5)) mark(d.toISOString().slice(0, 10), why)
-        } else {
-          let d = new Date(row.start + 'T00:00:00Z'); const end = new Date(row.end + 'T00:00:00Z')
-          for (; d <= end; d = new Date(d.getTime() + 864e5)) mark(d.toISOString().slice(0, 10), why)
-        }
-        if (row.markerDate) {
-          const m0 = new Date(row.markerDate + 'T00:00:00Z')
-          for (let i = -1; i <= 1; i++) mark(new Date(m0.getTime() + i * 864e5).toISOString().slice(0, 10), row.markerLabel || why)
-        }
-        for (const m of (row.markers || [])) {
-          const m0 = new Date(m.date + 'T00:00:00Z')
-          for (let i = -1; i <= 1; i++) mark(new Date(m0.getTime() + i * 864e5).toISOString().slice(0, 10), m.label)
-        }
-      }
-      return busy
-    }
-    function vacationWindows(busy) {
-      const out = []
-      let run = null
-      for (let d = new Date(START + 'T00:00:00Z'); d <= new Date(END + 'T00:00:00Z'); d = new Date(d.getTime() + 864e5)) {
-        const key = d.toISOString().slice(0, 10)
-        const dow = d.getUTCDay()
-        const weekend = dow === 6 || dow === 0
-        if (!busy.has(key) || (weekend && (busy.get(key) || []).every(r => /AF |French ·/.test(r)))) {
-          if (!run) run = { from: key, days: 0, reasons: new Set() }
-          run.days++; run.to = key
-          for (const r of (busy.get(key) || [])) run.reasons.add(r)
-        } else {
-          if (run && run.days >= 3) out.push(run)
-          run = null
-        }
-      }
-      if (run && run.days >= 3) out.push(run)
-      const rank = w => {
-        let score = w.days
-        const d0 = new Date(w.from + 'T00:00:00Z')
-        if (d0.getUTCDay() === 5 || d0.getUTCDay() === 6) score += 1
-        // bonus: inside AF winter break / summer (Jul-Aug)
-        const mo = d0.getUTCMonth() + 1
-        if (mo === 7 || mo === 8 || (mo === 12 && d0.getUTCDate() >= 18)) score += 2
-        w.score = score
-        return score
-      }
-      out.forEach(rank)
-      return out.sort((a, b) => b.score - a.score)
-    }
     const vacationStrip = root.querySelector('#stpVacationStrip')
     if (vacationStrip) {
-      const wins = vacationWindows(busyDaysFromRows()).slice(0, 10)
+      const wins = VACATION_WINS
       const fmd = k => k.slice(8, 10) + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+k.slice(5, 7) - 1]
       for (const w of wins) {
         const tier = w.days >= 7 ? 'prime' : w.days >= 4 ? 'good' : 'mini'
@@ -417,6 +440,25 @@ export default function ShortTermPriority() {
       }
       if (!wins.length) vacationStrip.innerHTML = '<div class="v-empty">No clear windows before end of 2028 — everything overlaps a commitment.</div>'
     }
+
+    // Collapsible vacation section (persists across visits)
+    const vacToggle = root.querySelector('#stpVacationToggle')
+    const vacBody = root.querySelector('#stpVacationBody')
+    if (vacToggle && vacBody) {
+      const apply = openState => {
+        vacBody.style.display = openState ? '' : 'none'
+        vacToggle.setAttribute('aria-expanded', openState ? 'true' : 'false')
+        vacToggle.querySelector('.v-caret').textContent = openState ? '\u25be' : '\u25b8'
+      }
+      let openState = localStorage.getItem('stpVacationOpen') !== '0'
+      apply(openState)
+      vacToggle.addEventListener('click', () => {
+        openState = !openState
+        localStorage.setItem('stpVacationOpen', openState ? '1' : '0')
+        apply(openState)
+      })
+    }
+
 
     for (const row of rows.filter(r => r.group === 'Capacity')) {
       capacityList.insertAdjacentHTML('beforeend', `<section class="capacity-item"><h3>${row.title}</h3><div class="dates">${fmtLong(row.start)} → ${fmtLong(row.end)}</div><p>${row.detail}</p></section>`)
