@@ -1,29 +1,41 @@
-# Life Roadmap
+# Life Roadmap — life-planning-decision-map
 
-The repository root publishes Phuc's private-planning dashboard as a static site. The visible product is intentionally focused on **Life Roadmap** only, with these internal views:
+One codebase, two parts:
 
-- Roadmap — 2028 education route and original 2027 route
-- Timeline & Citizenship — the original aligned route UI rendered directly as a native same-page tab (no iframe and no separate page), with a sticky year-synchronised Personal planning heuristic and selectable route highlighting
-- Relationship & Family — the Personal planning heuristic only, derived from the confirmed reference PDF
-- Home & Car — house/car ownership timing research anchored to confirmed PDFs
-- Short-term Priority — a 1:1 port of the standalone [short-term-priority-timeline](https://phucnhxpa.github.io/short-term-priority-timeline/) site (timeline board + study-capacity view + quick-jump controls) as an internal tab: same markup, CSS and behaviour (`app/src/ShortTermPriority.jsx` + `shortTermPriorityMarkup.html` + `ShortTermPriority.css`), no iframe and no navigation
-
-## Source
-
-The maintainable React/Vite project is in [`app/`](app/).
-
-```bash
-cd app
-npm ci
-npm run build
+```
+app/                  → the site (React + Vite, deployed to GitHub Pages)
+lib/calendar-core/    → slot-based calendar engine (plain ESM, npm workspace)
 ```
 
-After verification, publish the generated `app/dist/index.html` and `app/dist/assets/` at the repository root. Vite uses `base: './'`, so the build works from GitHub Pages subpaths and private static hosting.
+## Site (`app/`)
 
-## Current planning baseline
+Tabs: Roadmap · Timeline & Citizenship · Relationship & Family · Home & Car · Short-term Priority.
+Build: `npm run build` (workspace script) → output at repo root (`index.html` + `assets/`).
 
-- Retirement age: 65
-- Roadmap window: age 24.3–65
-- 2028 route: 3-year undergraduate → 2-year master → 3–5-year PhD
-- Total education excludes post-PhD career
-- Citizenship dates are conditional planning scenarios, not guarantees
+## Calendar engine (`lib/calendar-core/`)
+
+Slot-based planning library extracted from the French-program timeline work. It models
+recurring obligations + planned-ahead events (AF sessions, exams, deadlines), then:
+
+- `buildPlan({from, levels, format, skip})` — AF session calendar: confirmed 2026 anchors,
+  winter break, French holidays, Mon-start blocks (intensive→Fri, semi→Thu), prices.
+- `findFreeSlots({events, from, to, minHours})` — invert busy intervals → free slots per day.
+- `suggest({free, items})` — pack low-priority tasks into free capacity, deadline-first,
+  reports shortfalls.
+- `findVacationWindows({events, from, to, minDays})` — contiguous priority-1-free day runs.
+
+```js
+import { buildPlan, findFreeSlots, suggest, findVacationWindows } from './lib/calendar-core/src/index.js';
+
+const plan = buildPlan({ from: '2026-09-28', levels: 4, format: 'intensive' });
+const events = [...DEFAULT_OBLIGATIONS, ...afClassEvents(plan)];
+const free = findFreeSlots({ events, from: '2027-02-01', to: '2027-02-07', minHours: 2 });
+```
+
+Tests: `npm test` (node --test, 8 passing).
+Demo: `node lib/calendar-core/src/example.js`.
+
+## Data flow (intended)
+
+`app/` Short-term tab (timeline rows) → JSON event source → `calendar-core` →
+free-slot answers, low-priority suggestions, vacation planning; surfaced back in the UI.

@@ -1,0 +1,18 @@
+{
+  "name": "life-planning-decision-map",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Life Roadmap site + calendar-core library (AF sessions, free slots, suggestions, vacations)",
+  "workspaces": [
+    "app",
+    "lib/calendar-core"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace app",
+    "test": "node --test lib/calendar-core/test/"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
