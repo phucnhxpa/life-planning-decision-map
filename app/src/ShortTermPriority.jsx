@@ -86,11 +86,42 @@ export default function ShortTermPriority() {
         ],
         marker: true, markerDate: '2027-12-16', markerLabel: 'B2 done',
         detail: 'Intensive A0 → B1 with a 1-month break after each completed level (after A1 · after A2 · after B1), then semi-intensive B2 back-to-back — no gaps (AF semi sessions chain Mon→Thu). B2 done 16 Dec 2027, 8 weeks before the TCF DAP last chance 13 Feb 2028; the post-B2 break starts 17 Dec. 6 × €1,460 + 6 × €730 ≈ €13.1k.' },
+      // ── CHOSEN PLAN · SEP 2028 · semi from 26 Oct + 2 intensive summer months (after June exams) ──
+      { group: 'French · CHOSEN · Sep 2028', title: 'Semi → 2 summer int → semi', start: '2026-09-28', end: '2027-12-16', tone: 'teal',
+        segments: [
+          { start: '2026-09-28', end: '2026-10-23', label: 'A1.1 · int', tone: 'green', detail: 'A1.1 intensive 28 Sep – 23 Oct 2026 (in progress, paid). 72h = 2 semi sub-levels, so the semi ladder continues at A1.3.' },
+          { start: '2026-10-26', end: '2026-11-19', label: 'A1.3', tone: 'green', detail: 'A1.3 semi · Mon 26 Oct – Thu 19 Nov 2026 (AF published session, 13:30–16:30). Switch to semi NOW so maths has 183h before the Jan 2027 sitting.' },
+          { start: '2026-11-23', end: '2026-12-17', label: 'A2.1', tone: 'blue', detail: 'A2.1 semi · 23 Nov – 17 Dec 2026 (AF published session).' },
+          { start: '2027-01-04', end: '2027-01-28', label: 'A2.2', tone: 'blue', detail: 'A2.2 semi · 4 – 28 Jan 2027 (after AF winter break). Overlaps Jan 2027 maths sitting — class is 13:30, exams morning/afternoon: check clashes.' },
+          { start: '2027-02-01', end: '2027-02-25', label: 'A2.3', tone: 'blue', detail: 'A2.3 semi · 1 – 25 Feb 2027.' },
+          { start: '2027-03-01', end: '2027-03-25', label: 'A2.4', tone: 'blue', detail: 'A2.4 semi · 1 – 25 Mar 2027. A2 complete.' },
+          { start: '2027-03-30', end: '2027-04-22', label: 'B1.1', tone: 'orange', detail: 'B1.1 semi · Tue 30 Mar – Thu 22 Apr 2027 (Easter Monday 29 Mar).' },
+          { start: '2027-04-26', end: '2027-05-20', label: 'B1.2', tone: 'orange', detail: 'B1.2 semi · 26 Apr – 20 May 2027 — physics U1–3 exam season starts.' },
+          { start: '2027-05-24', end: '2027-06-17', label: 'B1.3', tone: 'orange', detail: 'B1.3 semi · 24 May – 17 Jun 2027 — physics U1–3 exams.' },
+          { start: '2027-06-21', end: '2027-07-15', label: 'B1.4', tone: 'orange', detail: 'B1.4 semi · 21 Jun – 15 Jul 2027. B1 complete.' },
+          { start: '2027-07-19', end: '2027-08-13', label: 'B2 · int', tone: 'purple', detail: 'INTENSIVE month 1 · 19 Jul – 13 Aug 2027 (72h ≈ semi B2.1 + half B2.2). Weekdays are class → 4h/wk study only (weekends).' },
+          { start: '2027-08-30', end: '2027-09-24', label: 'B2 · int', tone: 'purple', detail: 'INTENSIVE month 2 · 30 Aug – 24 Sep 2027 (≈ rest of B2.2 + B2.3). AF short August gap assumed 16–27 Aug.' },
+          { start: '2027-09-27', end: '2027-10-21', label: 'B2.4', tone: 'purple', detail: 'B2.4 semi · 27 Sep – 21 Oct 2027 — physics U4–6 exams (Oct series ~7–29 Oct).' },
+          { start: '2027-10-25', end: '2027-11-18', label: 'B2.5', tone: 'purple', detail: 'B2.5 semi · 25 Oct – 18 Nov 2027.' },
+          { start: '2027-11-22', end: '2027-12-16', label: 'B2.6', tone: 'purple', detail: 'B2.6 semi · 22 Nov – 16 Dec 2027. B2 COMPLETE Thu 16 Dec — 59 days before the TCF DAP last chance (13 Feb 2028).' },
+        ],
+        marker: true, markerDate: '2027-12-16', markerLabel: 'B2 done',
+        detail: 'THE PLAN for Sep 2028. Semi-intensive from 26 Oct 2026 (A1.3) with two intensive months in summer 2027 (after the June exams). 13 semi × €730 + 2 intensive × €1,460 ≈ €12.4k still to pay. B2 done 16 Dec 2027; register TCF DAP before 15 Dec, sit it in the Jan–Feb 2028 university sessions. All-semi would finish 27 Jan 2028 (17-day margin, no retake possible) — rejected.' },
+      { group: 'A-level · CHOSEN · Sep 2028', title: 'Sittings → results', rowLabel: 'A-level sittings → results', start: '2027-01-11', marker: true, markerDate: '2027-01-11', markerLabel: 'maths (Jan 27)', tone: 'blue',
+        markers: [
+          { date: '2027-03-04', label: 'maths results' },
+          { date: '2027-05-17', label: 'phys U1–3' },
+          { date: '2027-08-12', label: 'results' },
+          { date: '2027-10-07', label: 'phys U4–6' },
+          { date: '2028-01-21', label: 'results' },
+        ],
+        deadline: '2027-10-04',
+        detail: 'Maths finishes with the Jan 2027 series (entry deadline 16 Oct 2026; results 4 Mar 2027). Physics U1–3 in June 2027 (entries by 21 Mar 2027; results 12 Aug 2027). Physics U4–6 in Oct 2027 (results ~21 Jan 2028 — sent as a complement before commissions open ~16 Mar). Jan 2028 series = resit only (results 4–18 Mar). May/Jun 2028 is too late for the dossier (results mid-Aug, decisions by 30 Apr). Pearson key dates 2026–27.' },
       // ── FRENCH UNIVERSITY ──
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
       { group: 'French university', title: 'A-level submission', rowLabel: 'A-level certificates deadline', start: '2028-03-31', marker: true, markerDate: '2028-03-31', markerLabel: 'deadline', tone: 'blue',
-        detail: 'A-levels for the dossier: last usable sitting is the January 2028 series (exams 5–25 Jan). Results ~5 Mar 2028, certificates by ~31 Mar 2028 — in the file before decisions. Anything later is too late.' },
+        detail: 'DAP accepts candidates \u201cen préparation\u201d of their diploma (ministry dossier-vert page); the original diploma is shown at enrolment (Jul–30 Sep 2028). But the commission ranks on grades (70%) present in the file: maths (Jan 2027) + physics U1–3 (Jun 2027) are in by 15 Dec 2027; U4–6 (Oct 2027, results ~21 Jan) sent as a complement. Jan 2028 = resit only (results 4–18 Mar 2028).' },
       { group: 'French university', title: 'Application', rowLabel: 'Application · apply → decision → year starts', start: '2028-01-15', marker: true, markerDate: '2028-01-15', markerLabel: 'last day to apply', tone: 'red',
         markers: [
           { date: '2028-04-30', label: 'decision day' },
@@ -466,61 +497,47 @@ export default function ShortTermPriority() {
     function renderFeasibility() {
       const grid3 = root.querySelector('#stpGrid')
       if (!grid3) return
-      // WEEKLY BUDGET (from 168 Hours Study and Life Plan.xlsx, locked frame)
-      const week = 168
-      const work = 35, sleep = 54.25, travel = 7, gym = 4
-      const discretionary = week - work - sleep - travel - gym           // 67.75
-      // DEMAND (Excel real numbers + AF semi-intensive for French)
-      const maths = 17.6            // Excel: papers 6.75 + redos 4.25 + flashcards 2.6 + lessons 4
-      const physics = 18.1          // Excel: prep 4 + papers 2.5 + redos 2 + flashcards 3.6 + lessons 6
-      const frenchSemi = 9          // AF semi-intensive 9h/wk (Mon-Thu sessions)
-      const ucas = 2.5              // personal statement + My Cambridge Application (Sep-Oct 27)
-      const demandCore = maths + physics + frenchSemi
-      const demandExam = demandCore + 7.5   // +5 extra past-paper cycles/wk in Oct 26 / Jan 27 / Dec 27 months
-      // FRENCH LADDER (semi from 26 Oct 2026, back-to-back, AF winter breaks)
-      const ladder = [
-        ['A1.3', '26 Oct \u2192 22 Nov 2026'],
-        ['A2.1\u20134', '23 Nov 2026 \u2192 28 Mar 2027'],
-        ['B1.1\u20134', '29 Mar \u2192 18 Jul 2027'],
-        ['B2.1\u20136', '19 Jul \u2192 2 Jan 2028'],
+      // Phuc's rule: 4h per weekday TOTAL (French class included) + 2h per weekend day.
+      // semi class Mon/Tue/Thu 3h → 1+1+4+1+4 + 2+2 = 15h/wk ; no-class week 24h ; intensive week 4h.
+      const W = [
+        ['Maths → Jan 2027', '26 Oct 26 → 11 Jan 27', 183, '165–220', 'Harry 15–20h/wk × 11 wk'],
+        ['Physics U1–3 → Jun 2027', '25 Jan 27 → 10 May 27', 234, '202–298', '10 units, 3–6 papers/unit'],
+        ['Physics U4–6 → Oct 2027', '14 Jun 27 → 4 Oct 27', 170, '156–234', '8 units · 2 intensive months inside'],
+        ['Resit buffer → Jan 2028', '14 Jun 27 → 10 Jan 28', 407, '—', 'one unit resit if needed'],
       ]
-      const tcfLast = new Date(Date.UTC(2028, 1, 13))
-      const b2done = new Date(Date.UTC(2028, 0, 2))
-      const marginD = Math.round((tcfLast - b2done) / 86400000)
-      // PAPER MATHS
-      const spareMonth = (discretionary - demandExam) * 4.33
-      const perPaper = 2.75                  // 1.5h timed + 0.5h mark + ~0.75h cold redo
-      const papersPerMonth = Math.floor(spareMonth / perPaper)
-      const papersNeeded = 60                // 6-10 mocks x ~8 papers (P1-P3, M1-M2/S1, physics units)
+      const rowsHtml = W.map(w => `<div class="feas-line">${w[0]} <span class="feas-dates">${w[1]}</span><br><strong>${w[2]}h</strong> vs need ${w[3]}h <span class="feas-dates">(${w[4]})</span></div>`).join('')
       grid3.insertAdjacentHTML('beforeend', `
-        <div class="row feas-row"><div class="row-label"><div class="group">2028 verdict</div><div class="name">feasibility math</div></div>
+        <div class="row feas-row"><div class="row-label"><div class="group">Sep 2028 verdict</div><div class="name">feasibility math</div></div>
         <div class="track feas-track">
           <div class="feas-grid">
             <div class="feas-card">
-              <div class="feas-h">1 \u00b7 Weekly budget</div>
-              <div class="feas-line">168h \u2212 work 35 \u2212 sleep 54.25 \u2212 travel 7 \u2212 gym 4 = <strong>${discretionary.toFixed(2)}h free</strong></div>
-              <div class="feas-sub">source: 168 Hours Study and Life Plan \u00b7 locked frame</div>
+              <div class="feas-h">1 · Weekly study capacity</div>
+              <div class="feas-line">Rule: 4h/weekday incl. class + 2h/weekend day</div>
+              <div class="feas-line">semi week: 1+1+4+1+4 + 2+2 = <strong>15h</strong></div>
+              <div class="feas-line">no-class week: 4×5 + 2×2 = <strong>24h</strong></div>
+              <div class="feas-line">intensive week: 0×5 + 4 = <strong>4h</strong></div>
+              <div class="feas-sub">semi = Mon/Tue/Thu 13:30–16:30, 36h per 4-week session</div>
             </div>
             <div class="feas-card">
-              <div class="feas-h">2 \u00b7 Study demand / week</div>
-              <div class="feas-line">maths ${maths} + physics ${physics} + AF semi ${frenchSemi} = <strong>${demandCore.toFixed(1)}h</strong></div>
-              <div class="feas-line">exam months +7.5h papers = <strong>${demandExam.toFixed(1)}h</strong> \u00b7 UCAS season +${ucas}h</div>
-              <div class="feas-sub">peak load \u2192 ${(discretionary - demandExam).toFixed(1)}h/wk still unallocated</div>
+              <div class="feas-h">2 · Hours per sitting window</div>
+              ${rowsHtml}
+              <div class="feas-sub">physics needs from your own estimate (content + papers)</div>
             </div>
             <div class="feas-card">
-              <div class="feas-h">3 \u00b7 French semi ladder</div>
-              ${ladder.map(l => `<div class="feas-line">${l[0]} <span class="feas-dates">${l[1]}</span></div>`).join('')}
-              <div class="feas-line">B2 done 2 Jan 2028 \u2192 TCF last chance 13 Feb = <strong>${marginD} days margin</strong></div>
-              <div class="feas-sub">register TCF + dossier vert by 15 Dec 2027 \u00b7 zero slip room</div>
+              <div class="feas-h">3 · French → B2 (the binding constraint)</div>
+              <div class="feas-line">All-semi from 26 Oct: B2 <strong>27 Jan 2028</strong> → 17 days to TCF last chance <span class="feas-dates">✗ no retake</span></div>
+              <div class="feas-line">Semi + <strong>2 intensive months</strong> (19 Jul–13 Aug, 30 Aug–24 Sep 2027): B2 <strong>16 Dec 2027</strong> → 59 days margin ✓</div>
+              <div class="feas-sub">register TCF DAP before 15 Dec 2027 · sit Jan–Feb 2028 · ≈ €12.4k still to pay</div>
             </div>
             <div class="feas-card">
-              <div class="feas-h">4 \u00b7 Past-paper capacity</div>
-              <div class="feas-line">spare in exam month \u2248 ${spareMonth.toFixed(0)}h \u00f7 ${perPaper}h per cycle = <strong>${papersPerMonth} papers/mo</strong></div>
-              <div class="feas-line">need \u2248 ${papersNeeded} total (6\u201310 mocks \u00d7 8 papers)</div>
-              <div class="feas-sub">capacity \u2248 ${(papersPerMonth * 7 / papersNeeded).toFixed(0)}\u00d7 the need \u2014 consistency, not hours, is the constraint</div>
+              <div class="feas-h">4 · Dossier vert gates</div>
+              <div class="feas-line">Maths results 4 Mar 2027 · physics U1–3 12 Aug 2027</div>
+              <div class="feas-line">Dossier by <strong>15 Dec 2027</strong> (Sorbonne edge 15 Jan 2028)</div>
+              <div class="feas-line">Physics U4–6 results ~21 Jan 2028 → complement before commissions (~16 Mar)</div>
+              <div class="feas-line">Decision 30 Apr · accept 31 May · enrol Jul–30 Sep · <strong>start Sep 2028</strong></div>
             </div>
           </div>
-          <div class="feas-verdict"><strong>YES \u2014 2028 entry holds</strong> with ~${(discretionary - demandExam).toFixed(0)}h/wk spare at peak \u00b7 gates: Oct 2026 results (A/A*) \u00b7 AF attendance (15-session chain) \u00b7 work \u2264 7h/day in crunch</div>
+          <div class="feas-verdict"><strong>YES — Sep 2028 holds</strong> with semi French + 2 intensive summer months · every A-level window has capacity ≥ need · tightest: physics U4–6 (170h vs 156–234h → 3–4 papers/unit) · act now: Jan 2027 entries close 16 Oct 2026</div>
         </div></div>`)
     }
     renderFeasibility()
