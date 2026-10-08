@@ -450,7 +450,6 @@ export default function ShortTermPriority() {
       inner += `<path d="${path}" fill="none" stroke="#6d5dfc" stroke-width="1.6" opacity=".7" stroke-linejoin="round"/>`
       inner += `<text x="${trackW - 6}" y="${capY - 5}" font-size="9.5" fill="#1d1d1f" text-anchor="end" font-weight="600">4h/day window capacity</text>`
 
-      grid2.insertAdjacentHTML('beforeend', `<div class="section-divider daywin-divider"><div class="section-title">Daily study window · 09:00 → 13:00 — same months as above</div><div class="section-sub">bars = study demand/month (maths · physics · french · crunch) in your 4h morning window · dashed line = capacity · green tick = spare · red = above window</div></div>`)
       grid2.insertAdjacentHTML('beforeend', `<div class="row daywin-row"><div class="row-label"><div class="group">Study window</div><div class="name">4h/day capacity</div></div><div class="track daywin-track"><svg viewBox="0 0 ${trackW} ${H}" width="${trackW}" height="${H}" style="display:block">${inner}</svg></div></div>`)
       const over = DAYWIN.filter(d => d.daily > CAP)
       const spare = DAYWIN.filter(d => d.daily <= CAP - 0.75)
