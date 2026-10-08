@@ -86,21 +86,21 @@ export default function ShortTermPriority() {
         ],
         marker: true, markerDate: '2027-12-16', markerLabel: 'B2 done',
         detail: 'Intensive A0 → B1 with a 1-month break after each completed level (after A1 · after A2 · after B1), then semi-intensive B2 back-to-back — no gaps (AF semi sessions chain Mon→Thu). B2 done 16 Dec 2027, 8 weeks before the TCF DAP last chance 13 Feb 2028; the post-B2 break starts 17 Dec. 6 × €1,460 + 6 × €730 ≈ €13.1k.' },
-      { group: 'A-level · CHOSEN · Sep 2028', title: 'Sittings → results', rowLabel: 'A-level sittings → results', start: '2027-01-20', marker: true, markerDate: '2027-01-20', markerLabel: 'M2·M3', tone: 'blue',
+      { group: 'A-level · CHOSEN · Sep 2028', title: 'Sittings → results', rowLabel: 'A-level sittings → results', start: '2027-01-08', marker: true, markerDate: '2027-01-08', markerLabel: 'Maths ×6', tone: 'blue',
         markers: [
           { date: '2027-03-04', label: 'results' },
-          { date: '2027-05-07', label: 'physics ×6' },
+          { date: '2027-05-07', label: 'FM ×4 + phys ×3' },
           { date: '2027-08-12', label: 'results' },
-          { date: '2027-10-07', label: 'resit' },
+          { date: '2027-10-20', label: 'M2 S2 + phys ×3' },
           { date: '2028-01-21', label: 'results' },
         ],
-        deadline: '2027-05-07',
-        detail: 'Maths A-level already sat (May/Jun 2026). Jan 2027: Further Maths M2 (20 Jan) + M3 (25 Jan) — Mougins entry deadline 16 Oct 2026; results 4 Mar 2027. Jun 2027: all six physics units WPH11–16 (7, 12, 19, 28 May, 3, 8 Jun 2027 — Pearson final timetable); results 12 Aug 2027, in the dossier by 15 Dec 2027. Oct 2027 = resit (results ~21 Jan 2028, before commissions). Jan 2028 = last resit (results 4–18 Mar). May/Jun 2028 is too late (results mid-Aug, decisions by 30 Apr).' },
+        deadline: '2027-01-08',
+        detail: 'Nothing sat yet — 18 units (12 maths/further maths + 6 physics). Jan 2027: P1 (8 Jan) S1 (12) P2 (13) M1 (14) P3 (15) P4 (19 Jan) → full Maths A-level, results 4 Mar 2027; Mougins entry deadline 16 Oct 2026. Jun 2027: FP1 (27 May) FP2 (3 Jun) FP3 (8 Jun) M3 (10 Jun) + WPH11 (7 May) WPH12 (12 May) WPH13 (19 May), results 12 Aug 2027. Oct 2027: M2, S2 + WPH14–16 (dates TBC by Pearson), results ~21 Jan 2028 → Further Maths + Physics complete. Jan 2028 = resit only. Pearson final timetables Jan/Jun 2027.' },
       // ── FRENCH UNIVERSITY ──
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
       { group: 'French university', title: 'A-level submission', rowLabel: 'A-level certificates deadline', start: '2028-03-31', marker: true, markerDate: '2028-03-31', markerLabel: 'deadline', tone: 'blue',
-        detail: 'DAP accepts candidates \u201cen préparation\u201d of their diploma (ministry dossier-vert page); original diploma shown at enrolment (Jul–30 Sep 2028). Grades in the file by 15 Dec 2027: maths (Jun 2026), Further Maths M2/M3 (Jan 2027, results 4 Mar), physics ×6 (Jun 2027, results 12 Aug). Oct 2027 / Jan 2028 = resit only.' },
+        detail: 'DAP accepts candidates \u201cen préparation\u201d (ministry dossier-vert page); original diploma at enrolment (Jul–30 Sep 2028). In the file by 15 Dec 2027: full Maths A-level (results 4 Mar 2027) + FP1–3, M3, WPH11–13 (results 12 Aug 2027). M2, S2, WPH14–16 (Oct 2027, results ~21 Jan 2028) sent as complement. Jan 2028 = resit only.' },
       { group: 'French university', title: 'Application', rowLabel: 'Application · apply → decision → year starts', start: '2028-01-15', marker: true, markerDate: '2028-01-15', markerLabel: 'last day to apply', tone: 'red',
         markers: [
           { date: '2028-04-30', label: 'decision day' },
@@ -477,10 +477,10 @@ export default function ShortTermPriority() {
       const grid3 = root.querySelector('#stpGrid')
       if (!grid3) return
       const W = [
-        ['Jan 2027: M2 + M3', '9 Oct 26 → 19 Jan 27', 184, '≈60–90', 'A1 break gives 148h of it'],
-        ['Jun 2027: physics ×6', '26 Jan → 6 May 27 (+ Jan spare ≈90h)', 246, '141–210', '6 units, 4–6 papers/unit'],
-        ['Oct 2027 resit window', '9 Jun → 6 Oct 27', 289, '1–2 units', 'semi B2 + B1 break'],
-        ['Jan 2028 last resit', '31 Oct 27 → 10 Jan 28', 179, '1 unit', 'results 4–18 Mar 2028'],
+        ['Jan 2027: Maths ×6', '9 Oct 26 → 18 Jan 27', 180, '141–177', 'P1–P4 M1 S1 · A1 break = 148h of it'],
+        ['Jun 2027: FM ×4 + phys ×3', '20 Jan → 9 Jun 27', 212, '164–206', 'FP1–3 M3 + WPH11–13'],
+        ['Oct 2027: FM ×2 + phys ×3', '11 Jun → 6 Oct 27', 281, '118–148', 'M2 S2 + WPH14–16'],
+        ['Jan 2028: resit only', '31 Oct 27 → 10 Jan 28', 183, '1 unit', 'results 4–18 Mar 2028'],
       ]
       const rowsHtml = W.map(w => `<div class="feas-line">${w[0]} <span class="feas-dates">${w[1]}</span><br><strong>${w[2]}h</strong> vs need ${w[3]}h <span class="feas-dates">(${w[4]})</span></div>`).join('')
       grid3.insertAdjacentHTML('beforeend', `
@@ -498,7 +498,7 @@ export default function ShortTermPriority() {
             <div class="feas-card">
               <div class="feas-h">2 · Hours per sitting</div>
               ${rowsHtml}
-              <div class="feas-sub">physics need = your estimate (~11.5h content/unit + ~3h/paper), ×1.5 buffer at the top end</div>
+              <div class="feas-sub">need = your own estimate: ~11.5h content + 3h × 4–6 papers per unit · 18 units total, none sat yet</div>
             </div>
             <div class="feas-card">
               <div class="feas-h">3 · French (your breaks plan)</div>
@@ -509,13 +509,13 @@ export default function ShortTermPriority() {
             </div>
             <div class="feas-card">
               <div class="feas-h">4 · Clashes to manage</div>
-              <div class="feas-line">Jan 2027: M2 20 Jan, M3 25 Jan fall in <strong>A2.1 intensive</strong> → 2 missed mornings</div>
-              <div class="feas-line">May 2027: WPH11 7 May, WPH12 12, WPH13 19, WPH14 28 May fall in <strong>B1.2 intensive</strong> → 4 missed mornings</div>
-              <div class="feas-line">WPH15 3 Jun, WPH16 8 Jun fall in the B1 break ✓</div>
-              <div class="feas-sub">exams are at ICS Valbonne (Mougins centre) — each one is a travel day</div>
+              <div class="feas-line">Jan 2027: all 6 maths exams (8–19 Jan) fall in <strong>A2.1 intensive</strong> (4–29 Jan) → ~6 missed mornings</div>
+              <div class="feas-line">May 2027: WPH11 7, WPH12 12, WPH13 19, FP1 27 May fall in <strong>B1.2 intensive</strong> → 4 missed mornings</div>
+              <div class="feas-line">FP2 3, FP3 8, M3 10 Jun fall in the B1 break ✓</div>
+              <div class="feas-sub">exams are at ICS Valbonne (near Nice) — ask Ruth/AF early; a Paris exam centre would remove the travel</div>
             </div>
           </div>
-          <div class="feas-verdict"><strong>YES — Sep 2028 holds with your breaks plan</strong> · Jan 2027 finishes Further Maths · June 2027 takes all six physics units (results 12 Aug, in the dossier by 15 Dec) · Oct 2027 + Jan 2028 are resit nets · act now: Jan 2027 entry (M2, M3) closes 16 Oct 2026</div>
+          <div class="feas-verdict"><strong>YES — Sep 2028 still holds, but tighter</strong> · Jan 2027 = full Maths (180h vs 141–177h, tightest) · Jun 2027 = Further Maths ×4 + Physics ×3 · Oct 2027 = the rest · in the dossier by 15 Dec 2027: full Maths + 7 more units · act now: Jan 2027 entry closes 16 Oct 2026</div>
         </div></div>`)
     }
     renderFeasibility()
