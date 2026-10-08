@@ -477,9 +477,9 @@ export default function ShortTermPriority() {
       const grid3 = root.querySelector('#stpGrid')
       if (!grid3) return
       const W = [
-        ['Jan 2027: Maths ×6', '9 Oct 26 → 18 Jan 27', 180, '141–177', 'P1–P4 M1 S1 · A1 break = 148h of it'],
-        ['Jun 2027: FM ×4 + phys ×3', '20 Jan → 9 Jun 27', 212, '164–206', 'FP1–3 M3 + WPH11–13'],
-        ['Oct 2027: FM ×2 + phys ×3', '11 Jun → 6 Oct 27', 281, '118–148', 'M2 S2 + WPH14–16'],
+        ['Jan 2027: Maths ×6 (papers only)', '9 Oct 26 → 18 Jan 27', 180, '132–176', '6–8 papers × 6 units × 3.67h'],
+        ['Jun 2027: FM ×4 + WPH11–13', '20 Jan → 9 Jun 27', 212, '162–206', 'papers + WPH12 Ch 15–17 (9 lessons ≈ 20h)'],
+        ['Oct 2027: M2 S2 + WPH14–16', '11 Jun → 6 Oct 27', 281, '167–197', 'papers + 15 new chapters (32 lessons ≈ 69h)'],
         ['Jan 2028: resit only', '31 Oct 27 → 10 Jan 28', 183, '1 unit', 'results 4–18 Mar 2028'],
       ]
       const rowsHtml = W.map(w => `<div class="feas-line">${w[0]} <span class="feas-dates">${w[1]}</span><br><strong>${w[2]}h</strong> vs need ${w[3]}h <span class="feas-dates">(${w[4]})</span></div>`).join('')
@@ -498,7 +498,7 @@ export default function ShortTermPriority() {
             <div class="feas-card">
               <div class="feas-h">2 · Hours per sitting</div>
               ${rowsHtml}
-              <div class="feas-sub">need = your own estimate: ~11.5h content + 3h × 4–6 papers per unit · 18 units total, none sat yet</div>
+              <div class="feas-sub">maths/FM: content done → past papers only (3.67h each incl. wrong-Q redo, from your 168h plan) · physics: 18 chapters left (Ch 15–17, Y2 Ch 1–15) = 41 Lampros lessons × 2.17h + 8 theory / 4 practical papers per unit</div>
             </div>
             <div class="feas-card">
               <div class="feas-h">3 · French (your breaks plan)</div>
@@ -515,7 +515,7 @@ export default function ShortTermPriority() {
               <div class="feas-sub">exams are at ICS Valbonne (near Nice) — ask Ruth/AF early; a Paris exam centre would remove the travel</div>
             </div>
           </div>
-          <div class="feas-verdict"><strong>YES — Sep 2028 still holds, but tighter</strong> · Jan 2027 = full Maths (180h vs 141–177h, tightest) · Jun 2027 = Further Maths ×4 + Physics ×3 · Oct 2027 = the rest · in the dossier by 15 Dec 2027: full Maths + 7 more units · act now: Jan 2027 entry closes 16 Oct 2026</div>
+          <div class="feas-verdict"><strong>YES — Sep 2028 holds</strong> · total need 461–578h vs 673h capacity · Jan 2027 Maths: 7 papers/unit = 154h of 180h (8/unit = 176h, only if the A1 break is pure study) · physics new content ≈ 89h, 78% of it in the Oct 2027 window · act now: Jan 2027 entry closes 16 Oct 2026</div>
         </div></div>`)
     }
     renderFeasibility()
