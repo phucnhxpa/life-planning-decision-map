@@ -612,3 +612,16 @@
 .stp-root .daywin-caption { font-size: 12px; color: #3c3c43; line-height: 1.5; padding: 2px 0 2px; }
 .stp-root .daywin-caption strong { color: #1d1d1f; }
 .stp-root .daywin-caption::before { content: none; }
+
+/* ── 2028 feasibility card ── */
+.stp-root .row.feas-row .track.feas-track { padding: 8px 0 14px; }
+.stp-root .feas-grid { display: grid; grid-template-columns: repeat(4, minmax(220px, 1fr)); gap: 10px; }
+.stp-root .feas-card { background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; padding: 10px 12px; }
+.stp-root .feas-h { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--purple); margin-bottom: 7px; }
+.stp-root .feas-line { font-size: 11.5px; color: #1d1d1f; line-height: 1.55; }
+.stp-root .feas-line strong { font-weight: 800; }
+.stp-root .feas-dates { color: #6e6e73; font-size: 10.5px; }
+.stp-root .feas-sub { font-size: 10px; color: #8e8e93; margin-top: 5px; line-height: 1.4; }
+.stp-root .feas-verdict { margin-top: 10px; font-size: 12px; color: #0b5f27; background: rgba(30,142,61,0.08); border: 1px solid rgba(30,142,61,0.25); border-radius: 8px; padding: 8px 12px; }
+.stp-root .feas-verdict strong { font-weight: 800; }
+@media (max-width: 1500px) { .stp-root .feas-grid { grid-template-columns: repeat(2, minmax(220px, 1fr)); } }

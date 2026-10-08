@@ -462,6 +462,69 @@ export default function ShortTermPriority() {
     renderVacationRows()
     renderDayWinChart()
 
+    // ── 2028 feasibility — concrete calculation card (inside the grid) ──
+    function renderFeasibility() {
+      const grid3 = root.querySelector('#stpGrid')
+      if (!grid3) return
+      // WEEKLY BUDGET (from 168 Hours Study and Life Plan.xlsx, locked frame)
+      const week = 168
+      const work = 35, sleep = 54.25, travel = 7, gym = 4
+      const discretionary = week - work - sleep - travel - gym           // 67.75
+      // DEMAND (Excel real numbers + AF semi-intensive for French)
+      const maths = 17.6            // Excel: papers 6.75 + redos 4.25 + flashcards 2.6 + lessons 4
+      const physics = 18.1          // Excel: prep 4 + papers 2.5 + redos 2 + flashcards 3.6 + lessons 6
+      const frenchSemi = 9          // AF semi-intensive 9h/wk (Mon-Thu sessions)
+      const ucas = 2.5              // personal statement + My Cambridge Application (Sep-Oct 27)
+      const demandCore = maths + physics + frenchSemi
+      const demandExam = demandCore + 7.5   // +5 extra past-paper cycles/wk in Oct 26 / Jan 27 / Dec 27 months
+      // FRENCH LADDER (semi from 26 Oct 2026, back-to-back, AF winter breaks)
+      const ladder = [
+        ['A1.3', '26 Oct \u2192 22 Nov 2026'],
+        ['A2.1\u20134', '23 Nov 2026 \u2192 28 Mar 2027'],
+        ['B1.1\u20134', '29 Mar \u2192 18 Jul 2027'],
+        ['B2.1\u20136', '19 Jul \u2192 2 Jan 2028'],
+      ]
+      const tcfLast = new Date(Date.UTC(2028, 1, 13))
+      const b2done = new Date(Date.UTC(2028, 0, 2))
+      const marginD = Math.round((tcfLast - b2done) / 86400000)
+      // PAPER MATHS
+      const spareMonth = (discretionary - demandExam) * 4.33
+      const perPaper = 2.75                  // 1.5h timed + 0.5h mark + ~0.75h cold redo
+      const papersPerMonth = Math.floor(spareMonth / perPaper)
+      const papersNeeded = 60                // 6-10 mocks x ~8 papers (P1-P3, M1-M2/S1, physics units)
+      grid3.insertAdjacentHTML('beforeend', `
+        <div class="row feas-row"><div class="row-label"><div class="group">2028 verdict</div><div class="name">feasibility math</div></div>
+        <div class="track feas-track">
+          <div class="feas-grid">
+            <div class="feas-card">
+              <div class="feas-h">1 \u00b7 Weekly budget</div>
+              <div class="feas-line">168h \u2212 work 35 \u2212 sleep 54.25 \u2212 travel 7 \u2212 gym 4 = <strong>${discretionary.toFixed(2)}h free</strong></div>
+              <div class="feas-sub">source: 168 Hours Study and Life Plan \u00b7 locked frame</div>
+            </div>
+            <div class="feas-card">
+              <div class="feas-h">2 \u00b7 Study demand / week</div>
+              <div class="feas-line">maths ${maths} + physics ${physics} + AF semi ${frenchSemi} = <strong>${demandCore.toFixed(1)}h</strong></div>
+              <div class="feas-line">exam months +7.5h papers = <strong>${demandExam.toFixed(1)}h</strong> \u00b7 UCAS season +${ucas}h</div>
+              <div class="feas-sub">peak load \u2192 ${(discretionary - demandExam).toFixed(1)}h/wk still unallocated</div>
+            </div>
+            <div class="feas-card">
+              <div class="feas-h">3 \u00b7 French semi ladder</div>
+              ${ladder.map(l => `<div class="feas-line">${l[0]} <span class="feas-dates">${l[1]}</span></div>`).join('')}
+              <div class="feas-line">B2 done 2 Jan 2028 \u2192 TCF last chance 13 Feb = <strong>${marginD} days margin</strong></div>
+              <div class="feas-sub">register TCF + dossier vert by 15 Dec 2027 \u00b7 zero slip room</div>
+            </div>
+            <div class="feas-card">
+              <div class="feas-h">4 \u00b7 Past-paper capacity</div>
+              <div class="feas-line">spare in exam month \u2248 ${spareMonth.toFixed(0)}h \u00f7 ${perPaper}h per cycle = <strong>${papersPerMonth} papers/mo</strong></div>
+              <div class="feas-line">need \u2248 ${papersNeeded} total (6\u201310 mocks \u00d7 8 papers)</div>
+              <div class="feas-sub">capacity \u2248 ${(papersPerMonth * 7 / papersNeeded).toFixed(0)}\u00d7 the need \u2014 consistency, not hours, is the constraint</div>
+            </div>
+          </div>
+          <div class="feas-verdict"><strong>YES \u2014 2028 entry holds</strong> with ~${(discretionary - demandExam).toFixed(0)}h/wk spare at peak \u00b7 gates: Oct 2026 results (A/A*) \u00b7 AF attendance (15-session chain) \u00b7 work \u2264 7h/day in crunch</div>
+        </div></div>`)
+    }
+    renderFeasibility()
+
     // Second layout pass: measure real label boxes and nudge any same-lane overlaps to the right.
     // (Estimates at render time underestimate long labels; real rects are authoritative.)
     requestAnimationFrame(() => {
