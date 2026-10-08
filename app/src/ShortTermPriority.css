@@ -579,3 +579,10 @@
 }
 .stp-root .vacation-toggle:hover h2 { text-decoration: underline; text-underline-offset: 3px; }
 .stp-root .vacation-toggle .v-caret { font-size: 13px; color: var(--muted, #8e8e93); transition: transform .15s ease; }
+
+/* sub-lanes inside the single vacation row (windows can overlap -> stagger) */
+.stp-root .row.vacation-row .track { height: 66px; }
+.stp-root .block.vacation-block-bar.vlane0 { top: 4px; height: 26px; }
+.stp-root .block.vacation-block-bar.vlane1 { top: 36px; height: 26px; }
+.stp-root .block.vacation-block-bar.vlane2 { top: 36px; height: 26px; opacity: .85; }
+.stp-root .block.vacation-block-bar.vlane3 { top: 66px; height: 26px; }

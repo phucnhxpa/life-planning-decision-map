@@ -64,24 +64,28 @@ export default function ShortTermPriority() {
         ],
         marker: true, markerDate: '2028-01-13', markerLabel: 'B2 done',
         detail: 'A0 → A1 intensive (to 20 Nov 2026), then semi all the way: AF semi ladder has MORE sub-levels (A2: 4, B1: 4, B2: 6) but each is still one 4-week session — 14 sessions total. B2 done ~13 Jan 2028. 14 sessions × €730 ≈ €10.2k.' },
-      // ── FRENCH · INTENSIVE A1 → B1, THEN SEMI-INTENSIVE B2 ──
-      { group: 'French · intensive → semi', title: 'Intensive A0 → B1 → semi B2', start: '2026-09-28', end: '2027-09-09', tone: 'blue',
+      // ── FRENCH · INTENSIVE A1 → B1, THEN SEMI-INTENSIVE B2 · WITH 1-MONTH BREAK AFTER EACH LEVEL ──
+      { group: 'French · intensive → semi', title: 'Int A0→B1 → semi B2 · breaks', start: '2026-09-28', end: '2028-02-03', tone: 'blue',
         segments: [
           { start: '2026-09-28', end: '2026-10-23', label: 'A1.1 · int', tone: 'green', detail: 'A1.1 · 28 Sep – 23 Oct 2026 (IN PROGRESS). Intensive.' },
-          { start: '2026-10-26', end: '2026-11-20', label: 'A1.2 · int', tone: 'green', detail: 'A1.2 · 26 Oct – 20 Nov 2026, intensive.' },
-          { start: '2026-11-23', end: '2026-12-18', label: 'A2.1 · int', tone: 'blue', detail: 'A2.1 · 23 Nov – 18 Dec 2026, intensive.' },
-          { start: '2027-01-04', end: '2027-01-29', label: 'A2.2 · int', tone: 'blue', detail: 'A2.2 · 4 – 29 Jan 2027, intensive. A2 complete Fri 29 Jan.' },
-          { start: '2027-02-01', end: '2027-02-26', label: 'B1.1 · int', tone: 'orange', detail: 'B1.1 · 1 – 26 Feb 2027, intensive.' },
-          { start: '2027-03-01', end: '2027-03-26', label: 'B1.2 · int', tone: 'orange', detail: 'B1.2 · 1 – 26 Mar 2027, intensive. B1 complete Fri 26 Mar — whole A0 → B1 stretch intensive (6 sessions × €1,460).' },
-          { start: '2027-03-30', end: '2027-04-22', label: 'B2.1', tone: 'purple', detail: 'B2.1 · Tue 30 Mar – Thu 22 Apr 2027 (Easter Monday off), semi.' },
-          { start: '2027-04-26', end: '2027-05-20', label: 'B2.2', tone: 'purple', detail: 'B2.2 · 26 Apr – 20 May 2027, semi.' },
-          { start: '2027-05-24', end: '2027-06-17', label: 'B2.3', tone: 'purple', detail: 'B2.3 · 24 May – 17 Jun 2027, semi.' },
-          { start: '2027-06-21', end: '2027-07-15', label: 'B2.4', tone: 'purple', detail: 'B2.4 · 21 Jun – 15 Jul 2027, semi.' },
-          { start: '2027-07-19', end: '2027-08-12', label: 'B2.5', tone: 'purple', detail: 'B2.5 · 19 Jul – 12 Aug 2027, semi.' },
-          { start: '2027-08-16', end: '2027-09-09', label: 'B2.6', tone: 'purple', detail: 'B2.6 · 16 Aug – 9 Sep 2027, semi. B2 complete Thu 9 Sep 2027 — 5 months before TCF DAP last chance 13 Feb 2028.' },
+          { start: '2026-10-26', end: '2026-11-20', label: 'A1.2 · int', tone: 'green', detail: 'A1.2 · 26 Oct – 20 Nov 2026, intensive. A1 COMPLETE → 1-month break.' },
+          { start: '2026-11-21', end: '2027-01-03', label: 'break · A1', tone: 'neutral', detail: 'Month break after A1 (21 Nov 2026 – 3 Jan 2027) — merges with AF winter break 19 Dec – 3 Jan. Back Mon 4 Jan.' },
+          { start: '2027-01-04', end: '2027-01-29', label: 'A2.1 · int', tone: 'blue', detail: 'A2.1 · 4 – 29 Jan 2027, intensive.' },
+          { start: '2027-02-01', end: '2027-02-26', label: 'A2.2 · int', tone: 'blue', detail: 'A2.2 · 1 – 26 Feb 2027, intensive. A2 COMPLETE → 1-month break.' },
+          { start: '2027-02-27', end: '2027-04-04', label: 'break · A2', tone: 'neutral', detail: 'Month break after A2 (27 Feb – 4 Apr 2027). Back Mon 5 Apr.' },
+          { start: '2027-04-05', end: '2027-04-30', label: 'B1.1 · int', tone: 'orange', detail: 'B1.1 · 5 – 30 Apr 2027, intensive.' },
+          { start: '2027-05-03', end: '2027-05-28', label: 'B1.2 · int', tone: 'orange', detail: 'B1.2 · 3 – 28 May 2027, intensive. B1 COMPLETE → 1-month break. 6 sessions × €1,460 ≈ €8.8k.' },
+          { start: '2027-05-29', end: '2027-07-04', label: 'break · B1', tone: 'neutral', detail: 'Month break after B1 (29 May – 4 Jul 2027). Back Mon 5 Jul.' },
+          { start: '2027-07-05', end: '2027-07-29', label: 'B2.1', tone: 'purple', detail: 'B2.1 · 5 – 29 Jul 2027, semi (Mon–Thu).' },
+          { start: '2027-08-09', end: '2027-09-02', label: 'B2.2', tone: 'purple', detail: 'B2.2 · 9 Aug – 2 Sep 2027, semi.' },
+          { start: '2027-09-13', end: '2027-10-07', label: 'B2.3', tone: 'purple', detail: 'B2.3 · 13 Sep – 7 Oct 2027, semi.' },
+          { start: '2027-10-18', end: '2027-11-11', label: 'B2.4', tone: 'purple', detail: 'B2.4 · 18 Oct – 11 Nov 2027, semi.' },
+          { start: '2027-11-22', end: '2027-12-16', label: 'B2.5', tone: 'purple', detail: 'B2.5 · 22 Nov – 16 Dec 2027, semi.' },
+          { start: '2028-01-10', end: '2028-02-03', label: 'B2.6', tone: 'purple', detail: 'B2.6 · 10 Jan – 3 Feb 2028 (AF winter break inside). B2 complete Thu 3 Feb 2028 → then a break — but ONLY 10 days before the TCF DAP last chance 13 Feb 2028.' },
+          { start: '2028-02-04', end: '2028-03-05', label: 'break · B2', tone: 'neutral', detail: 'Month break after B2 — starts AFTER the TCF DAP sitting; the timeline leaves no room to take it before.' },
         ],
-        marker: true, markerDate: '2027-09-09', markerLabel: 'B2 done',
-        detail: 'Intensive A0 → complete B1 (28 Sep 2026 → 26 Mar 2027, 1 sub-level/session at 72h), then semi-intensive for B2: semi ladder = 6 sub-levels (B2.1–B2.6), 1 per 4-week session → B2 done 9 Sep 2027, 5 months before TCF DAP last chance 13 Feb 2028.' },
+        marker: true, markerDate: '2028-02-03', markerLabel: 'B2 done',
+        detail: 'Intensive A0 → B1 with a 1-month break after each completed level (after A1 · after A2 · after B1), then semi-intensive B2 ladder (6 sub-levels). B2 done 3 Feb 2028 — 10 days before the TCF DAP last chance 13 Feb 2028. The three breaks push B2 ~5 months later than the no-break plan (9 Sep 2027): survivable for the TCF, but it burns all margin. 6 × €1,460 + 6 × €730 ≈ €13.1k.' },
       // ── FRENCH UNIVERSITY ──
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
@@ -307,16 +311,23 @@ export default function ShortTermPriority() {
       if (!VACATION_WINS.length) return
       const grid2 = root.querySelector('#stpGrid')
       const wins = VACATION_WINS.slice(0, 6)
-      grid2.insertAdjacentHTML('beforeend', `<div class="section-divider vacation-divider"><div class="section-title">Vacation windows \u2014 computed from every row above</div><div class="section-sub">Free day-runs with zero hard commitments \u00b7 ranked best first \u00b7 hover a bar for dates</div></div>`)
-      for (const w of wins) {
+      grid2.insertAdjacentHTML('beforeend', `<div class="section-divider vacation-divider"><div class="section-title">Vacation windows \u2014 computed from every row above</div><div class="section-sub">Free day-runs with zero hard commitments \u00b7 one row \u00b7 hover a bar for dates</div></div>`)
+      const pct = (d) => pctAt(d)
+      const placed = []  // lanes of [fromPct, toPct]
+      const bars = wins.map(w => {
         const tier = w.days >= 7 ? 'prime' : w.days >= 4 ? 'good' : 'mini'
         const why = w.reasons.size ? [...w.reasons].slice(0, 3).join(' \u00b7 ') : 'nothing booked \u2014 completely clear'
-        const left = pctAt(w.from)
-        const width = Math.max(1.2, pctAt(w.to) - left)
+        const left = pct(w.from)
+        const width = Math.max(1.2, pct(w.to) - left)
+        // lane packing: first lane whose bars don't horizontally overlap this one
+        let lane = placed.findIndex(l => l.every(([a, b]) => left + width <= a || left >= b))
+        if (lane === -1) { placed.push([[left, left + width]]); lane = placed.length - 1 }
+        else placed[lane].push([left, left + width])
         const label = `${w.days}d \u00b7 ${tier}`
         const detail = `${w.days} free days (${tier}) \u00b7 clear of: ${why}`
-        grid2.insertAdjacentHTML('beforeend', `<div class="row vacation-row"><div class="row-label"><div class="group">Vacation</div><div class="name">${fmt(w.from)} \u2192 ${fmt(w.to)}</div></div><div class="track"><div class="block vacation-block-bar ${tier}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${fmt(w.from)} \u2192 ${fmt(w.to)}</small>${tip(`Vacation window \u00b7 ${tier}`, `${fmtLong(w.from)} \u2192 ${fmtLong(w.to)}`, detail)}</div></div></div>`)
-      }
+        return `<div class="block vacation-block-bar ${tier} vlane${lane}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${fmt(w.from)} \u2192 ${fmt(w.to)}</small>${tip(`Vacation window \u00b7 ${tier}`, `${fmtLong(w.from)} \u2192 ${fmtLong(w.to)}`, detail)}</div>`
+      }).join('')
+      grid2.insertAdjacentHTML('beforeend', `<div class="row vacation-row"><div class="row-label"><div class="group">Vacation</div><div class="name">${wins.length} clear windows</div></div><div class="track">${bars}</div></div>`)
     }
 
     let dividerDone = false
