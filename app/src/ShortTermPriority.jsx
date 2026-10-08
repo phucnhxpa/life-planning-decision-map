@@ -408,23 +408,23 @@ export default function ShortTermPriority() {
       const grid2 = root.querySelector('#stpGrid')
       if (!grid2) return
       const CAP = 4
-      const H = 150           // svg height in px
+      const H = 150
+      // pixel-true width: use the track's real rendered width (canvas minus label col) — no stretching
+      const probe = grid2.querySelector('.row:not(.daywin-row) .track')
+      const trackW = Math.max(600, Math.round(probe ? probe.getBoundingClientRect().width : 1800))
       const maxV = Math.max(CAP + 0.5, ...DAYWIN.map(d => d.daily))
-      // use a 1000-unit-wide viewBox mapped to 100% width, preserveAspectRatio none -> x% = x/10 units
-      const u = x => x * 10   // percent -> viewBox units
+      const xOf = pct => (pct / 100) * trackW
       const yOf = v => H - 22 - (v / maxV) * (H - 40)
       let inner = ''
-      // hour gridlines
       for (let v = 0; v <= Math.ceil(maxV); v++) {
         const gy = yOf(v)
-        inner += `<line x1="0" y1="${gy}" x2="1000" y2="${gy}" stroke="rgba(0,0,0,${v === 0 ? 0.22 : 0.06})" stroke-width="1"/>`
-        inner += `<text x="6" y="${gy - 3}" font-size="9" fill="#8e8e93">${v}h</text>`
+        inner += `<line x1="0" y1="${gy}" x2="${trackW}" y2="${gy}" stroke="rgba(0,0,0,${v === 0 ? 0.22 : 0.06})" stroke-width="1"/>`
+        inner += `<text x="6" y="${gy - 3}" font-size="9.5" fill="#8e8e93">${v}h</text>`
       }
-      // capacity line across full width
       const capY = yOf(CAP)
-      inner += `<line x1="0" y1="${capY}" x2="1000" y2="${capY}" stroke="#1d1d1f" stroke-width="1.4" stroke-dasharray="6 4" opacity=".75"/>`
+      inner += `<line x1="0" y1="${capY}" x2="${trackW}" y2="${capY}" stroke="#1d1d1f" stroke-width="1.4" stroke-dasharray="6 4" opacity=".75"/>`
       DAYWIN.forEach(d => {
-        const x = u(d.left), w = u(d.width)
+        const x = xOf(d.left), w = xOf(d.width)
         const cx = x + w / 2
         const totalWk = d.maths + d.phys + d.fr + d.crunch
         const segs = [['dw-maths', d.maths], ['dw-phys', d.phys], ['dw-fr', d.fr], ['dw-other', d.crunch]]
@@ -433,35 +433,31 @@ export default function ShortTermPriority() {
           if (!wk) continue
           const hFr = (wk / totalWk) * d.daily
           const y1 = yOf(acc + hFr), y2 = yOf(acc)
-          inner += `<rect x="${(x + w * 0.16).toFixed(2)}" y="${y1.toFixed(2)}" width="${(w * 0.68).toFixed(2)}" height="${Math.max(0.5, y2 - y1).toFixed(2)}" class="dw-seg ${cls}"><title>${d.label} ${d.y} — ${cls.replace('dw-', '')}: ${(wk / 6).toFixed(1)}h/day</title></rect>`
+          inner += `<rect x="${(x + w * 0.18).toFixed(1)}" y="${y1.toFixed(1)}" width="${Math.max(2, w * 0.64).toFixed(1)}" height="${Math.max(1, y2 - y1).toFixed(1)}" rx="2" class="dw-seg ${cls}"><title>${d.label} ${d.y} — ${cls.replace('dw-', '')}: ${(wk / 6).toFixed(1)}h/day</title></rect>`
           acc += hFr
         }
         if (d.daily > CAP) {
-          inner += `<rect x="${(x + w * 0.16).toFixed(2)}" y="${yOf(d.daily).toFixed(2)}" width="${(w * 0.68).toFixed(2)}" height="${(capY - yOf(d.daily)).toFixed(2)}" class="dw-over"><title>${d.label} ${d.y}: ${d.daily.toFixed(1)}h/day — ${(d.daily - CAP).toFixed(1)}h ABOVE the window</title></rect>`
+          inner += `<rect x="${(x + w * 0.18).toFixed(1)}" y="${yOf(d.daily).toFixed(1)}" width="${Math.max(2, w * 0.64).toFixed(1)}" height="${(capY - yOf(d.daily)).toFixed(1)}" class="dw-over"><title>${d.label} ${d.y}: ${d.daily.toFixed(1)}h/day — ${(d.daily - CAP).toFixed(1)}h ABOVE the window</title></rect>`
         } else {
-          inner += `<line x1="${cx.toFixed(2)}" y1="${yOf(d.daily).toFixed(2)}" x2="${cx.toFixed(2)}" y2="${capY.toFixed(2)}" stroke="#1e8e3e" stroke-width="1.3" stroke-dasharray="2 3" opacity=".6"/>`
+          inner += `<line x1="${cx.toFixed(1)}" y1="${yOf(d.daily).toFixed(1)}" x2="${cx.toFixed(1)}" y2="${capY.toFixed(1)}" stroke="#1e8e3e" stroke-width="1.3" stroke-dasharray="2 3" opacity=".6"/>`
         }
-        inner += `<text x="${cx.toFixed(2)}" y="${H - 8}" font-size="9.5" fill="${d.daily > CAP ? '#b3261e' : '#6e6e73'}" text-anchor="middle" font-weight="${d.daily > CAP ? 700 : 400}">${d.label}</text>`
-        // transparent hover column
-        inner += `<rect x="${x.toFixed(2)}" y="0" width="${w.toFixed(2)}" height="${H}" fill="transparent"><title>${d.label} ${d.y} — total ${d.daily.toFixed(1)}h/day in the 09:00–13:00 window (capacity 4h/day)</title></rect>`
+        inner += `<text x="${cx.toFixed(1)}" y="${H - 8}" font-size="9.5" fill="${d.daily > CAP ? '#b3261e' : '#6e6e73'}" text-anchor="middle" font-weight="${d.daily > CAP ? 700 : 400}">${d.label}</text>`
+        inner += `<rect x="${x.toFixed(1)}" y="0" width="${Math.max(2, w).toFixed(1)}" height="${H}" fill="transparent"><title>${d.label} ${d.y} — total ${d.daily.toFixed(1)}h/day in the 09:00–13:00 window (capacity 4h/day)</title></rect>`
       })
-      // demand curve across month centers
-      const pts = DAYWIN.map(d => `${(u(d.left) + u(d.width) / 2).toFixed(2)},${(yOf(d.daily) - 2).toFixed(2)}`)
+      const pts = DAYWIN.map(d => `${(xOf(d.left) + xOf(d.width) / 2).toFixed(1)},${(yOf(d.daily) - 2).toFixed(1)}`)
       let path = ''
-      pts.forEach((pt, i2) => { path += (i2 === 0 ? 'M' : ' L') + pt })
+      pts.forEach((pt, i3) => { path += (i3 === 0 ? 'M' : ' L') + pt })
       inner += `<path d="${path}" fill="none" stroke="#6d5dfc" stroke-width="1.6" opacity=".7" stroke-linejoin="round"/>`
-      inner += `<text x="994" y="${capY - 5}" font-size="9.5" fill="#1d1d1f" text-anchor="end" font-weight="600">4h/day window capacity</text>`
+      inner += `<text x="${trackW - 6}" y="${capY - 5}" font-size="9.5" fill="#1d1d1f" text-anchor="end" font-weight="600">4h/day window capacity</text>`
 
-      const dividerDone2 = false
-      grid2.insertAdjacentHTML('beforeend', `<div class="section-divider daywin-divider"><div class="section-title">Daily study window · 09:00 → 13:00 — aligned to the months above</div><div class="section-sub">Bars = study demand per month (maths · physics · french · crunch) inside your 4h morning window · dashed line = capacity · green ticks = spare hours · red = above window</div></div>`)
-      grid2.insertAdjacentHTML('beforeend', `<div class="row daywin-row"><div class="row-label"><div class="group">Study window</div><div class="name">4h/day capacity</div></div><div class="track daywin-track"><svg viewBox="0 0 1000 ${H}" preserveAspectRatio="none" style="width:100%;height:${H}px;display:block">${inner}</svg></div></div>`)
-      // verdict caption under the chart row (inside grid, spans full width)
+      grid2.insertAdjacentHTML('beforeend', `<div class="section-divider daywin-divider"><div class="section-title">Daily study window · 09:00 → 13:00 — same months as above</div><div class="section-sub">bars = study demand/month (maths · physics · french · crunch) in your 4h morning window · dashed line = capacity · green tick = spare · red = above window</div></div>`)
+      grid2.insertAdjacentHTML('beforeend', `<div class="row daywin-row"><div class="row-label"><div class="group">Study window</div><div class="name">4h/day capacity</div></div><div class="track daywin-track"><svg viewBox="0 0 ${trackW} ${H}" width="${trackW}" height="${H}" style="display:block">${inner}</svg></div></div>`)
       const over = DAYWIN.filter(d => d.daily > CAP)
       const spare = DAYWIN.filter(d => d.daily <= CAP - 0.75)
       const vTxt = over.length
         ? `<strong>Above window:</strong> ${over.map(d => `${d.label} ${d.y} (${d.daily.toFixed(1)}h/day)`).join(' · ')} — needs evening top-ups or the work cut.` + (spare.length ? ` <strong>Spare:</strong> ${spare.map(d => `${d.label} ${d.y} (+${(CAP - d.daily).toFixed(1)}h/day)`).join(' · ')}.` : '')
         : `<strong>Everything fits</strong> in 09:00–13:00.`
-      grid2.insertAdjacentHTML('beforeend', `<div class="daywin-caption">${vTxt}</div>`)
+      grid2.insertAdjacentHTML('beforeend', `<div class="row daywin-caption-row"><div class="row-label"><div class="group">Read-out</div><div class="name">capacity check</div></div><div class="track"><div class="daywin-caption">${vTxt}</div></div></div>`)
     }
 
     renderVacationRows()

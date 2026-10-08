@@ -609,6 +609,6 @@
 .stp-root .dw-seg.dw-fr { fill: #f9ab00; }
 .stp-root .dw-seg.dw-other { fill: #9334e6; }
 .stp-root .dw-over { fill: rgba(179,38,30,0.14); stroke: #b3261e; stroke-width: 1; stroke-dasharray: 3 2; }
-.stp-root .daywin-caption { padding: 8px 0 4px 216px; font-size: 12px; color: #3c3c43; line-height: 1.5; }
+.stp-root .daywin-caption { font-size: 12px; color: #3c3c43; line-height: 1.5; padding: 2px 0 2px; }
 .stp-root .daywin-caption strong { color: #1d1d1f; }
 .stp-root .daywin-caption::before { content: none; }
