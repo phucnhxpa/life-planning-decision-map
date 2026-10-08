@@ -362,7 +362,121 @@ export default function ShortTermPriority() {
       grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
     }
 
+    // ── Daily study window (09:00–13:00) allocation chart ──
+    // Monthly demand model (h/day inside the 4h window), from the plan's real phases:
+    //   maths: 17.6h/wk baseline; Harry independent ramps 12 → 20h/wk by Jan 2027
+    //   physics: 8h/wk → 10h/wk from Jun 2027 (Phys4–6 sat Jan 2027)
+    //   French: intensive 20h/wk while AF int blocks active · semi 9h/wk · breaks 2h/wk maintenance
+    //   other: UCAS/ESAT/interview/dossier crunch months add on top
+    const DAYWIN_MONTHS = (() => {
+      const out = []
+      let y = 2026, m = 9
+      while (y < 2028 || (y === 2028 && m <= 9)) {
+        out.push({ y, m })
+        m++; if (m > 12) { m = 1; y++ }
+      }
+      return out
+    })()
+    const DAYWIN = DAYWIN_MONTHS.map(({ y, m }) => {
+      const key = `${y}-${String(m).padStart(2, '0')}`
+      const label = new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' })
+      const yr = String(y).slice(2)
+      // maths (h/wk): baseline 17.6, independent ramps to Harry's bar by the Oct 2026 sitting, then holds
+      let maths = 17.6
+      if (y === 2026 && m >= 10) maths = 19
+      if (y >= 2027) maths = 20
+      // physics (h/wk): 8 now, 10 from Jun 2027
+      let phys = 8
+      if ((y === 2027 && m >= 6) || y >= 2028) phys = 10
+      // french (h/wk): from the breaks-row (his chosen path): int A1→B1 with level breaks, semi B2
+      const intActive = (y === 2026 && m >= 9) || (y === 2027 && m <= 5 && !(m === 3 && false))
+      let fr = 0
+      if (y === 2026 && m === 12) fr = 2            // break · A1 (winter)
+      else if (y === 2027 && m === 3) fr = 2        // break · A2
+      else if (y === 2027 && m === 6) fr = 2        // break · B1
+      else if (y === 2026 || (y === 2027 && m <= 5)) fr = 20  // intensive blocks
+      else if (y === 2027 && m >= 7 && m <= 12) fr = 9        // semi B2
+      else if (y === 2028 && m === 1) fr = 2                   // break · B2
+      // crunch extras (h/wk in that month, spread over study days)
+      let crunch = 0
+      if (y === 2026 && m === 10) crunch = 3       // Oct sitting
+      if (y === 2027 && m === 1) crunch = 3        // Jan sitting
+      if (y === 2027 && m === 10) crunch = 4       // UCAS + ESAT
+      if (y === 2027 && (m === 11 || m === 12)) crunch = 2  // interviews
+      if (y === 2028 && m === 1) crunch = 4        // dossier vert + TCF
+      if (y === 2028 && m === 2) crunch = 2        // TCF DAP
+      const weekly = maths + phys + fr + crunch
+      // study days/wk = 6 (Mon-Sat); daily hours inside 09-13 window (4h cap)
+      const daily = weekly / 6
+      return { key, label, yr, maths, phys, fr, crunch, daily }
+    })
+
+    function renderDayWinChart() {
+      const host = root.querySelector('#stpDayWinChart')
+      if (!host) return
+      const W = 1200, H = 300, padL = 46, padB = 34, padT = 18, padR = 10
+      const plotW = W - padL - padR, plotH = H - padT - padB
+      const CAP = 4
+      const maxV = Math.max(CAP + 0.5, ...DAYWIN.map(d => d.daily)) 
+      const yOf = v => padT + plotH - (v / maxV) * plotH
+      const n = DAYWIN.length
+      const bw = plotW / n
+      let bars = '', grid = '', labels = ''
+      // gridlines each 1h
+      for (let v = 0; v <= Math.ceil(maxV); v++) {
+        const gy = yOf(v)
+        grid += `<line x1="${padL}" y1="${gy}" x2="${W - padR}" y2="${gy}" stroke="rgba(0,0,0,${v === 0 ? 0.25 : 0.07})" stroke-width="1"/>`
+        grid += `<text x="${padL - 8}" y="${gy + 4}" font-size="10.5" fill="#8e8e93" text-anchor="end">${v}h</text>`
+      }
+      DAYWIN.forEach((d, i) => {
+        const x = padL + i * bw
+        const cx = x + bw / 2
+        // stacked segments (proportional shares of daily total)
+        const totalWk = d.maths + d.phys + d.fr + d.crunch
+        const segs = [['dw-maths', d.maths], ['dw-phys', d.phys], ['dw-fr', d.fr], ['dw-other', d.crunch]]
+        let acc = 0
+        for (const [cls, wk] of segs) {
+          if (!wk) continue
+          const hFr = (wk / totalWk) * d.daily
+          const y1 = yOf(acc + hFr), y2 = yOf(acc)
+          bars += `<rect x="${(x + bw * 0.18).toFixed(1)}" y="${y1.toFixed(1)}" width="${(bw * 0.64).toFixed(1)}" height="${Math.max(1, y2 - y1).toFixed(1)}" rx="2.5" class="dw-seg ${cls}"><title>${d.label} ${d.yr} — ${cls.replace('dw-', '')}: ${(wk / 6).toFixed(1)}h/day (${wk}h/wk)</title></rect>`
+          acc += hFr
+        }
+        // over-capacity marker
+        if (d.daily > CAP) {
+          bars += `<rect x="${(x + bw * 0.18).toFixed(1)}" y="${yOf(d.daily).toFixed(1)}" width="${(bw * 0.64).toFixed(1)}" height="${(yOf(CAP) - yOf(d.daily)).toFixed(1)}" class="dw-over"><title>${d.label} ${d.yr}: ${d.daily.toFixed(1)}h/day — ${(d.daily - CAP).toFixed(1)}h ABOVE the 09:00–13:00 window</title></rect>`
+        }
+        // free-capacity bracket
+        if (d.daily < CAP) {
+          bars += `<line x1="${(x + bw * 0.5).toFixed(1)}" y1="${yOf(d.daily).toFixed(1)}" x2="${(x + bw * 0.5).toFixed(1)}" y2="${yOf(CAP).toFixed(1)}" stroke="#1e8e3e" stroke-width="1.5" stroke-dasharray="2 3" opacity=".55"/>`
+        }
+        labels += `<text x="${cx.toFixed(1)}" y="${H - padB + 15}" font-size="10.5" fill="${d.daily > CAP ? '#b3261e' : '#6e6e73'}" text-anchor="middle" font-weight="${d.daily > CAP ? 700 : 400}">${d.label}</text>`
+        if (d.m === 1) labels += `<text x="${cx.toFixed(1)}" y="${H - padB + 27}" font-size="9.5" fill="#8e8e93" text-anchor="middle">'${d.yr}</text>`
+        // hover target
+        bars += `<rect x="${x.toFixed(1)}" y="${padT}" width="${bw.toFixed(1)}" height="${plotH}" fill="transparent"><title>${d.label} ${d.yr} — total ${d.daily.toFixed(1)}h/day · maths ${(d.maths / 6).toFixed(1)} · physics ${(d.phys / 6).toFixed(1)} · french ${(d.fr / 6).toFixed(1)}${d.crunch ? ` · crunch ${(d.crunch / 6).toFixed(1)}` : ''}h/day</title></rect>`
+      })
+      // capacity line
+      const capY = yOf(CAP)
+      const line = `<line x1="${padL}" y1="${capY}" x2="${W - padR}" y2="${capY}" stroke="#1d1d1f" stroke-width="1.6" stroke-dasharray="6 4" opacity=".8"/><text x="${W - padR}" y="${capY - 6}" font-size="10.5" fill="#1d1d1f" text-anchor="end" font-weight="600">window capacity 4h/day</text>`
+      // distribution curve (smooth normal-ish envelope over totals)
+      const pts = DAYWIN.map((d, i) => `${(padL + i * bw + bw / 2).toFixed(1)},${(yOf(d.daily) - 3).toFixed(1)}`)
+      let path = ''
+      pts.forEach((pt, i) => { path += (i === 0 ? 'M' : ' L') + pt })
+      const curve = `<path d="${path}" fill="none" stroke="#6d5dfc" stroke-width="1.8" opacity=".75" stroke-linejoin="round"/>`
+      host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">${grid}${bars}${line}${curve}${labels}</svg>`
+      // verdict strip
+      const over = DAYWIN.filter(d => d.daily > CAP)
+      const spare = DAYWIN.filter(d => d.daily <= CAP - 0.75)
+      const v = host.parentElement.querySelector('.daywin-verdict')
+      if (v) {
+        v.innerHTML = over.length
+          ? `<strong>Over the window:</strong> ${over.map(d => `${d.label} ${d.yr} (${d.daily.toFixed(1)}h/day)`).join(' · ')} — these months need evening/weekend top-ups or the work-hour cut.` + (spare.length ? ` <strong>Spare now:</strong> ${spare.map(d => `${d.label} ${d.yr} (${(CAP - d.daily).toFixed(1)}h/day free)`).join(' · ')}.` : '')
+          : `<strong>Everything fits</strong> inside 09:00–13:00 · spare capacity: ${spare.map(d => `${d.label} ${d.yr} (${(CAP - d.daily).toFixed(1)}h/day)`).join(' · ') || 'none — window is fully used'}.`
+      }
+    }
+
     renderVacationRows()
+    renderDayWinChart()
 
     // Second layout pass: measure real label boxes and nudge any same-lane overlaps to the right.
     // (Estimates at render time underestimate long labels; real rects are authoritative.)

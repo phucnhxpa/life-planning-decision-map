@@ -52,6 +52,26 @@
         </aside>
       </div>
     </section>
+
+    <section class="daywin-block" id="stpDayWinBlock" aria-label="Daily study window allocation">
+      <div class="daywin-head">
+        <h2>Daily study window · 09:00 → 13:00</h2>
+        <div class="daywin-sub">Your free study window is 4h/day. Bars = study demand allocated per month (maths · physics · French, from the rows above). The dashed line = window capacity (4h/day · ~24h/mo at 6d/wk). Green area = spare capacity you can allocate; red = demand above the window.</div>
+      </div>
+      <div class="daywin-body">
+        <div id="stpDayWinChart"></div>
+        <div class="daywin-verdict" id="stpDayWinVerdict"></div>
+        <div class="daywin-legend">
+          <span class="dw-chip dw-maths">maths</span>
+          <span class="dw-chip dw-phys">physics</span>
+          <span class="dw-chip dw-fr">french</span>
+          <span class="dw-chip dw-other">other</span>
+          <span class="dw-chip dw-cap">— window capacity</span>
+          <span class="dw-chip dw-free">free to allocate</span>
+        </div>
+      </div>
+    </section>
+
     <section class="vacation-block" id="stpVacationBlock" aria-label="Vacation and free-time suggestions">
       <div class="vacation-head">
         <button type="button" class="vacation-toggle" id="stpVacationToggle" aria-expanded="true" aria-controls="stpVacationBody"><h2>When you can get away</h2><span class="v-caret">▾</span></button>
