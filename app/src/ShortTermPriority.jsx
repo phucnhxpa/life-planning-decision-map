@@ -362,12 +362,10 @@ export default function ShortTermPriority() {
       grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
     }
 
-    // ── Daily study window (09:00–13:00) allocation chart ──
+    // ── Daily study window (09:00–13:00) — rendered INSIDE the grid, same % coordinates as rows ──
     // Monthly demand model (h/day inside the 4h window), from the plan's real phases:
-    //   maths: 17.6h/wk baseline; Harry independent ramps 12 → 20h/wk by Jan 2027
-    //   physics: 8h/wk → 10h/wk from Jun 2027 (Phys4–6 sat Jan 2027)
-    //   French: intensive 20h/wk while AF int blocks active · semi 9h/wk · breaks 2h/wk maintenance
-    //   other: UCAS/ESAT/interview/dossier crunch months add on top
+    //   maths: 17.6 → 20h/wk · physics 8 → 10h/wk (Jun 27) · French 20h/wk int / 9h semi / 2h breaks
+    //   crunch months add UCAS/ESAT/interview/dossier load
     const DAYWIN_MONTHS = (() => {
       const out = []
       let y = 2026, m = 9
@@ -378,60 +376,56 @@ export default function ShortTermPriority() {
       return out
     })()
     const DAYWIN = DAYWIN_MONTHS.map(({ y, m }) => {
-      const key = `${y}-${String(m).padStart(2, '0')}`
-      const label = new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' })
-      const yr = String(y).slice(2)
-      // maths (h/wk): baseline 17.6, independent ramps to Harry's bar by the Oct 2026 sitting, then holds
       let maths = 17.6
       if (y === 2026 && m >= 10) maths = 19
       if (y >= 2027) maths = 20
-      // physics (h/wk): 8 now, 10 from Jun 2027
       let phys = 8
       if ((y === 2027 && m >= 6) || y >= 2028) phys = 10
-      // french (h/wk): from the breaks-row (his chosen path): int A1→B1 with level breaks, semi B2
-      const intActive = (y === 2026 && m >= 9) || (y === 2027 && m <= 5 && !(m === 3 && false))
       let fr = 0
-      if (y === 2026 && m === 12) fr = 2            // break · A1 (winter)
-      else if (y === 2027 && m === 3) fr = 2        // break · A2
-      else if (y === 2027 && m === 6) fr = 2        // break · B1
-      else if (y === 2026 || (y === 2027 && m <= 5)) fr = 20  // intensive blocks
-      else if (y === 2027 && m >= 7 && m <= 12) fr = 9        // semi B2
-      else if (y === 2028 && m === 1) fr = 2                   // break · B2
-      // crunch extras (h/wk in that month, spread over study days)
+      if (y === 2026 && m === 12) fr = 2
+      else if (y === 2027 && m === 3) fr = 2
+      else if (y === 2027 && m === 6) fr = 2
+      else if (y === 2026 || (y === 2027 && m <= 5)) fr = 20
+      else if (y === 2027 && m >= 7 && m <= 12) fr = 9
+      else if (y === 2028 && m === 1) fr = 2
       let crunch = 0
-      if (y === 2026 && m === 10) crunch = 3       // Oct sitting
-      if (y === 2027 && m === 1) crunch = 3        // Jan sitting
-      if (y === 2027 && m === 10) crunch = 4       // UCAS + ESAT
-      if (y === 2027 && (m === 11 || m === 12)) crunch = 2  // interviews
-      if (y === 2028 && m === 1) crunch = 4        // dossier vert + TCF
-      if (y === 2028 && m === 2) crunch = 2        // TCF DAP
-      const weekly = maths + phys + fr + crunch
-      // study days/wk = 6 (Mon-Sat); daily hours inside 09-13 window (4h cap)
-      const daily = weekly / 6
-      return { key, label, yr, maths, phys, fr, crunch, daily }
+      if (y === 2026 && m === 10) crunch = 3
+      if (y === 2027 && m === 1) crunch = 3
+      if (y === 2027 && m === 10) crunch = 4
+      if (y === 2027 && (m === 11 || m === 12)) crunch = 2
+      if (y === 2028 && m === 1) crunch = 4
+      if (y === 2028 && m === 2) crunch = 2
+      const daily = (maths + phys + fr + crunch) / 6
+      const monthStart = new Date(Date.UTC(y, m - 1, 1))
+      const monthEnd = new Date(Date.UTC(y, m, 1))
+      const label = monthStart.toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' })
+      return { y, m, label, maths, phys, fr, crunch, daily,
+        left: pctAt(monthStart.toISOString().slice(0, 10)),
+        width: Math.max(0.5, pctAt(monthEnd.toISOString().slice(0, 10)) - pctAt(monthStart.toISOString().slice(0, 10))) }
     })
 
     function renderDayWinChart() {
-      const host = root.querySelector('#stpDayWinChart')
-      if (!host) return
-      const W = 1200, H = 300, padL = 46, padB = 34, padT = 18, padR = 10
-      const plotW = W - padL - padR, plotH = H - padT - padB
+      const grid2 = root.querySelector('#stpGrid')
+      if (!grid2) return
       const CAP = 4
-      const maxV = Math.max(CAP + 0.5, ...DAYWIN.map(d => d.daily)) 
-      const yOf = v => padT + plotH - (v / maxV) * plotH
-      const n = DAYWIN.length
-      const bw = plotW / n
-      let bars = '', grid = '', labels = ''
-      // gridlines each 1h
+      const H = 150           // svg height in px
+      const maxV = Math.max(CAP + 0.5, ...DAYWIN.map(d => d.daily))
+      // use a 1000-unit-wide viewBox mapped to 100% width, preserveAspectRatio none -> x% = x/10 units
+      const u = x => x * 10   // percent -> viewBox units
+      const yOf = v => H - 22 - (v / maxV) * (H - 40)
+      let inner = ''
+      // hour gridlines
       for (let v = 0; v <= Math.ceil(maxV); v++) {
         const gy = yOf(v)
-        grid += `<line x1="${padL}" y1="${gy}" x2="${W - padR}" y2="${gy}" stroke="rgba(0,0,0,${v === 0 ? 0.25 : 0.07})" stroke-width="1"/>`
-        grid += `<text x="${padL - 8}" y="${gy + 4}" font-size="10.5" fill="#8e8e93" text-anchor="end">${v}h</text>`
+        inner += `<line x1="0" y1="${gy}" x2="1000" y2="${gy}" stroke="rgba(0,0,0,${v === 0 ? 0.22 : 0.06})" stroke-width="1"/>`
+        inner += `<text x="6" y="${gy - 3}" font-size="9" fill="#8e8e93">${v}h</text>`
       }
-      DAYWIN.forEach((d, i) => {
-        const x = padL + i * bw
-        const cx = x + bw / 2
-        // stacked segments (proportional shares of daily total)
+      // capacity line across full width
+      const capY = yOf(CAP)
+      inner += `<line x1="0" y1="${capY}" x2="1000" y2="${capY}" stroke="#1d1d1f" stroke-width="1.4" stroke-dasharray="6 4" opacity=".75"/>`
+      DAYWIN.forEach(d => {
+        const x = u(d.left), w = u(d.width)
+        const cx = x + w / 2
         const totalWk = d.maths + d.phys + d.fr + d.crunch
         const segs = [['dw-maths', d.maths], ['dw-phys', d.phys], ['dw-fr', d.fr], ['dw-other', d.crunch]]
         let acc = 0
@@ -439,40 +433,35 @@ export default function ShortTermPriority() {
           if (!wk) continue
           const hFr = (wk / totalWk) * d.daily
           const y1 = yOf(acc + hFr), y2 = yOf(acc)
-          bars += `<rect x="${(x + bw * 0.18).toFixed(1)}" y="${y1.toFixed(1)}" width="${(bw * 0.64).toFixed(1)}" height="${Math.max(1, y2 - y1).toFixed(1)}" rx="2.5" class="dw-seg ${cls}"><title>${d.label} ${d.yr} — ${cls.replace('dw-', '')}: ${(wk / 6).toFixed(1)}h/day (${wk}h/wk)</title></rect>`
+          inner += `<rect x="${(x + w * 0.16).toFixed(2)}" y="${y1.toFixed(2)}" width="${(w * 0.68).toFixed(2)}" height="${Math.max(0.5, y2 - y1).toFixed(2)}" class="dw-seg ${cls}"><title>${d.label} ${d.y} — ${cls.replace('dw-', '')}: ${(wk / 6).toFixed(1)}h/day</title></rect>`
           acc += hFr
         }
-        // over-capacity marker
         if (d.daily > CAP) {
-          bars += `<rect x="${(x + bw * 0.18).toFixed(1)}" y="${yOf(d.daily).toFixed(1)}" width="${(bw * 0.64).toFixed(1)}" height="${(yOf(CAP) - yOf(d.daily)).toFixed(1)}" class="dw-over"><title>${d.label} ${d.yr}: ${d.daily.toFixed(1)}h/day — ${(d.daily - CAP).toFixed(1)}h ABOVE the 09:00–13:00 window</title></rect>`
+          inner += `<rect x="${(x + w * 0.16).toFixed(2)}" y="${yOf(d.daily).toFixed(2)}" width="${(w * 0.68).toFixed(2)}" height="${(capY - yOf(d.daily)).toFixed(2)}" class="dw-over"><title>${d.label} ${d.y}: ${d.daily.toFixed(1)}h/day — ${(d.daily - CAP).toFixed(1)}h ABOVE the window</title></rect>`
+        } else {
+          inner += `<line x1="${cx.toFixed(2)}" y1="${yOf(d.daily).toFixed(2)}" x2="${cx.toFixed(2)}" y2="${capY.toFixed(2)}" stroke="#1e8e3e" stroke-width="1.3" stroke-dasharray="2 3" opacity=".6"/>`
         }
-        // free-capacity bracket
-        if (d.daily < CAP) {
-          bars += `<line x1="${(x + bw * 0.5).toFixed(1)}" y1="${yOf(d.daily).toFixed(1)}" x2="${(x + bw * 0.5).toFixed(1)}" y2="${yOf(CAP).toFixed(1)}" stroke="#1e8e3e" stroke-width="1.5" stroke-dasharray="2 3" opacity=".55"/>`
-        }
-        labels += `<text x="${cx.toFixed(1)}" y="${H - padB + 15}" font-size="10.5" fill="${d.daily > CAP ? '#b3261e' : '#6e6e73'}" text-anchor="middle" font-weight="${d.daily > CAP ? 700 : 400}">${d.label}</text>`
-        if (d.m === 1) labels += `<text x="${cx.toFixed(1)}" y="${H - padB + 27}" font-size="9.5" fill="#8e8e93" text-anchor="middle">'${d.yr}</text>`
-        // hover target
-        bars += `<rect x="${x.toFixed(1)}" y="${padT}" width="${bw.toFixed(1)}" height="${plotH}" fill="transparent"><title>${d.label} ${d.yr} — total ${d.daily.toFixed(1)}h/day · maths ${(d.maths / 6).toFixed(1)} · physics ${(d.phys / 6).toFixed(1)} · french ${(d.fr / 6).toFixed(1)}${d.crunch ? ` · crunch ${(d.crunch / 6).toFixed(1)}` : ''}h/day</title></rect>`
+        inner += `<text x="${cx.toFixed(2)}" y="${H - 8}" font-size="9.5" fill="${d.daily > CAP ? '#b3261e' : '#6e6e73'}" text-anchor="middle" font-weight="${d.daily > CAP ? 700 : 400}">${d.label}</text>`
+        // transparent hover column
+        inner += `<rect x="${x.toFixed(2)}" y="0" width="${w.toFixed(2)}" height="${H}" fill="transparent"><title>${d.label} ${d.y} — total ${d.daily.toFixed(1)}h/day in the 09:00–13:00 window (capacity 4h/day)</title></rect>`
       })
-      // capacity line
-      const capY = yOf(CAP)
-      const line = `<line x1="${padL}" y1="${capY}" x2="${W - padR}" y2="${capY}" stroke="#1d1d1f" stroke-width="1.6" stroke-dasharray="6 4" opacity=".8"/><text x="${W - padR}" y="${capY - 6}" font-size="10.5" fill="#1d1d1f" text-anchor="end" font-weight="600">window capacity 4h/day</text>`
-      // distribution curve (smooth normal-ish envelope over totals)
-      const pts = DAYWIN.map((d, i) => `${(padL + i * bw + bw / 2).toFixed(1)},${(yOf(d.daily) - 3).toFixed(1)}`)
+      // demand curve across month centers
+      const pts = DAYWIN.map(d => `${(u(d.left) + u(d.width) / 2).toFixed(2)},${(yOf(d.daily) - 2).toFixed(2)}`)
       let path = ''
-      pts.forEach((pt, i) => { path += (i === 0 ? 'M' : ' L') + pt })
-      const curve = `<path d="${path}" fill="none" stroke="#6d5dfc" stroke-width="1.8" opacity=".75" stroke-linejoin="round"/>`
-      host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">${grid}${bars}${line}${curve}${labels}</svg>`
-      // verdict strip
+      pts.forEach((pt, i2) => { path += (i2 === 0 ? 'M' : ' L') + pt })
+      inner += `<path d="${path}" fill="none" stroke="#6d5dfc" stroke-width="1.6" opacity=".7" stroke-linejoin="round"/>`
+      inner += `<text x="994" y="${capY - 5}" font-size="9.5" fill="#1d1d1f" text-anchor="end" font-weight="600">4h/day window capacity</text>`
+
+      const dividerDone2 = false
+      grid2.insertAdjacentHTML('beforeend', `<div class="section-divider daywin-divider"><div class="section-title">Daily study window · 09:00 → 13:00 — aligned to the months above</div><div class="section-sub">Bars = study demand per month (maths · physics · french · crunch) inside your 4h morning window · dashed line = capacity · green ticks = spare hours · red = above window</div></div>`)
+      grid2.insertAdjacentHTML('beforeend', `<div class="row daywin-row"><div class="row-label"><div class="group">Study window</div><div class="name">4h/day capacity</div></div><div class="track daywin-track"><svg viewBox="0 0 1000 ${H}" preserveAspectRatio="none" style="width:100%;height:${H}px;display:block">${inner}</svg></div></div>`)
+      // verdict caption under the chart row (inside grid, spans full width)
       const over = DAYWIN.filter(d => d.daily > CAP)
       const spare = DAYWIN.filter(d => d.daily <= CAP - 0.75)
-      const v = host.parentElement.querySelector('.daywin-verdict')
-      if (v) {
-        v.innerHTML = over.length
-          ? `<strong>Over the window:</strong> ${over.map(d => `${d.label} ${d.yr} (${d.daily.toFixed(1)}h/day)`).join(' · ')} — these months need evening/weekend top-ups or the work-hour cut.` + (spare.length ? ` <strong>Spare now:</strong> ${spare.map(d => `${d.label} ${d.yr} (${(CAP - d.daily).toFixed(1)}h/day free)`).join(' · ')}.` : '')
-          : `<strong>Everything fits</strong> inside 09:00–13:00 · spare capacity: ${spare.map(d => `${d.label} ${d.yr} (${(CAP - d.daily).toFixed(1)}h/day)`).join(' · ') || 'none — window is fully used'}.`
-      }
+      const vTxt = over.length
+        ? `<strong>Above window:</strong> ${over.map(d => `${d.label} ${d.y} (${d.daily.toFixed(1)}h/day)`).join(' · ')} — needs evening top-ups or the work cut.` + (spare.length ? ` <strong>Spare:</strong> ${spare.map(d => `${d.label} ${d.y} (+${(CAP - d.daily).toFixed(1)}h/day)`).join(' · ')}.` : '')
+        : `<strong>Everything fits</strong> in 09:00–13:00.`
+      grid2.insertAdjacentHTML('beforeend', `<div class="daywin-caption">${vTxt}</div>`)
     }
 
     renderVacationRows()
