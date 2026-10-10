@@ -82,7 +82,74 @@ export default function InlineTimelineCitizenship() {
     stripScroll.addEventListener('scroll', () => syncHorizontal(stripScroll, laneBoard), { passive: true, signal })
     laneBoard.addEventListener('scroll', () => syncHorizontal(laneBoard, stripScroll), { passive: true, signal })
 
-    return () => controller.abort()
+    // ── Sticky year axis: pins the 2024–2048 year row under the sticky comparison box while scrolling ──
+    const compareBox = host.querySelector('.relationship-compare')
+    const laneYears = [...laneGrid.querySelectorAll('.lane-year')]
+    const pageBody = laneBoard.parentElement
+    let axisWrap = null
+    let axisObserver = null
+    if (compareBox && laneYears.length && pageBody) {
+      axisWrap = document.createElement('div')
+      axisWrap.className = 'lane-axis-sticky'
+      axisWrap.setAttribute('aria-hidden', 'true')
+      const bar = document.createElement('div')
+      bar.className = 'lane-axis-bar'
+      const label = document.createElement('div')
+      label.className = 'lane-axis-label'
+      label.textContent = 'YEAR'
+      const viewport = document.createElement('div')
+      viewport.className = 'lane-axis-viewport'
+      const years = document.createElement('div')
+      years.className = 'lane-axis-years'
+      const now = new Date().getFullYear()
+      laneYears.forEach(cell => {
+        const y = document.createElement('div')
+        y.className = 'lane-axis-year'
+        y.textContent = cell.textContent.trim()
+        if (Number(y.textContent) === now) y.classList.add('is-now')
+        years.appendChild(y)
+      })
+      viewport.appendChild(years)
+      bar.append(label, viewport)
+      axisWrap.appendChild(bar)
+      pageBody.insertBefore(axisWrap, laneBoard)
+
+      const layout = () => {
+        const cols = getComputedStyle(laneGrid).gridTemplateColumns.split(' ').map(parseFloat).filter(n => !Number.isNaN(n))
+        const gap = parseFloat(getComputedStyle(laneGrid).columnGap) || 0
+        const bs = getComputedStyle(laneBoard)
+        const padL = parseFloat(bs.paddingLeft) + parseFloat(bs.borderLeftWidth)
+        const padR = parseFloat(bs.paddingRight) + parseFloat(bs.borderRightWidth)
+        axisWrap.style.top = `${compareBox.offsetHeight}px`
+        bar.style.left = `${padL}px`
+        bar.style.width = `${laneBoard.offsetWidth - padL - padR}px`
+        label.style.width = `${cols[0] + gap}px`
+        years.style.gridTemplateColumns = cols.slice(1).map(c => `${c}px`).join(' ')
+        years.style.columnGap = `${gap}px`
+        syncAxis()
+      }
+      const syncAxis = () => {
+        const firstYear = laneYears[0].getBoundingClientRect()
+        years.style.transform = `translateX(${firstYear.left - viewport.getBoundingClientRect().left}px)`
+        const pinTop = compareBox.getBoundingClientRect().bottom
+        const gridBottom = laneGrid.getBoundingClientRect().bottom
+        const show = firstYear.top < pinTop && gridBottom > pinTop + bar.offsetHeight + 20
+        axisWrap.classList.toggle('is-visible', show)
+      }
+      window.addEventListener('scroll', syncAxis, { passive: true, signal })
+      laneBoard.addEventListener('scroll', syncAxis, { passive: true, signal })
+      window.addEventListener('resize', layout, { signal })
+      axisObserver = new ResizeObserver(layout)
+      axisObserver.observe(compareBox)
+      axisObserver.observe(laneGrid)
+      layout()
+    }
+
+    return () => {
+      controller.abort()
+      if (axisObserver) axisObserver.disconnect()
+      if (axisWrap) axisWrap.remove()
+    }
   }, [])
 
   return (

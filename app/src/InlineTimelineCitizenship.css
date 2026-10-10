@@ -201,3 +201,13 @@
   .inline-timeline .lane-title{font-size:18px}
   .inline-timeline .baseline-key{padding:8px 9px;font-size:7.5px}
 }
+
+/* Sticky year axis (pinned under the comparison box while scrolling the lane grid) */
+.inline-timeline .lane-axis-sticky{position:sticky;z-index:16;height:0;pointer-events:none}
+.inline-timeline .lane-axis-bar{position:absolute;top:0;display:flex;align-items:stretch;height:24px;background:rgba(255,255,255,.97);border:1px solid #dddde2;border-top:none;border-radius:0 0 10px 10px;box-shadow:0 6px 14px -8px rgba(23,23,21,.28);overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s}
+.inline-timeline .lane-axis-sticky.is-visible .lane-axis-bar{opacity:1;visibility:visible;transform:none}
+.inline-timeline .lane-axis-label{flex:none;display:flex;align-items:center;padding-left:7px;font:800 7px/1 var(--mono);letter-spacing:.06em;color:#173675;background:#fff;box-shadow:6px 0 8px -8px rgba(23,23,21,.35);position:relative;z-index:1}
+.inline-timeline .lane-axis-viewport{flex:1;min-width:0;overflow:hidden;position:relative}
+.inline-timeline .lane-axis-years{display:grid;height:100%;will-change:transform}
+.inline-timeline .lane-axis-year{display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(23,54,117,.12);font:700 8px/1 var(--mono);color:#3a3a3c}
+.inline-timeline .lane-axis-year.is-now{color:#fff;background:#007aff;border-radius:5px;margin:3px 1px}
