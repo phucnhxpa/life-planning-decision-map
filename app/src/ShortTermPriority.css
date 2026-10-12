@@ -587,31 +587,8 @@
 .stp-root .block.vacation-block-bar.vlane2 { top: 36px; height: 26px; opacity: .85; }
 .stp-root .block.vacation-block-bar.vlane3 { top: 66px; height: 26px; }
 
-.stp-root .dw-seg.dw-maths { fill: #0b7f74; }
-.stp-root .dw-seg.dw-phys { fill: #4285f4; }
-.stp-root .dw-seg.dw-fr { fill: #f9ab00; }
-.stp-root .dw-seg.dw-other { fill: #9334e6; }
-.stp-root .dw-over { fill: rgba(179,38,30,0.16); stroke: #b3261e; stroke-width: 1; stroke-dasharray: 3 2; }
-.stp-root .dw-chip { padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; border: 1px solid rgba(0,0,0,0.1); background: rgba(0,0,0,0.03); color: #3c3c43; }
-.stp-root .dw-chip.dw-maths { background: rgba(11,127,116,0.1); color: #0b7f74; border-color: rgba(11,127,116,0.3); }
-.stp-root .dw-chip.dw-phys { background: rgba(66,133,244,0.1); color: #2f6fd0; border-color: rgba(66,133,244,0.3); }
-.stp-root .dw-chip.dw-fr { background: rgba(249,171,0,0.12); color: #8a5200; border-color: rgba(249,171,0,0.35); }
-.stp-root .dw-chip.dw-other { background: rgba(147,52,230,0.1); color: #7b1fa2; border-color: rgba(147,52,230,0.3); }
-.stp-root .dw-chip.dw-cap { border-style: dashed; color: #1d1d1f; }
-.stp-root .dw-chip.dw-free { color: #1e8e3e; border-color: rgba(30,142,62,0.35); background: rgba(52,199,89,0.08); }
 
 /* ── Daily study window (in-grid) ── */
-.stp-root .daywin-divider { border-left: 3px solid #6d5dfc; }
-.stp-root .row.daywin-row .track.daywin-track { padding: 6px 0 0; }
-.stp-root .row.daywin-row svg { display: block; }
-.stp-root .dw-seg.dw-maths { fill: #0b7f74; }
-.stp-root .dw-seg.dw-phys { fill: #4285f4; }
-.stp-root .dw-seg.dw-fr { fill: #f9ab00; }
-.stp-root .dw-seg.dw-other { fill: #9334e6; }
-.stp-root .dw-over { fill: rgba(179,38,30,0.14); stroke: #b3261e; stroke-width: 1; stroke-dasharray: 3 2; }
-.stp-root .daywin-caption { font-size: 12px; color: #3c3c43; line-height: 1.5; padding: 2px 0 2px; }
-.stp-root .daywin-caption strong { color: #1d1d1f; }
-.stp-root .daywin-caption::before { content: none; }
 
 /* ── 2028 feasibility card ── */
 .stp-root .row.feas-row .track.feas-track { padding: 8px 0 14px; }
