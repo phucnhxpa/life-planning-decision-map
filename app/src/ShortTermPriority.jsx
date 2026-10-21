@@ -411,7 +411,7 @@ export default function ShortTermPriority() {
         const detail = `${w.days} free days (${tier}) \u00b7 clear of: ${why}`
         return `<div class="block vacation-block-bar ${tier} vlane${lane}" style="left:${left}%;width:${width}%"><span>${label}</span><small>${fmt(w.from)} \u2192 ${fmt(w.to)}</small>${tip(`Vacation window \u00b7 ${tier}`, `${fmtLong(w.from)} \u2192 ${fmtLong(w.to)}`, detail)}</div>`
       }).join('')
-      grid2.insertAdjacentHTML('beforeend', `<div class="row vacation-row"><div class="row-label"><div class="group">Vacation</div><div class="name">${wins.length} clear windows</div></div><div class="track">${bars}</div></div>`)
+      grid2.insertAdjacentHTML('beforeend', `<div class="row vacation-row" data-row-key="vacation-windows" data-tone="blue"><div class="row-label"><div class="group">Vacation</div><div class="name">${wins.length} clear windows</div></div><div class="track">${bars}</div></div>`)
     }
 
     let dividerDone = false
@@ -445,7 +445,7 @@ export default function ShortTermPriority() {
           : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}` + extra
       const rowKey = (row.rowLabel || row.title || '').replace(/\s+/g, '-').toLowerCase()
       const isCollapsed = localStorage.getItem('stp-collapsed-' + rowKey) === '1'
-      grid.insertAdjacentHTML('beforeend', `<div class="row${cls}${isCollapsed ? ' collapsed' : ''}" data-row-key="${rowKey}"><div class="row-label" role="button" tabindex="0" title="Click to collapse / expand this row"><span class="chev">▾</span><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
+      grid.insertAdjacentHTML('beforeend', `<div class="row${cls}${isCollapsed ? ' collapsed' : ''}" data-row-key="${rowKey}" data-tone="${row.tone || 'neutral'}"><div class="row-label" role="button" tabindex="0" title="Click to collapse / expand this row"><span class="chev">▾</span><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
     }
 
     // Sidebar row-selection: every row is listed with a checkbox; unchecked = fully removed from the timeline.
@@ -464,21 +464,49 @@ export default function ShortTermPriority() {
     function buildSidebar() {
       if (!sidebarList) return
       sidebarList.innerHTML = ''
+      const groups = []
+      const groupOf = (rowEl) => {
+        const g = rowEl.querySelector('.group')?.textContent || 'Other'
+        if (g.startsWith('French ·') || g === 'French') return 'French paths'
+        if (g === 'Cambridge/Imperial') return 'A-levels'
+        if (g === 'French university') return 'University'
+        if (g === 'Administrative') return 'Admin'
+        return g
+      }
       grid.querySelectorAll('.row').forEach(rowEl => {
-        const key = rowKeyOf(rowEl)
-        const lbl = rowEl.querySelector('.name')?.textContent || key
-        const item = document.createElement('label')
-        item.className = 'rs-item'
-        const cb = document.createElement('input')
-        cb.type = 'checkbox'; cb.checked = !rowEl.classList.contains('collapsed'); cb.dataset.key = key
-        cb.addEventListener('change', () => {
-          rowEl.classList.toggle('collapsed', !cb.checked)
-          localStorage.setItem('stp-collapsed-' + key, cb.checked ? '0' : '1')
+        const g = groupOf(rowEl)
+        let bucket = groups.find(x => x.name === g)
+        if (!bucket) { bucket = { name: g, rows: [] }; groups.push(bucket) }
+        bucket.rows.push(rowEl)
+      })
+      groups.forEach(bucket => {
+        const section = document.createElement('div')
+        section.className = 'rs-group'
+        const head = document.createElement('div')
+        head.className = 'rs-group-h'
+        const visible = bucket.rows.filter(r => !r.classList.contains('collapsed')).length
+        head.innerHTML = `<span>${bucket.name}</span><span class="rs-count">${visible}/${bucket.rows.length}</span>`
+        section.appendChild(head)
+        bucket.rows.forEach(rowEl => {
+          const key = rowKeyOf(rowEl)
+          const lbl = rowEl.querySelector('.name')?.textContent || key
+          const item = document.createElement('label')
+          item.className = 'rs-item'
+          const cb = document.createElement('input')
+          cb.type = 'checkbox'; cb.checked = !rowEl.classList.contains('collapsed'); cb.dataset.key = key
+          cb.addEventListener('change', () => {
+            rowEl.classList.toggle('collapsed', !cb.checked)
+            localStorage.setItem('stp-collapsed-' + key, cb.checked ? '0' : '1')
+            head.querySelector('.rs-count').textContent = `${bucket.rows.filter(r => !r.classList.contains('collapsed')).length}/${bucket.rows.length}`
+          })
+          const dot = document.createElement('span')
+          dot.className = 'rs-dot tone-' + (rowEl.dataset.tone || 'neutral')
+          const span = document.createElement('span')
+          span.textContent = lbl
+          item.appendChild(cb); item.appendChild(dot); item.appendChild(span)
+          section.appendChild(item)
         })
-        const span = document.createElement('span')
-        span.textContent = lbl
-        item.appendChild(cb); item.appendChild(span)
-        sidebarList.appendChild(item)
+        sidebarList.appendChild(section)
       })
     }
 
