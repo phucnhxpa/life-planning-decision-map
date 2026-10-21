@@ -500,7 +500,12 @@ export default function ShortTermPriority() {
                 nudgePct = prevRight.pct + (prevRight.w / cw) * 100 + 0.9 - leftPct
               }
             }
-            if (nudgePct > 0) el.style.left = `calc(7px + ${(nudgePct / 100) * cw}px)`
+            if (nudgePct > 0) {
+              el.style.left = `calc(7px + ${(nudgePct / 100) * cw}px)`
+              // If the nudge would push past the track edge, drop this label's text (keep dot+line) — compact mode only.
+              const stillOver = prevRight !== null && (prevRight.pct + (prevRight.w / cw) * 100 + 0.9) > 99
+              if (root.classList.contains('zoomed-out') && stillOver) { el.style.opacity = '0' }
+            }
             const nr = el.getBoundingClientRect()
             const canvasRect = el.closest('.timeline-canvas').getBoundingClientRect()
             prevRight = { pct: ((nr.left - canvasRect.left) / canvasRect.width) * 100, w: nr.width }
