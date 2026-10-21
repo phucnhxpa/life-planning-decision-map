@@ -96,8 +96,6 @@ export default function ShortTermPriority() {
         ],
         deadline: '2027-01-08',
         detail: 'Nothing sat yet — 18 units (12 maths/further maths + 6 physics). Jan 2027: P1 (8 Jan) S1 (12) P2 (13) M1 (14) P3 (15) P4 (19 Jan) → full Maths A-level, results 4 Mar 2027; Mougins entry deadline 16 Oct 2026. Jun 2027: FP1 (27 May) FP2 (3 Jun) FP3 (8 Jun) M3 (10 Jun) + WPH11 (7 May) WPH12 (12 May) WPH13 (19 May), results 12 Aug 2027. Oct 2027: M2, S2 + WPH14–16 (dates TBC by Pearson), results ~21 Jan 2028 → Further Maths + Physics complete. Jan 2028 = resit only. Pearson final timetables Jan/Jun 2027.' },
-        marker: true, markerDate: '2027-08-31', markerLabel: 'B2 done',
-        detail: 'Everything intensive from A0 through complete B1 (Sep 2026 → 28 Feb 2027, 1 sub-level/month), then semi-intensive for B2 only (Mar → Aug 2027): semi = half the hours, so 1 sub-level takes 2 months, B2.1–B2.3 = 6 months. B2 done 31 Aug 2027.' },
       // ── FRENCH · ALTERNATING: INTENSIVE FIRST SUB-LEVEL OF EACH LEVEL, SEMI FOR THE REST ──
       { group: 'French · alternating', title: 'Alt: int first sub-level, semi rest', start: '2026-09-01', end: '2027-10-03', tone: 'purple',
         segments: [
