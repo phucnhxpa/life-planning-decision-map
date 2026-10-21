@@ -610,3 +610,7 @@
 .stp-root.zoomed-out .axis .tick span { font-size: 7.5px; }
 .stp-root.zoomed-out .row-label .group { font-size: 7px; }
 .stp-root.zoomed-out .row-label .name { font-size: 9px; }
+
+/* Compact mode: blocks narrower than ~46px cannot hold their label — hide the in-bar text (hover tip keeps the name). */
+.stp-root.zoomed-out .block.narrow > span { display: none; }
+.stp-root.zoomed-out .pause.narrow > span { display: none; }

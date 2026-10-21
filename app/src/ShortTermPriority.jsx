@@ -282,13 +282,15 @@ export default function ShortTermPriority() {
       const tone = segment.tone || row.tone
       const dates = segment.dates || `${fmt(segment.start)} → ${fmt(segment.end)}`
       const showDates = width >= 6 // short bars: drop in-bar date text so end markers stay readable
-      return `<div class="block ${tone}" style="left:${left}%;width:${width}%"><span>${label}</span>${showDates ? `<small>${dates}</small>` : ''}${tip((row.rowLabel || row.title) + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, segment.detail || row.detail)}</div>`
+      const narrow = width < 2.1 // < ~46px at 2200px canvas: label text cannot fit, compact mode hides it
+      return `<div class="block ${tone}${narrow ? ' narrow' : ''}" style="left:${left}%;width:${width}%"><span>${label}</span>${showDates ? `<small>${dates}</small>` : ''}${tip((row.rowLabel || row.title) + (segment.label ? ' · ' + segment.label : ''), `${fmtLong(segment.start)} → ${fmtLong(segment.end)}`, segment.detail || row.detail)}</div>`
     }
 
     function pause(p) {
       const left = pctAt(p.start)
       const width = Math.max(1.2, pctAt(p.end) - left)
-      return `<div class="pause" style="left:${left}%;width:${width}%"><span>${p.label}</span>${tip(p.label, `${fmtLong(p.start)} → ${fmtLong(p.end)}`, 'Protected blank break — no scheduling here.')}</div>`
+      const narrow = width < 2.1
+      return `<div class="pause ${narrow ? 'narrow' : ''}" style="left:${left}%;width:${width}%"><span>${p.label}</span>${tip(p.label, `${fmtLong(p.start)} → ${fmtLong(p.end)}`, 'Protected blank break — no scheduling here.')}</div>`
     }
 
     // SECURITY: progressBlock builds HTML only from hardcoded row constants (same as block/marker above); no user input.
