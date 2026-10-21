@@ -171,7 +171,7 @@ export default function ShortTermPriority() {
         detail: 'ESAT for Oct 2028 entry, sat in the 2027 cycle: booking closes ~27 Sep 2027 (6pm UK, following the official UAT-UK pattern — 2027 entry closed 28 Sep 2026), test window ~11–15 Oct 2027 (Cambridge applicants must sit in October). Dates are projected from the published 2027-entry calendar until UAT-UK announces the 2028 cycle.' },
       { group: 'Cambridge/Imperial', title: 'Application', rowLabel: 'Application · deadline → interview → decision', start: '2027-10-15', marker: true, markerDate: '2027-10-15', markerLabel: 'deadline to apply', tone: 'red',
         markers: [
-          { date: '2027-12-01', label: 'interviews' },
+          { date: '2027-12-01', label: 'interviews', laneUp: true },
           { date: '2028-01-27', label: 'decision day' },
         ],
         deadline: '2027-10-15',
@@ -241,13 +241,13 @@ export default function ShortTermPriority() {
     // Track placed label boxes per row so consecutive markers nudge instead of overlapping.
     let placedLabels = []
     function resetLabels() { placedLabels = [] }
-    function marker(row, date, label, tone, detailTitle = row.title) {
+    function marker(row, date, label, tone, detailTitle = row.title, laneUp = false) {
       if (!label) { console.error('marker label missing', row && row.title, date); label = fmt(date) }
       const leftPct = pctAt(date)
       // estimated label box in % of track width (label ~6.1px/char at 8.5px font, canvas from --canvas-w)
       const canvasW = parseFloat(getComputedStyle(root).getPropertyValue('--canvas-w')) || 2200
       const estW = Math.min(60, (label.length * 6.1 + 16) / (canvasW / 100))
-      const lane = row.markerLaneUp ? 1 : (placedLabels.length % 2) // alternate up/down
+      const lane = (row.markerLaneUp || laneUp) ? 1 : (placedLabels.length % 2) // explicit or alternate up/down
       placedLabels.push({ lane, left: leftPct, w: estW })
       const topStyle = lane === 1 ? 'top:-13px;transform:translateY(0)' : 'transform:translateY(-50%)'
       const shiftStyle = ''
@@ -414,7 +414,7 @@ export default function ShortTermPriority() {
       const badge = dl === null ? '' : monthsLeft <= 0
         ? `<span class="pct-left red" title="Deadline ${fmtLong(dl)} has passed">passed</span>`
         : `<span class="pct-left ${pctTone(pctV)}" title="${pctFromSep}% of the time from 1 Sep 2026 to ${fmtLong(dl)} has elapsed; ${monthsLeft >= 1 ? Math.floor(monthsLeft) + 'm ' + Math.round((monthsLeft % 1) * 4.33) + 'w' : Math.max(1, Math.round(monthsLeft * 4.33)) + 'w'} left">${pctFromSep}%</span>`
-      const extra = (row.markers || []).map(m => marker(row, m.date, m.label, m.tone || row.tone, m.label)).join('')
+      const extra = (row.markers || []).map(m => marker(row, m.date, m.label, m.tone || row.tone, m.label, !!m.laneUp)).join('')
       const content = row.marker && !row.segments
         ? marker(row, row.start, row.markerLabel || fmt(row.start), row.tone) + extra
         : row.progress
