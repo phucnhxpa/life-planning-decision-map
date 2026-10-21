@@ -505,10 +505,21 @@ export default function ShortTermPriority() {
               // If the nudge would push past the track edge, drop this label's text (keep dot+line) — compact mode only.
               const stillOver = prevRight !== null && (prevRight.pct + (prevRight.w / cw) * 100 + 0.9) > 99
               if (root.classList.contains('zoomed-out') && stillOver) { el.style.opacity = '0' }
+              // If nudging cannot separate the labels (still overlapping the previous label's right edge),
+              // flip this marker to the other vertical lane so the texts stack instead of colliding.
+              const nr = el.getBoundingClientRect()
+              if (nr.left < prevRight.el.getBoundingClientRect().right + 1) {
+                const mk = el.closest('.marker')
+                if (mk) {
+                  mk.classList.toggle('lane-up')
+                  if (!mk.classList.contains('lane-up')) { el.style.top = ''; el.style.transform = 'translateY(-50%)' }
+                  else { el.style.top = '-13px'; el.style.transform = 'translateY(0)' }
+                }
+              }
             }
-            const nr = el.getBoundingClientRect()
+            const nr2 = el.getBoundingClientRect()
             const canvasRect = el.closest('.timeline-canvas').getBoundingClientRect()
-            prevRight = { pct: ((nr.left - canvasRect.left) / canvasRect.width) * 100, w: nr.width }
+            prevRight = { pct: ((nr2.left - canvasRect.left) / canvasRect.width) * 100, w: nr2.width, el }
           })
         })
       })
