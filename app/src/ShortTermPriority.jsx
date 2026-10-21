@@ -474,7 +474,7 @@ export default function ShortTermPriority() {
     renderFeasibility()
 
     // Initial layout pass (also re-run on every zoom change via applyZoom).
-    requestAnimationFrame(nudgePass)
+    requestAnimationFrame(() => nudgePass())
     const scrollToDate = (date) => {
       const canvas = root.querySelector('.timeline-canvas')
       const target = (pctAt(date) / 100) * canvas.scrollWidth
