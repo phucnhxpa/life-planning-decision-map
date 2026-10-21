@@ -120,7 +120,7 @@ export default function ShortTermPriority() {
         marker: true, markerDate: '2028-02-11', markerLabel: 'B2 done',
         detail: 'Your spec: first sub-level of every level intensive (A1.1 · A2.1 · B1.1 · B2.1), the rest semi, and EVERY sub-level = one 4-week session. 17 sessions = 4 × €1,460 + 13 × €730 ≈ €15.3k — the slowest and most expensive path: B2 done 11 Feb 2028, only 2 days before the TCF DAP last chance 13 Feb 2028 (and registration closes 15 Dec 2027, mid-course). The intensive month does not compress the calendar: the semi ladder simply has more sub-levels (A2: 4, B1: 4, B2: 6). For Sep 2028 entry the CHOSEN breaks row (B2 16 Dec 2027) keeps the 8-week TCF buffer.' },
       // ── FRENCH · ALT + 1-MONTH BREAK AFTER EACH LEVEL (A1, A2, B1, B2) ──
-      { group: 'French · alt + breaks', title: 'Alt + 1-mo break per level', start: '2026-09-28', end: '2028-05-20', tone: 'purple',
+      { group: 'French · alt + breaks', title: 'Alt + 1-mo break per level', start: '2026-09-28', end: '2028-04-20', tone: 'purple',
         segments: [
           { start: '2026-09-28', end: '2026-10-23', label: 'A1.1 · int', tone: 'green', detail: 'A1.1 · 28 Sep – 23 Oct 2026 (IN PROGRESS — your class). Intensive, 72h/4wk, €1,460.' },
           { start: '2026-10-26', end: '2026-11-19', label: 'A1.2', tone: 'green', detail: 'A1.2 · 26 Oct – 19 Nov 2026, semi (36h/4wk, €730).' },
@@ -142,10 +142,9 @@ export default function ShortTermPriority() {
           { start: '2028-01-31', end: '2028-02-24', label: 'B2.4', tone: 'purple', detail: 'B2.4 · 31 Jan – 24 Feb 2028, semi. \u26a0 TCF DAP last pass 13 Feb 2028 falls inside this block — with only B2.1–B2.3 completed.' },
           { start: '2028-02-28', end: '2028-03-23', label: 'B2.5', tone: 'purple', detail: 'B2.5 · 28 Feb – 23 Mar 2028, semi.' },
           { start: '2028-03-27', end: '2028-04-20', label: 'B2.6', tone: 'purple', detail: 'B2.6 · 27 Mar – 20 Apr 2028, semi. B2 complete 20 Apr 2028 — 67 days AFTER the TCF DAP last pass (13 Feb 2028).' },
-          { start: '2028-04-21', end: '2028-05-20', label: 'break · B2', tone: 'neutral', detail: 'Post-B2 break (21 Apr – 20 May 2028) — by then the Sep 2028 window has already closed.' },
-        ],
+                 ],
         marker: true, markerDate: '2028-04-20', markerLabel: 'B2 done',
-        detail: 'Same alternating pattern (first sub-level of each level intensive, rest semi, every sub-level = one 4-week session) PLUS a 1-month break after A1, A2, B1 and B2. 17 sessions + 4 breaks = 81 weeks: B2 done 20 Apr 2028. That is 67 days after the TCF DAP last pass (13 Feb 2028) — registration closes ~15 Dec 2027 while you are only mid-B2, and the deadline itself lands mid-B2.4 with only B2.1–B2.3 done. This pattern cannot deliver B2 in time for Sep 2028 entry; it is a Sep 2029 pattern. Cost is unchanged (~4 × €1,460 + 13 × €730 ≈ €15.3k) — the breaks only stretch the calendar.' },
+        detail: 'Same alternating pattern (first sub-level of each level intensive, rest semi, every sub-level = one 4-week session) PLUS a 1-month break after A1, A2, B1 and B2. 17 sessions + 3 breaks = 77 weeks: B2 done 20 Apr 2028. That is 67 days after the TCF DAP last pass (13 Feb 2028) — registration closes ~15 Dec 2027 while you are only mid-B2, and the deadline itself lands mid-B2.4 with only B2.1–B2.3 done. This pattern cannot deliver B2 in time for Sep 2028 entry; it is a Sep 2029 pattern. Cost is unchanged (~4 × €1,460 + 13 × €730 ≈ €15.3k) — the breaks only stretch the calendar.' },
       // ── FRENCH UNIVERSITY ──
 
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
