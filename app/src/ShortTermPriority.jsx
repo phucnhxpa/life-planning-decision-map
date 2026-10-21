@@ -244,8 +244,9 @@ export default function ShortTermPriority() {
     function marker(row, date, label, tone, detailTitle = row.title) {
       if (!label) { console.error('marker label missing', row && row.title, date); label = fmt(date) }
       const leftPct = pctAt(date)
-      // estimated label box in % of track width (label ~6.1px/char at 8.5px font, canvas ~1800px)
-      const estW = Math.min(40, (label.length * 6.1 + 16) / 18)
+      // estimated label box in % of track width (label ~6.1px/char at 8.5px font, canvas from --canvas-w)
+      const canvasW = parseFloat(getComputedStyle(root).getPropertyValue('--canvas-w')) || 2200
+      const estW = Math.min(60, (label.length * 6.1 + 16) / (canvasW / 100))
       const lane = placedLabels.length % 2 // alternate up/down
       placedLabels.push({ lane, left: leftPct, w: estW })
       const topStyle = lane === 1 ? 'top:-13px;transform:translateY(0)' : 'transform:translateY(-50%)'
@@ -496,7 +497,7 @@ export default function ShortTermPriority() {
               const prevLeftPct = prevRight.pct
               const myRightPct = leftPct + (r.width / cw) * 100
               if (leftPct < prevRight.pct + (prevRight.w / cw) * 100) {
-                nudgePct = prevRight.pct + (prevRight.w / cw) * 100 + 0.6 - leftPct
+                nudgePct = prevRight.pct + (prevRight.w / cw) * 100 + 0.9 - leftPct
               }
             }
             if (nudgePct > 0) el.style.left = `calc(7px + ${(nudgePct / 100) * cw}px)`
