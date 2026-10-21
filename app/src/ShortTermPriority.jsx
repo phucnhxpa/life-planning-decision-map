@@ -96,6 +96,23 @@ export default function ShortTermPriority() {
         ],
         deadline: '2027-01-08',
         detail: 'Nothing sat yet — 18 units (12 maths/further maths + 6 physics). Jan 2027: P1 (8 Jan) S1 (12) P2 (13) M1 (14) P3 (15) P4 (19 Jan) → full Maths A-level, results 4 Mar 2027; Mougins entry deadline 16 Oct 2026. Jun 2027: FP1 (27 May) FP2 (3 Jun) FP3 (8 Jun) M3 (10 Jun) + WPH11 (7 May) WPH12 (12 May) WPH13 (19 May), results 12 Aug 2027. Oct 2027: M2, S2 + WPH14–16 (dates TBC by Pearson), results ~21 Jan 2028 → Further Maths + Physics complete. Jan 2028 = resit only. Pearson final timetables Jan/Jun 2027.' },
+        marker: true, markerDate: '2027-08-31', markerLabel: 'B2 done',
+        detail: 'Everything intensive from A0 through complete B1 (Sep 2026 → 28 Feb 2027, 1 sub-level/month), then semi-intensive for B2 only (Mar → Aug 2027): semi = half the hours, so 1 sub-level takes 2 months, B2.1–B2.3 = 6 months. B2 done 31 Aug 2027.' },
+      // ── FRENCH · ALTERNATING: INTENSIVE FIRST SUB-LEVEL OF EACH LEVEL, SEMI FOR THE REST ──
+      { group: 'French · alternating', title: 'Alt: int first sub-level, semi rest', start: '2026-09-01', end: '2027-10-03', tone: 'purple',
+        segments: [
+          { start: '2026-09-01', end: '2026-10-04', label: 'A1.1 · int', tone: 'green', detail: 'A1.1 · Sep 2026, intensive (20h/week) — the first sub-level of A1, already done.' },
+          { start: '2026-10-05', end: '2026-11-29', label: 'A1.2 · semi', tone: 'green', detail: 'A1.2 · 5 Oct → 29 Nov 2026, semi (Mon/Tue/Thu 13:30-16:30, 36h/4-week session; two back-to-back sessions = 8 weeks). The rest of A1 is semi.' },
+          { start: '2026-11-30', end: '2026-12-27', label: 'A2.1 · int', tone: 'blue', detail: 'A2.1 · 30 Nov → 27 Dec 2026, intensive — new level A2 starts with a 4-week intensive session (1 sub-level/month).' },
+          { start: '2026-12-28', end: '2027-02-21', label: 'A2.2 · semi', tone: 'blue', detail: 'A2.2 · 28 Dec 2026 → 21 Feb 2027, semi (8 weeks, two back-to-back sessions).' },
+          { start: '2027-02-22', end: '2027-03-21', label: 'B1.1 · int', tone: 'orange', detail: 'B1.1 · 22 Feb → 21 Mar 2027, intensive — level B1 opens intensive.' },
+          { start: '2027-03-22', end: '2027-05-16', label: 'B1.2 · semi', tone: 'orange', detail: 'B1.2 · 22 Mar → 16 May 2027, semi (8 weeks). B1 complete 16 May 2027.' },
+          { start: '2027-05-17', end: '2027-06-13', label: 'B2.1 · int', tone: 'purple', detail: 'B2.1 · 17 May → 13 Jun 2027, intensive — level B2 opens intensive.' },
+          { start: '2027-06-14', end: '2027-08-08', label: 'B2.2 · semi', tone: 'purple', detail: 'B2.2 · 14 Jun → 8 Aug 2027, semi (8 weeks).' },
+          { start: '2027-08-09', end: '2027-10-03', label: 'B2.3 · semi', tone: 'purple', detail: 'B2.3 · 9 Aug → 3 Oct 2027, semi (8 weeks). B2 complete 3 Oct 2027 — 4.5 months before TCF DAP last chance 13 Feb 2028.' },
+        ],
+        marker: true, markerDate: '2027-10-03', markerLabel: 'B2 done',
+        detail: 'Alternating pattern from A0: the FIRST sub-level of every level is intensive (A1.1 Sep 26 done · A2.1 Dec 26 · B1.1 Feb-Mar 27 · B2.1 May-Jun 27, one 4-week session each), the remaining sub-levels semi at 2 months each (A1.2 · A2.2 · B1.2 · B2.2 · B2.3). Sub-level count and hours are identical to the other paths — only the pacing differs: 4 intensive months + 10 semi months. B2 done 3 Oct 2027, between the intensive→semi path (31 Aug) and the full-semi path (31 Dec).' },
       // ── FRENCH UNIVERSITY ──
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
