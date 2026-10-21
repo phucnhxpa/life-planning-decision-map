@@ -513,8 +513,19 @@ export default function ShortTermPriority() {
       wrap.scrollTo({ left: Math.max(0, target - wrap.clientWidth * 0.24), behavior: 'smooth' })
     }
 
+    // Zoom: shrink/grow the canvas width so the whole timeline can fit for screenshots.
+    let zoom = 1
+    const applyZoom = () => {
+      zoom = Math.min(1, Math.max(0.42, zoom))
+      root.style.setProperty('--canvas-w', (2200 * zoom) + 'px')
+      root.classList.toggle('zoomed-out', zoom < 0.72)
+    }
+    applyZoom()
     const controls = [
       ['←', () => wrap.scrollBy({ left: -Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
+      ['− zoom out', () => { zoom -= 0.14; applyZoom() }],
+      ['+ zoom in', () => { zoom += 0.14; applyZoom() }],
+      ['fit', () => { zoom = Math.max(0.42, Math.min(1, (root.clientWidth - 40) / 2200)); applyZoom(); wrap.scrollTo({ left: 0, behavior: 'smooth' }) }],
       ['Today', () => scrollToDate(TODAY)],
       ['A1.1', () => scrollToDate('2026-09-01')],
       ['A1.2', () => scrollToDate('2026-11-01')],
