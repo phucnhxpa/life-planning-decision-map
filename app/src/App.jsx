@@ -1,4 +1,6 @@
 import { useState, useMemo, Fragment } from 'react'
+
+const VIEW_KEYS = ['roadmap', 'timeline', 'family', 'homecar', 'priority']
 import './App.css'
 import RelationshipFamilyTimeline from './RelationshipFamilyTimeline'
 import HomeCarTimeline from './HomeCarTimeline'
@@ -1346,7 +1348,14 @@ function LifeRoadmap({ scenario = 'current' }) {
 
 
 export default function App() {
-  const [roadmapView, setRoadmapView] = useState('roadmap')
+  const [roadmapView, setRoadmapViewState] = useState(() => {
+    const h = typeof location !== 'undefined' ? location.hash.replace('#', '') : ''
+    return VIEW_KEYS.includes(h) ? h : 'roadmap'
+  })
+  const setRoadmapView = (v) => {
+    setRoadmapViewState(v)
+    if (typeof history !== 'undefined') history.replaceState(null, '', v === 'roadmap' ? '#' : '#' + v)
+  }
 
   return (
     <div className="app">
