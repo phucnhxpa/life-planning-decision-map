@@ -138,7 +138,7 @@ export default function ShortTermPriority() {
       { group: 'French · alt + breaks + equiv', title: 'Alt + breaks · int = 2 semi', start: '2026-09-28', end: '2028-01-14', tone: 'purple',
         segments: [
           { start: '2026-09-28', end: '2026-10-23', label: 'A1.1 int', tone: 'green', detail: 'A1.1 · 28 Sep – 23 Oct 2026 (IN PROGRESS — your class). 72h. Covers ~A1.1 + A1.2 (intensive session ≈ 2 semi sessions of hours).' },
-          { start: '2026-10-26', end: '2026-11-20', label: 'A1.3 semi', tone: 'green', detail: 'A1.3 · 26 Oct – 20 Nov 2026 (your booked slot). A1 complete 20 Nov.' },
+          { start: '2026-10-26', end: '2026-11-20', label: 'A1.2 semi', tone: 'green', detail: 'A1.2 · 26 Oct – 20 Nov 2026 (your booked slot). A1 complete 20 Nov.' },
           { start: '2026-11-23', end: '2026-12-18', label: 'break · A1', tone: 'neutral', detail: 'Month break after A1 (23 Nov – 18 Dec). Merges into the AF winter break 18 Dec – 3 Jan.' },
           { start: '2027-01-04', end: '2027-01-29', label: 'A2.1 int', tone: 'blue', detail: 'A2.1 · 4 – 29 Jan 2027, 72h. Covers ~A2.1 + A2.2 (2 semi sessions of hours).' },
           { start: '2027-02-01', end: '2027-02-26', label: 'A2.3 semi', tone: 'blue', detail: 'A2.3 · 1 – 26 Feb 2027 (A2.2 skipped — covered by the intensive).' },
@@ -155,7 +155,7 @@ export default function ShortTermPriority() {
           { start: '2027-12-06', end: '2028-01-14', label: 'B2.6 semi', tone: 'purple', detail: 'B2.6 · 6 Dec 2027 – 14 Jan 2028 (AF winter break 18 Dec – 3 Jan falls inside it; not class days). B2 complete 14 Jan 2028.' },
         ],
         marker: true, markerDate: '2028-01-14', markerLabel: 'B2 done',
-        detail: 'Same as Alt + 1-mo break per level, but the intensive first sub-level of each level counts as TWO semi sub-levels of hours (72h vs 36h), so the semi ladder skips one sub-level per level: A1.1 int + A1.3 semi; A2.1 int + A2.3, A2.4; B1.1 int + B1.3, B1.4; B2.1 int + B2.3–B2.6. 13 sessions + 3 breaks. B2 done 14 Jan 2028 — 30 days before the TCF DAP last pass (13 Feb 2028): aligns with registration (closes ~15 Dec 2027 mid-B2.5, TCF sits after B2 completes). ≈ €12.4k (4 × €1,460 + 9 × €730). Total class hours 612h — identical content coverage to the 17-session semi ladder.' },
+        detail: 'Same as Alt + 1-mo break per level, but the intensive first sub-level of each level counts as TWO semi sub-levels of hours (72h vs 36h), so the semi ladder skips one sub-level per level: A1.1 int + A1.2 semi; A2.1 int + A2.3, A2.4; B1.1 int + B1.3, B1.4; B2.1 int + B2.3–B2.6. 13 sessions + 3 breaks. B2 done 14 Jan 2028 — 30 days before the TCF DAP last pass (13 Feb 2028): aligns with registration (closes ~15 Dec 2027 mid-B2.5, TCF sits after B2 completes). ≈ €12.4k (4 × €1,460 + 9 × €730). Total class hours 612h — identical content coverage to the 17-session semi ladder.' },
       // ── FRENCH UNIVERSITY ──
 
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
