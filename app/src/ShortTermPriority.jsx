@@ -611,7 +611,7 @@ export default function ShortTermPriority() {
     const applyZoom = () => {
       zoom = Math.min(1, Math.max(0.42, zoom))
       root.style.setProperty('--canvas-w', (2200 * zoom) + 'px')
-      root.classList.toggle('zoomed-out', zoom < 0.72)
+      root.classList.toggle('zoomed-out', zoom < 0.98) // in-bar text only readable at full zoom; compact below
       requestAnimationFrame(() => { nudgePass(); nudgePass() })
     }
     applyZoom()
