@@ -614,3 +614,11 @@
 /* Compact mode: blocks cannot hold their labels at narrow canvas — hide in-bar text (hover tip keeps the name). */
 .stp-root.zoomed-out .block > span { display: none; }
 .stp-root.zoomed-out .pause > span { display: none; }
+
+/* Per-row collapse: clicking the row label hides that row's track */
+.stp-root .row-label { cursor: pointer; }
+.stp-root .row-label .chev { display: inline-block; margin-right: 2px; transition: transform .15s ease; opacity: .55; font-size: 10px; }
+.stp-root .row.collapsed .row-label .chev { transform: rotate(-90deg); }
+.stp-root .row.collapsed .track { display: none; }
+.stp-root .row.collapsed .row-label .name { opacity: .6; }
+.stp-root .row.collapsed { min-height: 0; }

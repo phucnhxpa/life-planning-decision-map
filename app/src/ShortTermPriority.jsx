@@ -443,8 +443,25 @@ export default function ShortTermPriority() {
         : row.progress
           ? progressBlock(row) + (row.markerDate ? marker(row, row.markerDate, row.markerLabel || 'B2', row.tone, row.markerLabel || row.title) : '') + extra
           : `${(row.segments || [row]).map(s => block(row, s)).join('')}${(row.pauses || []).map(pause).join('')}${row.markerDate ? marker(row, row.markerDate, row.markerLabel || fmt(row.markerDate), row.tone, row.markerLabel || row.title) : ''}` + extra
-      grid.insertAdjacentHTML('beforeend', `<div class="row${cls}"><div class="row-label"><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
+      const rowKey = (row.rowLabel || row.title || '').replace(/\s+/g, '-').toLowerCase()
+      const isCollapsed = localStorage.getItem('stp-collapsed-' + rowKey) === '1'
+      grid.insertAdjacentHTML('beforeend', `<div class="row${cls}${isCollapsed ? ' collapsed' : ''}" data-row-key="${rowKey}"><div class="row-label" role="button" tabindex="0" title="Click to collapse / expand this row"><span class="chev">▾</span><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
     }
+
+    // Per-row collapse: clicking a row label hides/unhides that row's track (persisted in localStorage)
+    grid.addEventListener('click', (e) => {
+      const label = e.target.closest('.row-label')
+      if (!label || !grid.contains(label)) return
+      const rowEl = label.closest('.row')
+      if (!rowEl || rowEl.dataset.rowKey === undefined) return
+      const collapsed = rowEl.classList.toggle('collapsed')
+      localStorage.setItem('stp-collapsed-' + rowEl.dataset.rowKey, collapsed ? '1' : '0')
+    })
+    grid.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return
+      const label = e.target.closest && e.target.closest('.row-label')
+      if (label) { e.preventDefault(); label.click() }
+    })
 
     renderVacationRows()
 
@@ -558,6 +575,7 @@ export default function ShortTermPriority() {
     }
     applyZoom()
     const controls = [
+      ['expand all', () => { grid.querySelectorAll('.row.collapsed').forEach(r => { r.classList.remove('collapsed'); if (r.dataset.rowKey !== undefined) localStorage.removeItem('stp-collapsed-' + r.dataset.rowKey) }) }],
       ['←', () => wrap.scrollBy({ left: -Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
       ['− zoom out', () => { zoom -= 0.14; applyZoom() }],
       ['+ zoom in', () => { zoom += 0.14; applyZoom() }],
