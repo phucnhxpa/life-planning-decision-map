@@ -473,14 +473,22 @@ export default function ShortTermPriority() {
     }
     renderFeasibility()
 
-    // Second layout pass: measure real label boxes and nudge any same-lane overlaps to the right.
-    // (Estimates at render time underestimate long labels; real rects are authoritative.)
-    requestAnimationFrame(() => {
+    // Initial layout pass (also re-run on every zoom change via applyZoom).
+    requestAnimationFrame(nudgePass)
+    const scrollToDate = (date) => {
+      const canvas = root.querySelector('.timeline-canvas')
+      const target = (pctAt(date) / 100) * canvas.scrollWidth
+      wrap.scrollTo({ left: Math.max(0, target - wrap.clientWidth * 0.24), behavior: 'smooth' })
+    }
+
+    // Zoom: shrink/grow the canvas width so the whole timeline can fit for screenshots.
+    let zoom = 1
+    const nudgePass = () => {
+      // Second layout pass: measure real label boxes, nudge same-lane overlaps right, flip lanes when needed.
       root.querySelectorAll('.row').forEach(row => {
-        const laneOf = el => el.closest('.marker')?.classList.contains('lane-up') ? 1 : 0
         const byLane = new Map()
         row.querySelectorAll('.marker-label').forEach(el => {
-          const lane = laneOf(el)
+          const lane = el.closest('.marker')?.classList.contains('lane-up') ? 1 : 0
           if (!byLane.has(lane)) byLane.set(lane, [])
           byLane.get(lane).push(el)
         })
@@ -494,19 +502,14 @@ export default function ShortTermPriority() {
             const leftPct = ((r.left - canvas.getBoundingClientRect().left) / cw) * 100
             let nudgePct = 0
             if (prevRight !== null) {
-              const prevLeftPct = prevRight.pct
-              const myRightPct = leftPct + (r.width / cw) * 100
               if (leftPct < prevRight.pct + (prevRight.w / cw) * 100) {
                 nudgePct = prevRight.pct + (prevRight.w / cw) * 100 + 0.9 - leftPct
               }
             }
             if (nudgePct > 0) {
               el.style.left = `calc(7px + ${(nudgePct / 100) * cw}px)`
-              // If the nudge would push past the track edge, drop this label's text (keep dot+line) — compact mode only.
               const stillOver = prevRight !== null && (prevRight.pct + (prevRight.w / cw) * 100 + 0.9) > 99
               if (root.classList.contains('zoomed-out') && stillOver) { el.style.opacity = '0' }
-              // If nudging cannot separate the labels (still overlapping the previous label's right edge),
-              // flip this marker to the other vertical lane so the texts stack instead of colliding.
               const nr = el.getBoundingClientRect()
               if (nr.left < prevRight.el.getBoundingClientRect().right + 1) {
                 const mk = el.closest('.marker')
@@ -523,19 +526,12 @@ export default function ShortTermPriority() {
           })
         })
       })
-    })
-    const scrollToDate = (date) => {
-      const canvas = root.querySelector('.timeline-canvas')
-      const target = (pctAt(date) / 100) * canvas.scrollWidth
-      wrap.scrollTo({ left: Math.max(0, target - wrap.clientWidth * 0.24), behavior: 'smooth' })
     }
-
-    // Zoom: shrink/grow the canvas width so the whole timeline can fit for screenshots.
-    let zoom = 1
     const applyZoom = () => {
       zoom = Math.min(1, Math.max(0.42, zoom))
       root.style.setProperty('--canvas-w', (2200 * zoom) + 'px')
       root.classList.toggle('zoomed-out', zoom < 0.72)
+      requestAnimationFrame(nudgePass)
     }
     applyZoom()
     const controls = [
