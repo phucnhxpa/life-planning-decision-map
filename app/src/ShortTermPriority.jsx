@@ -86,16 +86,6 @@ export default function ShortTermPriority() {
         ],
         marker: true, markerDate: '2027-12-16', markerLabel: 'B2 done',
         detail: 'Intensive A0 → B1 with a 1-month break after each completed level (after A1 · after A2 · after B1), then semi-intensive B2 back-to-back — no gaps (AF semi sessions chain Mon→Thu). B2 done 16 Dec 2027, 8 weeks before the TCF DAP last chance 13 Feb 2028; the post-B2 break starts 17 Dec. 6 × €1,460 + 6 × €730 ≈ €13.1k.' },
-      { group: 'A-level · CHOSEN · Sep 2028', title: 'Sittings → results', rowLabel: 'A-level sittings → results', start: '2027-01-08', marker: true, markerDate: '2027-01-08', markerLabel: 'Maths ×6', tone: 'blue',
-        markers: [
-          { date: '2027-03-04', label: 'results' },
-          { date: '2027-05-07', label: 'FM ×4 + phys ×3' },
-          { date: '2027-08-12', label: 'results' },
-          { date: '2027-10-20', label: 'M2 S2 + phys ×3' },
-          { date: '2028-01-21', label: 'results' },
-        ],
-        deadline: '2027-01-08',
-        detail: 'Nothing sat yet — 18 units (12 maths/further maths + 6 physics). Jan 2027: P1 (8 Jan) S1 (12) P2 (13) M1 (14) P3 (15) P4 (19 Jan) → full Maths A-level, results 4 Mar 2027; Mougins entry deadline 16 Oct 2026. Jun 2027: FP1 (27 May) FP2 (3 Jun) FP3 (8 Jun) M3 (10 Jun) + WPH11 (7 May) WPH12 (12 May) WPH13 (19 May), results 12 Aug 2027. Oct 2027: M2, S2 + WPH14–16 (dates TBC by Pearson), results ~21 Jan 2028 → Further Maths + Physics complete. Jan 2028 = resit only. Pearson final timetables Jan/Jun 2027.' },
       // ── FRENCH · ALTERNATING: INTENSIVE FIRST SUB-LEVEL OF EACH LEVEL, SEMI FOR THE REST (EVERY SUB-LEVEL = 1 MONTH) ──
       { group: 'French · alternating', title: 'Alt: int level-start → semi rest', start: '2026-09-28', end: '2028-02-11', tone: 'purple',
         segments: [
@@ -149,6 +139,16 @@ export default function ShortTermPriority() {
 
       { group: 'French university', title: 'French B2 · TCF', rowLabel: 'French B2 · TCF DAP deadline', start: '2028-02-13', marker: true, markerDate: '2028-02-13', markerLabel: 'TCF DAP deadline', tone: 'orange',
         detail: 'French B2 proof for dossier vert: TCF DAP online registration closes 15 Dec 2027 (ministry délai de rigueur); absolute last pass 13 Feb 2028 — results precede the 16 Mar commissions. No retake after that (30-day gap rule). Source: Admission Reference 2028 Intake PDF.' },
+      { group: 'French university', title: 'Sittings → results', rowLabel: 'A-level sittings → results', start: '2027-01-08', marker: true, markerDate: '2027-01-08', markerLabel: 'Maths ×6', tone: 'blue',
+        markers: [
+          { date: '2027-03-04', label: 'results' },
+          { date: '2027-05-07', label: 'FM ×4 + phys ×3' },
+          { date: '2027-08-12', label: 'results' },
+          { date: '2027-10-20', label: 'M2 S2 + phys ×3' },
+          { date: '2028-01-21', label: 'results' },
+        ],
+        deadline: '2027-01-08',
+        detail: 'Nothing sat yet — 18 units (12 maths/further maths + 6 physics). Jan 2027: P1 (8 Jan) S1 (12) P2 (13) M1 (14) P3 (15) P4 (19 Jan) → full Maths A-level, results 4 Mar 2027; Mougins entry deadline 16 Oct 2026. Jun 2027: FP1 (27 May) FP2 (3 Jun) FP3 (8 Jun) M3 (10 Jun) + WPH11 (7 May) WPH12 (12 May) WPH13 (19 May), results 12 Aug 2027. Oct 2027: M2, S2 + WPH14–16 (dates TBC by Pearson), results ~21 Jan 2028 → Further Maths + Physics complete. Jan 2028 = resit only. Pearson final timetables Jan/Jun 2027.' },
       { group: 'French university', title: 'A-level submission', rowLabel: 'A-level certificates deadline', start: '2028-03-31', marker: true, markerDate: '2028-03-31', markerLabel: 'deadline', tone: 'blue',
         detail: 'DAP accepts candidates \u201cen préparation\u201d (ministry dossier-vert page); original diploma at enrolment (Jul–30 Sep 2028). In the file by 15 Dec 2027: full Maths A-level (results 4 Mar 2027) + FP1–3, M3, WPH11–13 (results 12 Aug 2027). M2, S2, WPH14–16 (Oct 2027, results ~21 Jan 2028) sent as complement. Jan 2028 = resit only.' },
       { group: 'French university', title: 'Application', rowLabel: 'Application · apply → decision → year starts', start: '2028-01-15', marker: true, markerDate: '2028-01-15', markerLabel: 'last day to apply', tone: 'red',
