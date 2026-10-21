@@ -448,7 +448,41 @@ export default function ShortTermPriority() {
       grid.insertAdjacentHTML('beforeend', `<div class="row${cls}${isCollapsed ? ' collapsed' : ''}" data-row-key="${rowKey}"><div class="row-label" role="button" tabindex="0" title="Click to collapse / expand this row"><span class="chev">▾</span><div class="group">${row.group}</div><div class="name">${row.rowLabel || row.title}</div></div><div class="track">${content}</div>${badge}</div>`)
     }
 
-    // Per-row collapse: clicking a row label hides/unhides that row's track (persisted in localStorage)
+    // Sidebar row-selection: every row is listed with a checkbox; unchecked = fully removed from the timeline.
+    const sidebarList = root.querySelector('#stpRowList')
+    function rowKeyOf(rowEl) {
+      if (!rowEl.dataset.rowKey) {
+        const lbl = rowEl.querySelector('.name')?.textContent || 'row'
+        rowEl.dataset.rowKey = lbl.replace(/\s+/g, '-').toLowerCase()
+      }
+      return rowEl.dataset.rowKey
+    }
+    function syncSidebar(rowEl) {
+      const cb = sidebarList.querySelector('input[data-key="' + CSS.escape(rowEl.dataset.rowKey) + '"]')
+      if (cb) cb.checked = !rowEl.classList.contains('collapsed')
+    }
+    function buildSidebar() {
+      if (!sidebarList) return
+      sidebarList.innerHTML = ''
+      grid.querySelectorAll('.row').forEach(rowEl => {
+        const key = rowKeyOf(rowEl)
+        const lbl = rowEl.querySelector('.name')?.textContent || key
+        const item = document.createElement('label')
+        item.className = 'rs-item'
+        const cb = document.createElement('input')
+        cb.type = 'checkbox'; cb.checked = !rowEl.classList.contains('collapsed'); cb.dataset.key = key
+        cb.addEventListener('change', () => {
+          rowEl.classList.toggle('collapsed', !cb.checked)
+          localStorage.setItem('stp-collapsed-' + key, cb.checked ? '0' : '1')
+        })
+        const span = document.createElement('span')
+        span.textContent = lbl
+        item.appendChild(cb); item.appendChild(span)
+        sidebarList.appendChild(item)
+      })
+    }
+
+    // Per-row collapse: clicking a row label removes/restores that row from the timeline (persisted in localStorage)
     grid.addEventListener('click', (e) => {
       const label = e.target.closest('.row-label')
       if (!label || !grid.contains(label)) return
@@ -456,6 +490,7 @@ export default function ShortTermPriority() {
       if (!rowEl || rowEl.dataset.rowKey === undefined) return
       const collapsed = rowEl.classList.toggle('collapsed')
       localStorage.setItem('stp-collapsed-' + rowEl.dataset.rowKey, collapsed ? '1' : '0')
+      syncSidebar(rowEl)
     })
     grid.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return
@@ -512,6 +547,12 @@ export default function ShortTermPriority() {
         </div></div>`)
     }
     renderFeasibility()
+
+    buildSidebar()
+    root.querySelector('#stpShowAll')?.addEventListener('click', () => {
+      grid.querySelectorAll('.row.collapsed').forEach(r => { r.classList.remove('collapsed'); if (r.dataset.rowKey !== undefined) localStorage.removeItem('stp-collapsed-' + r.dataset.rowKey) })
+      buildSidebar()
+    })
 
     // Initial layout pass (also re-run on every zoom change via applyZoom).
     requestAnimationFrame(() => { nudgePass(); nudgePass() })
@@ -575,7 +616,7 @@ export default function ShortTermPriority() {
     }
     applyZoom()
     const controls = [
-      ['expand all', () => { grid.querySelectorAll('.row.collapsed').forEach(r => { r.classList.remove('collapsed'); if (r.dataset.rowKey !== undefined) localStorage.removeItem('stp-collapsed-' + r.dataset.rowKey) }) }],
+      ['expand all', () => { grid.querySelectorAll('.row.collapsed').forEach(r => { r.classList.remove('collapsed'); if (r.dataset.rowKey !== undefined) localStorage.removeItem('stp-collapsed-' + r.dataset.rowKey) }); buildSidebar() }],
       ['←', () => wrap.scrollBy({ left: -Math.round(wrap.clientWidth * .8), behavior: 'smooth' })],
       ['− zoom out', () => { zoom -= 0.14; applyZoom() }],
       ['+ zoom in', () => { zoom += 0.14; applyZoom() }],
