@@ -84,7 +84,7 @@ export default function ShortTermPriority() {
           { start: '2027-11-22', end: '2027-12-16', label: 'B2.6', tone: 'purple', detail: 'B2.6 · 22 Nov – 16 Dec 2027, semi. B2 complete Thu 16 Dec 2027 — 8 weeks before the TCF DAP last chance 13 Feb 2028.' },
           { start: '2027-12-17', end: '2028-01-17', label: 'break · B2', tone: 'neutral', detail: 'Month break after B2 (17 Dec 2027 – 17 Jan 2028) — merges with AF winter break 18 Dec – 3 Jan. The TCF DAP sitting fits inside/after this break; last chance 13 Feb still ahead.' },
         ],
-        marker: true, markerDate: '2027-12-16', markerLabel: 'B2 done',
+        marker: true, markerDate: '2027-12-16', markerLabel: 'B2 done', markerLaneUp: true,
         detail: 'Intensive A0 → B1 with a 1-month break after each completed level (after A1 · after A2 · after B1), then semi-intensive B2 back-to-back — no gaps (AF semi sessions chain Mon→Thu). B2 done 16 Dec 2027, 8 weeks before the TCF DAP last chance 13 Feb 2028; the post-B2 break starts 17 Dec. 6 × €1,460 + 6 × €730 ≈ €13.1k.' },
       // ── FRENCH · ALTERNATING: INTENSIVE FIRST SUB-LEVEL OF EACH LEVEL, SEMI FOR THE REST (EVERY SUB-LEVEL = 1 MONTH) ──
       { group: 'French · alternating', title: 'Alt: int level-start → semi rest', start: '2026-09-28', end: '2028-02-11', tone: 'purple',
@@ -203,7 +203,7 @@ export default function ShortTermPriority() {
           { start: '2027-12-01', end: '2028-02-28', label: 'Find new apartment', tone: 'blue', detail: '3-month search block: dossier (garant, payslips/attestations), visits, offer. Overlaps the last lease month on purpose — never let them not overlap.' },
           { start: '2028-03-01', end: '2028-03-31', label: 'New apt', tone: 'green', detail: 'Sign the new bail, move in March 2028 — 6 months before the Sorbonne rentrée, comfortably before the A2 2027 plan ends.' },
         ],
-        marker: true, markerDate: '2028-03-01', markerLabel: 'moved',
+        marker: true, markerDate: '2028-03-01', markerLabel: 'moved', markerLaneUp: true,
         detail: 'Rental chain: lease ends 31 Jan 2028 → 3-month find-new-apartment block (Dec 2027 – Feb 2028) → move into new apartment Mar 2028. Dates are planning placeholders — adjust to the real bail.' },
     ]
 
@@ -247,7 +247,7 @@ export default function ShortTermPriority() {
       // estimated label box in % of track width (label ~6.1px/char at 8.5px font, canvas from --canvas-w)
       const canvasW = parseFloat(getComputedStyle(root).getPropertyValue('--canvas-w')) || 2200
       const estW = Math.min(60, (label.length * 6.1 + 16) / (canvasW / 100))
-      const lane = placedLabels.length % 2 // alternate up/down
+      const lane = row.markerLaneUp ? 1 : (placedLabels.length % 2) // alternate up/down
       placedLabels.push({ lane, left: leftPct, w: estW })
       const topStyle = lane === 1 ? 'top:-13px;transform:translateY(0)' : 'transform:translateY(-50%)'
       const shiftStyle = ''
