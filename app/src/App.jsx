@@ -1371,6 +1371,7 @@ function LifeWeeksGrid({ scenario = 'current' }) {
   phases.forEach(p => {
     if (!legend.find(l => l.id === p.id)) legend.push(p)
   })
+  const livedColor = phases[0].color
 
   return (
     <div className="card">
@@ -1387,8 +1388,8 @@ function LifeWeeksGrid({ scenario = 'current' }) {
       </div>
       <p style={{ color: '#86868b', fontSize: 13, marginBottom: 18, lineHeight: 1.55, marginTop: 12 }}>
         {fromBirth
-          ? `Every row is one year of your life from birth \u2014 ${totalWeeks.toLocaleString()} boxes to age ${endAge}. Weeks before age 24 are gray (pre-roadmap).`
-          : `Every row is one year of your life from age 24 \u2014 ${totalWeeks.toLocaleString()} boxes to age ${endAge}.`}
+          ? `Every row is one year of your life from birth — ${totalWeeks.toLocaleString()} boxes to age ${endAge}. Years before age 24 shown in gray-green (pre-roadmap).`
+          : `Every row is one year of your life from age 24 — ${totalWeeks.toLocaleString()} boxes to age ${endAge}.`}
         {' '}Each box is one week. Faded boxes are behind you; colors follow the roadmap phases; the outlined box is this week.
         Inspired by Wait But Why's <em>Your Life in Weeks</em>.
       </p>
@@ -1397,7 +1398,7 @@ function LifeWeeksGrid({ scenario = 'current' }) {
       <div className="legend" style={{ marginBottom: 16 }}>
         {fromBirth && (
           <div className="legend-item">
-            <span className="legend-color" style={{ background: '#c8ccc9' }} />
+            <span className="legend-color" style={{ background: livedColor, opacity: .45 }} />
             before age 24
           </div>
         )}
@@ -1439,7 +1440,7 @@ function LifeWeeksGrid({ scenario = 'current' }) {
                     className={cls}
                     title={title}
                     style={{
-                      background: isNow ? 'transparent' : phase ? phase.color : '#c8ccc9',
+                      background: isNow ? 'transparent' : phase ? phase.color : livedColor,
                       opacity: isPast ? 0.35 : 1,
                     }}
                   />
