@@ -7,7 +7,7 @@
 .weeks-week-h.show{color:#86868b}
 .weeks-age-l{font-size:8px;color:#b0b0b6;text-align:right;padding-right:5px;align-self:center;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1}
 .weeks-age-l.major{color:#1d1d1f;font-weight:800;font-size:9px}
-.week-box{aspect-ratio:1;border-radius:1.5px;min-width:0}
+.week-box{height:7px;border-radius:1.5px;min-width:0}
 .week-box.now{border:1.5px solid #ff3b30;box-shadow:0 0 0 1.5px rgba(255,59,48,.18)}
 .week-box:hover{transform:scale(2.2);z-index:3;position:relative;box-shadow:0 4px 14px rgba(0,0,0,.25);border-radius:2px}
 .weeks-stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px}
