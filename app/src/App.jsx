@@ -1348,7 +1348,7 @@ function LifeRoadmap({ scenario = 'current' }) {
 }
 
 // == YOUR LIFE IN WEEKS (waitbutwhy-style grid, annotated from age 24) ==
-const LIFE_WEEKS_END_AGE = 90
+const LIFE_WEEKS_END_AGE = 70
 const LIFE_WEEKS_TOTAL = LIFE_WEEKS_END_AGE * 52 // 4680
 
 function LifeWeeksGrid({ scenario = 'current' }) {
@@ -1381,9 +1381,9 @@ function LifeWeeksGrid({ scenario = 'current' }) {
           type="button"
           className="weeks-toggle"
           onClick={() => setFromBirth(v => !v)}
-          title="Show the whole life from age 0, or just the roadmap window from age 24"
+          title="Show the whole life from age 0, or just the roadmap window from age 24 — chart runs to age 70"
         >
-          {fromBirth ? 'roadmap view (age 24 → 90)' : 'include before 24 (age 0 → 90)'}
+          {fromBirth ? 'roadmap view (age 24 → 70)' : 'include before 24 (age 0 → 70)'}
         </button>
       </div>
       <p style={{ color: '#86868b', fontSize: 13, marginBottom: 18, lineHeight: 1.55, marginTop: 12 }}>
