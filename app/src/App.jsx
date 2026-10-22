@@ -1338,8 +1338,89 @@ function LifeRoadmap({ scenario = 'current' }) {
         </div>
       </div>
 
+      {/* ═══ YOUR LIFE IN WEEKS ═══ */}
+      <LifeWeeksGrid scenario={scenario} />
+
       {/* ═══ LEADERS COMPARISON (interactive) ═══ */}
       <LeaderTimeline />
+    </div>
+  )
+}
+
+// == YOUR LIFE IN WEEKS (waitbutwhy-style grid, annotated from age 24) ==
+const LIFE_WEEKS_END_AGE = 90
+const LIFE_WEEKS_TOTAL = LIFE_WEEKS_END_AGE * 52 // 4680
+
+function LifeWeeksGrid({ scenario = 'current' }) {
+  const phases = scenario === '2028' ? ROADMAP_2028_PHASES : ROADMAP_PHASES
+  const nowAge = 24.3 + (Date.now() - new Date('2026-03-01T00:00:00').getTime()) / (365.25 * 864e5)
+  const nowWeek = Math.max(0, Math.round((nowAge - 24.3) * 52)) // weeks since Mar 2026 baseline (age 24.3)
+
+  const weeks = []
+  for (let w = 0; w < LIFE_WEEKS_TOTAL; w++) {
+    const age = 24.3 + w / 52
+    const phase = phases.find(p => age >= p.startAge && age < p.endAge) || phases[phases.length - 1]
+    weeks.push({ idx: w, phase, age })
+  }
+
+  const legend = []
+  phases.forEach(p => {
+    if (!legend.find(l => l.id === p.id)) legend.push(p)
+  })
+
+  return (
+    <div className="card">
+      <div className="card-title">Your Life in Weeks</div>
+      <p style={{ color: '#86868b', fontSize: 13, marginBottom: 18, lineHeight: 1.55 }}>
+        Every row is one year of your life from age 24 \u2014 {LIFE_WEEKS_TOTAL.toLocaleString()} boxes to age {LIFE_WEEKS_END_AGE}.
+        Each box is one week. Faded boxes are behind you; colors follow the roadmap phases; the outlined box is this week.
+        Inspired by Wait But Why's <em>Your Life in Weeks</em>.
+      </p>
+
+      {/* legend */}
+      <div className="legend" style={{ marginBottom: 16 }}>
+        {legend.map(p => (
+          <div key={p.id} className="legend-item" title={p.desc}>
+            <span className="legend-color" style={{ background: p.color }} />
+            {p.emoji} {p.label} \u00b7 {p.startDate} \u2192 {p.endDate}
+          </div>
+        ))}
+        <div className="legend-item">
+          <span className="legend-color" style={{ background: 'transparent', border: '2px solid #ff3b30' }} />
+          this week
+        </div>
+      </div>
+
+      {/* the grid */}
+      <div className="weeks-grid-wrap">
+        {weeks.map(({ idx, phase }) => {
+          const isPast = idx <= nowWeek
+          const isNow = idx === nowWeek
+          const cls = 'week-box' + (isNow ? ' now' : '')
+          const title = `Week ${idx + 1} \u00b7 age ${(24.3 + idx / 52).toFixed(2)} \u00b7 ${phase.label} \u00b7 ${isNow ? 'this week' : isPast ? 'past' : 'ahead'}`
+          return (
+            <div
+              key={idx}
+              className={cls}
+              title={title}
+              style={{
+                background: isNow ? 'transparent' : isPast ? phase.color : '#e9e9ee',
+                opacity: isPast ? 0.35 : 1,
+              }}
+            />
+          )
+        })}
+      </div>
+
+      <div className="weeks-stats">
+        <div className="weeks-stat"><strong>{nowWeek.toLocaleString()}</strong> weeks lived since Mar 2026 (age 24.3)</div>
+        <div className="weeks-stat"><strong>{(LIFE_WEEKS_TOTAL - nowWeek).toLocaleString()}</strong> weeks to age {LIFE_WEEKS_END_AGE}</div>
+        <div className="weeks-stat"><strong>{((nowWeek / LIFE_WEEKS_TOTAL) * 100).toFixed(2)}%</strong> of the chart behind you</div>
+      </div>
+
+      <p style={{ color: '#86868b', fontSize: 12, marginTop: 14, lineHeight: 1.5 }}>
+        \u201cGiven that fact, the only appropriate word to describe your weeks is <em>precious</em>.\u201d \u2014 Wait But Why
+      </p>
     </div>
   )
 }
