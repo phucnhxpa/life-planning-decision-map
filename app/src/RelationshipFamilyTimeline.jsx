@@ -11,69 +11,69 @@ const MILESTONES = [
   {
     label: 'Meet a potential long-term partner', start: 26, end: 32, status: 'Planning only',
     kind: 'none',
-    note: 'No demographic measurement exists. The reference is explicit: no official single age — do not infer it from wedding age.',
+    caption: 'No demographic measurement exists — planning range only (do not infer from wedding age).',
   },
   {
     label: 'Serious relationship / cohabitation', start: 28, end: 34, status: 'Planning only',
     kind: 'none',
-    note: 'No official age published. INED cohort evidence: cohabitation-first is dominant in France, but formation age is not administratively measured.',
+    caption: 'No official age published (INED: cohabitation-first is dominant, formation not measured).',
   },
   {
     label: 'PACS, if useful', start: 31, end: 35, status: 'Planning only',
     kind: 'means',
     points: [
-      { year: '2016', men: 34.8, women: 32.8, src: 'Ministry of Justice, registration series' },
-      { year: '2006', men: 32.1, women: 30.1, src: 'Infostat Justice 97, opposite-sex PACS' },
+      { year: '2016', men: 34.8, women: 32.8, src: 'Ministry of Justice' },
+      { year: '2006', men: 32.1, women: 30.1, src: 'Infostat Justice 97' },
     ],
-    note: 'Mean ages only — no quartiles published for PACS, so no true box. Cohort procedures changed between 2006 and 2016.',
+    caption: 'Mean ages only — no quartiles published, so no true box (MoJ 2016 · Infostat 2006).',
   },
   {
     label: 'First child', start: 33, end: 37, status: 'Couple-dependent',
     kind: 'box',
-    box: { q1: 25, q3: 32, mode: 28, mean: 29.1 },
-    note: 'Real distribution: INSEE 2023 (Focus 356) — middle half of first births aged 25–32, most common age 28, mean 29.1.',
+    box: { q1: 25, q3: 32, mode: 28, mean: 29.1, src: 'INSEE 2023 (Focus 356)' },
+    caption: 'Middle half of first births 25–32 · mode 28 · mean 29.1 (INSEE 2023).',
   },
   {
     label: 'Marriage, if desired', start: 33, end: 38, status: 'Planning only',
     kind: 'mixed',
-    france: { year: '2022', men: 36.6, women: 34.7, src: 'INSEE Focus 321 — mean age, first marriages (no quartiles published)' },
-    us: { q1: 28, q3: 35, median: 30, src: 'US SIPP 2023 custom — doctorate holders, first marriage 2010+ (not French)' },
-    note: 'France publishes means only. The US doctorate box is labelled context — same education profile, different country.',
+    france: { year: '2022', men: 36.6, women: 34.7, src: 'INSEE Focus 321' },
+    us: { q1: 28, q3: 35, median: 30, src: 'US SIPP — not French' },
+    caption: 'France means: men 36.6 · women 34.7 (INSEE 2022) · US doctorate box median ≈ 30, 28–35 (not French).',
   },
 ]
 
 function PlanBand({ start, end }) {
   return (
     <div className="bx-plan" style={{ left: `${pct(start)}%`, width: `${pct(end) - pct(start)}%` }}>
-      <span>your plan {start}–{end}</span>
+      <span>{start}–{end}</span>
     </div>
   )
 }
 
-function MeansLayer({ points }) {
+function BoxPlot({ box, tone = 'fr' }) {
+  const cls = tone === 'us' ? 'bx-box us' : 'bx-box'
   return (
-    <div className="bx-layer">
-      {points.map(pt => (
-        <div key={pt.year} className="bx-means-row">
-          <div className="bx-dot" style={{ left: `${pct(pt.men)}%` }} title={`${pt.year} · men · mean ${pt.men} · ${pt.src}`} />
-          <div className="bx-dot" style={{ left: `${pct(pt.women)}%` }} title={`${pt.year} · women · mean ${pt.women} · ${pt.src}`} />
-          <div className="bx-means-label" style={{ left: `${pct(pt.men)}%` }}>
-            {pt.year}: men {pt.men} · women {pt.women}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function BoxLayer({ box, tone }) {
-  return (
-    <div className="bx-layer">
-      <div className="bx-box" style={{ left: `${pct(box.q1)}%`, width: `${pct(box.q3) - pct(box.q1)}%` }}>
-        {box.median != null && <i className="bx-med" style={{ left: `${(box.median - box.q1) / (box.q3 - box.q1) * 100}%` }} title={`median ≈ ${box.median}`} />}
-        {box.mode != null && <i className="bx-med" style={{ left: `${(box.mode - box.q1) / (box.q3 - box.q1) * 100}%` }} title={`most common age (mode) ${box.mode}`} />}
+    <div className="bx-plot" title={box.src}>
+      <i className="bx-whisk" style={{ left: `${pct(box.q1)}%`, right: `${100 - pct(box.q3)}%` }} />
+      <div className={cls} style={{ left: `${pct(box.q1)}%`, width: `${pct(box.q3) - pct(box.q1)}%` }}>
+        <i className="bx-med" style={{ left: `${((box.mode != null ? box.mode : box.median) - box.q1) / (box.q3 - box.q1) * 100}%` }} />
       </div>
-      {box.mean != null && <div className="bx-dot mean" style={{ left: `${pct(box.mean)}%` }} title={`mean ${box.mean}`} />}
+      {box.mean != null && <i className="bx-dot" style={{ left: `${pct(box.mean)}%` }} />}
+    </div>
+  )
+}
+
+function MeansPlot({ points }) {
+  return (
+    <div className="bx-plot">
+      {points.map(pt => (
+        <i key={pt.year} className={'bx-dot' + (pt.year === '2006' ? ' old' : '')}
+           style={{ left: `${pct(pt.men)}%` }} title={`${pt.year} · men · mean ${pt.men} · ${pt.src}`} />
+      ))}
+      {points.map(pt => (
+        <i key={'w' + pt.year} className={'bx-dot hollow' + (pt.year === '2006' ? ' old' : '')}
+           style={{ left: `${pct(pt.women)}%` }} title={`${pt.year} · women · mean ${pt.women} · ${pt.src}`} />
+      ))}
     </div>
   )
 }
@@ -87,23 +87,21 @@ function BoxLane({ item }) {
       </div>
       <div className="bx-track-wrap">
         <div className="bx-track">
-          <PlanBand start={item.start} end={item.end} />
-          {item.kind === 'box' && <BoxLayer box={item.box} />}
-          {item.kind === 'means' && <MeansLayer points={item.points} />}
+          {item.kind === 'box' && <BoxPlot box={item.box} />}
           {item.kind === 'mixed' && (
             <>
-              <MeansLayer points={[item.france]} />
-              <div className="bx-layer">
-                <div className="bx-box us" style={{ left: `${pct(item.us.q1)}%`, width: `${pct(item.us.q3) - pct(item.us.q1)}%` }}>
-                  <i className="bx-med" style={{ left: `${(item.us.median - item.us.q1) / (item.us.q3 - item.us.q1) * 100}%` }} title={`median ≈ ${item.us.median}`} />
-                </div>
+              <BoxPlot box={item.us} tone="us" />
+              <div className="bx-means-inline">
+                <i className="bx-dot" style={{ left: `${pct(item.france.men)}%` }} title={`France ${item.france.year} · men · mean ${item.france.men} · ${item.france.src}`} />
+                <i className="bx-dot hollow" style={{ left: `${pct(item.france.women)}%` }} title={`France ${item.france.year} · women · mean ${item.france.women} · ${item.france.src}`} />
               </div>
-              <div className="bx-means-label us-cap" style={{ left: `${pct(item.us.q1)}%` }}>US doctorate box: median ≈ {item.us.median}, middle 50% {item.us.q1}–{item.us.q3} (not French)</div>
             </>
           )}
-          {item.kind === 'none' && <div className="bx-nodata">No demographic measurement — planning range only</div>}
+          {item.kind === 'means' && <MeansPlot points={item.points} />}
+          {item.kind === 'none' && <div className="bx-nodata">no published distribution — plan only</div>}
         </div>
-        <small className="bx-note">{item.note}</small>
+        <PlanBand start={item.start} end={item.end} />
+        <small className="bx-note">{item.caption}</small>
       </div>
     </div>
   )
