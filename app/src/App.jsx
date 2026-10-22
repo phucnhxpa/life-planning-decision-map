@@ -1372,7 +1372,7 @@ function LifeWeeksGrid({ scenario = 'current' }) {
     <div className="card">
       <div className="card-title">Your Life in Weeks</div>
       <p style={{ color: '#86868b', fontSize: 13, marginBottom: 18, lineHeight: 1.55 }}>
-        Every row is one year of your life from age 24 \u2014 {LIFE_WEEKS_TOTAL.toLocaleString()} boxes to age {LIFE_WEEKS_END_AGE}.
+        Every row is one year of your life from age 24 — {LIFE_WEEKS_TOTAL.toLocaleString()} boxes to age {LIFE_WEEKS_END_AGE}.
         Each box is one week. Faded boxes are behind you; colors follow the roadmap phases; the outlined box is this week.
         Inspired by Wait But Why's <em>Your Life in Weeks</em>.
       </p>
@@ -1382,7 +1382,7 @@ function LifeWeeksGrid({ scenario = 'current' }) {
         {legend.map(p => (
           <div key={p.id} className="legend-item" title={p.desc}>
             <span className="legend-color" style={{ background: p.color }} />
-            {p.emoji} {p.label} \u00b7 {p.startDate} \u2192 {p.endDate}
+            {p.emoji} {p.label} · {p.startDate} → {p.endDate}
           </div>
         ))}
         <div className="legend-item">
@@ -1397,7 +1397,7 @@ function LifeWeeksGrid({ scenario = 'current' }) {
           const isPast = idx <= nowWeek
           const isNow = idx === nowWeek
           const cls = 'week-box' + (isNow ? ' now' : '')
-          const title = `Week ${idx + 1} \u00b7 age ${(24.3 + idx / 52).toFixed(2)} \u00b7 ${phase.label} \u00b7 ${isNow ? 'this week' : isPast ? 'past' : 'ahead'}`
+          const title = `Week ${idx + 1} · age ${(24.3 + idx / 52).toFixed(2)} · ${phase.label} · ${isNow ? 'this week' : isPast ? 'past' : 'ahead'}`
           return (
             <div
               key={idx}
@@ -1419,7 +1419,7 @@ function LifeWeeksGrid({ scenario = 'current' }) {
       </div>
 
       <p style={{ color: '#86868b', fontSize: 12, marginTop: 14, lineHeight: 1.5 }}>
-        \u201cGiven that fact, the only appropriate word to describe your weeks is <em>precious</em>.\u201d \u2014 Wait But Why
+        “Given that fact, the only appropriate word to describe your weeks is <em>precious</em>.” — Wait But Why
       </p>
     </div>
   )
