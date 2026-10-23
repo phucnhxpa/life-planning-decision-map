@@ -184,6 +184,17 @@ export default function ShortTermPriority() {
         deadline: '2027-10-15',
         detail: 'One UCAS form covers Oxford/Cambridge/Imperial: deadline to apply 15 Oct 2027, 18:00 UK (MCA Cambridge extra form 22 Oct). Cambridge interviews first 3 weeks of Dec 2027; Imperial interviews Nov 2027 - Feb 2028. Cambridge decision 27 Jan 2028; Imperial decisions aimed by 31 Mar 2028.' },
       // ── ADMINISTRATIVE ──
+      { group: 'Administrative', title: 'Tax 2025 → apartment', rowLabel: '2025 tax → avis → new apartment', start: '2026-09-04', end: '2027-03-04', marker: true, markerDate: '2026-09-04', markerLabel: 'return filed', tone: 'orange',
+        markers: [
+          { date: '2026-12-04', label: 'avis due' },
+          { date: '2027-03-04', label: 'search closes' },
+        ],
+        segments: [
+          { start: '2026-09-04', end: '2026-12-04', label: 'Wait for avis (+3 mo)', tone: 'orange', detail: '3 months to receive the 2025 avis d’imposition. Filed on paper 4 Sep 2026 at SIP Houilles; the accountant expects the official notice ~early Dec 2026 (late-filed return, €8,000 balance simulation, waiver requested).' },
+          { start: '2026-12-04', end: '2027-03-04', label: 'Find apartment (+3 mo)', tone: 'blue', detail: '3 months to find the new apartment once the avis is in hand — it is the income proof the rental dossier needs. Dossier (garant, payslips, avis), visits, offer — done by 4 Mar 2027.' },
+        ],
+        deadline: '2027-03-04',
+        detail: 'One chain, your rule: 2025 return filed 4 Sep 2026 → +3 months to the avis d’imposition (4 Dec 2026) → +3 months to find the apartment (by 4 Mar 2027). Everything after 4 Sep is the rule, not an official promise — adjust if the avis lands early.' },
       { group: 'Administrative', title: 'Tax · 2026 declaration', rowLabel: 'Tax: 2026 income declaration (2027)', start: '2027-04-01', marker: true, markerDate: '2027-05-20', markerLabel: '', tone: 'orange',
         markers: [
           { date: '2027-04-10', label: 'paper deadline' },
