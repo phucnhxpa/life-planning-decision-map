@@ -20,15 +20,15 @@ Error generating stack: `+e.message+`
     </div>
     <div class="controls" id="stpControls"></div>
     <details class="ial-panel" open>
-      <summary>International A-level (IAL) · all sittings to Oct 2028</summary>
+      <summary>International A-level (IAL · Edexcel) · every sitting to Oct 2028</summary>
       <div class="ial-list">
-        <div class="ial-row"><b>Oct 2026</b><span>P1 Fri 9 · M1 Tue 13 · P2 Thu 15 · S1 Mon 19 · P3 Wed 21 · M2 Thu 22 · P4 Wed 28 Oct · ICS Valbonne</span><i>results ~mid-Jan 2027 (proj.)</i></div>
-        <div class="ial-row"><b>Jan 2027</b><span>Maths ×6 papers 8–19 Jan · FP1 14 · S2 18 · FP2 20 · FP3 21 · M3 25 Jan</span><i>results 4 Mar 2027 · entry closed 16 Oct 2026</i></div>
-        <div class="ial-row"><b>May/Jun 2027</b><span>WPH11 7 May · WPH12 12 · WPH13 19 · FP1 27 May · FP2 3 · FP3 8 · M3 10 Jun (FM ×4 + Physics 1–3)</span><i>results 12 Aug 2027</i></div>
-        <div class="ial-row"><b>Oct 2027</b><span>M2 · S2 · WPH14–16 (Physics 4–6) — window early–late Oct</span><i>results ~21 Jan 2028 · book by ~Sep</i></div>
-        <div class="ial-row"><b>Jan 2028</b><span>resit window only — papers mid-Jan</span><i>results 4–18 Mar 2028</i></div>
-        <div class="ial-row"><b>May/Jun 2028</b><span>full series — window early May → mid-Jun (projected)</span><i>results ~mid-Aug 2028</i></div>
-        <div class="ial-row"><b>Oct 2028</b><span>full series — window early → mid-Oct (projected)</span><i>results ~mid-Jan 2029 · last sitting usable for a Sep 2029 start</i></div>
+        <div class="ial-row"><b>Oct 2026</b><span>P1 9 · M1 13 · P2 15 · S1 19 · P3 21 · M2 22 · P4 28 Oct · ICS Valbonne</span><i>FINAL · results ~mid-Jan 2027 (proj.)</i></div>
+        <div class="ial-row"><b>Jan 2027</b><span>Maths ×6: P1 8 · S1 12 · P2 13 · M1 14 · P3 15 · P4 19 Jan · FM: FP1 14 · S2 18 · FP2 20 · FP3 21 · M3 25 Jan · Physics units 11–25 Jan if sat</span><i>FINAL · results 4 Mar 2027 · entry closed 16 Oct 2026</i></div>
+        <div class="ial-row"><b>Summer 2027</b><span>Physics 1–3: WPH11 7 May · WPH12 12 · WPH13 19 May · FM: FP1 27 May · FP2 3 · FP3 8 · M3 10 Jun · (all Maths units: P1 6 May → P4 7 Jun)</span><i>FINAL · results 12 Aug 2027</i></div>
+        <div class="ial-row"><b>Oct 2027</b><span>Physics 4–6: WPH14 20 · WPH15 29 Oct · WPH16 2 Nov · M2 22 · S2 26 Oct · (all units: P1 11 → P4 28 Oct)</span><i>FINAL (pub. 20 Oct 2026) · results ~21 Jan 2028</i></div>
+        <div class="ial-row"><b>Jan 2028</b><span>full IAL series — papers early–mid Jan (not yet published; Pearson publishes ~1 yr ahead)</span><i>results ~early Mar 2028 · resit window in the plan</i></div>
+        <div class="ial-row"><b>Summer 2028</b><span>full IAL series — window early May → mid-Jun (not yet published)</span><i>results ~mid-Aug 2028</i></div>
+        <div class="ial-row"><b>Oct 2028</b><span>full IAL series — window early Oct → early Nov (not yet published)</span><i>results ~mid-Jan 2029 · last sitting usable for a Sep 2029 start</i></div>
       </div>
     </details>
     <div class="timeline-body">
