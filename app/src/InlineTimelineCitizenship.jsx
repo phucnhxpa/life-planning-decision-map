@@ -19,110 +19,6 @@ export default function InlineTimelineCitizenship() {
     const routeLabels = [...host.querySelectorAll('.lane-label.cit-row')]
     if (!laneBoard || !laneGrid || !stripScroll || !status || routeLabels.length !== 6) return undefined
 
-    // ── Path visibility sidebar (like the priority tab) ──
-    const sidebar = host.querySelector('#citSidebar')
-    const pathList = host.querySelector('#citPathList')
-    const showAllBtn = host.querySelector('#citShowAll')
-    if (sidebar && pathList && showAllBtn) {
-      const GROUPS = [
-        { label: 'UK paths', idx: [0, 1], tone: '#2f6fd8' },
-        { label: 'France paths', idx: [2, 3, 4], tone: '#16856b' },
-        { label: 'US', idx: [5], tone: '#af52de' },
-      ]
-      const keyOf = name => name.replace(/\s+/g, '-').toLowerCase()
-      const hidden = new Set()
-      routeNames.forEach(n => { try { if (localStorage.getItem('cit-hidden-' + keyOf(n)) === '1') hidden.add(n) } catch (e) {} })
-
-      const ORIGINAL = ROUTE_BANDS.map(([start, end]) => ({ start, end }))
-
-      function reflow() {
-        // visible paths get compact sequential bands starting at row 2
-        let cursor = 2
-        const newStarts = []
-        ORIGINAL.forEach((band, i) => {
-          const name = routeNames[i]
-          if (!hidden.has(name)) { newStarts[i] = cursor; cursor += band.end - band.start + 1 }
-          else newStarts[i] = null
-        })
-        ;[...laneGrid.children].forEach(el => {
-          const ri = el.dataset.routeIndex
-          if (ri === undefined) return
-          const i = Number(ri)
-          const rowStyle = (el.getAttribute('style') || '').match(/grid-row:\s*(\d+)(?:\s*\/\s*span\s*(\d+))?/)
-          if (!rowStyle) return
-          const span = rowStyle[2] ? Number(rowStyle[2]) : 1
-          const oldStart = ORIGINAL[i].start
-          const oldEnd = ORIGINAL[i].end
-          const oldRow = Number(rowStyle[1])
-          if (oldRow < oldStart || oldRow > oldEnd) return
-          if (newStarts[i] == null) { el.style.display = 'none'; return }
-          const newRow = newStarts[i] + (oldRow - oldStart)
-          el.style.display = ''
-          el.style.gridRow = span > 1 ? newRow + ' / span ' + span : String(newRow)
-        })
-      }
-
-      function buildList() {
-        pathList.innerHTML = ''
-        GROUPS.forEach(g => {
-          const vis = g.idx.filter(i => !hidden.has(routeNames[i])).length
-          const groupDiv = document.createElement('div')
-          groupDiv.className = 'cs-group'
-          const h = document.createElement('div')
-          h.className = 'cs-group-h'
-          const t = document.createElement('span')
-          t.textContent = g.label + ' '
-          const c = document.createElement('b')
-          c.className = 'cs-count'
-          c.textContent = vis + '/' + g.idx.length
-          h.appendChild(t); h.appendChild(c)
-          groupDiv.appendChild(h)
-          g.idx.forEach(i => {
-            const name = routeNames[i]
-            const item = document.createElement('label')
-            item.className = 'cs-item'
-            const dot = document.createElement('i')
-            dot.className = 'cs-dot'
-            dot.style.background = g.tone
-            const cb = document.createElement('input')
-            cb.type = 'checkbox'
-            cb.checked = !hidden.has(name)
-            const sp = document.createElement('span')
-            sp.textContent = name
-            item.appendChild(dot); item.appendChild(cb); item.appendChild(sp)
-            cb.addEventListener('change', () => {
-              if (cb.checked) hidden.delete(name); else hidden.add(name)
-              try { if (cb.checked) localStorage.removeItem('cit-hidden-' + keyOf(name)); else localStorage.setItem('cit-hidden-' + keyOf(name), '1') } catch (e) {}
-              reflow(); buildList()
-            })
-            groupDiv.appendChild(item)
-          })
-          pathList.appendChild(groupDiv)
-        })
-      }
-
-      showAllBtn.addEventListener('click', () => {
-        hidden.clear()
-        routeNames.forEach(n => { try { localStorage.removeItem('cit-hidden-' + keyOf(n)) } catch (e) {} })
-        reflow(); buildList()
-      })
-
-      // if the user selects a hidden route from the buttons, reveal it
-      const origSelect = selectRoute
-      selectRoute = function (route, scroll) {
-        if (route !== 'all') {
-          const i = Number(route)
-          const name = routeNames[i]
-          if (hidden.has(name)) {
-            hidden.delete(name)
-            try { localStorage.removeItem('cit-hidden-' + keyOf(name)) } catch (e) {}
-            reflow(); buildList()
-          }
-        }
-        return origSelect(route, scroll)
-      }
-      reflow(); buildList()
-    }
 
     const controller = new AbortController()
     const { signal } = controller
@@ -248,6 +144,112 @@ export default function InlineTimelineCitizenship() {
       axisObserver.observe(compareBox)
       axisObserver.observe(laneGrid)
       layout()
+    }
+
+    // ── Path visibility sidebar (like the priority tab) ──
+    const sidebar = host.querySelector('#citSidebar')
+    const pathList = host.querySelector('#citPathList')
+    const showAllBtn = host.querySelector('#citShowAll')
+    if (sidebar && pathList && showAllBtn) {
+      const GROUPS = [
+        { label: 'UK paths', idx: [0, 1], tone: '#2f6fd8' },
+        { label: 'France paths', idx: [2, 3, 4], tone: '#16856b' },
+        { label: 'US', idx: [5], tone: '#af52de' },
+      ]
+      const keyOf = name => name.replace(/\s+/g, '-').toLowerCase()
+      const hidden = new Set()
+      routeNames.forEach(n => { try { if (localStorage.getItem('cit-hidden-' + keyOf(n)) === '1') hidden.add(n) } catch (e) {} })
+
+      const ORIGINAL = ROUTE_BANDS.map(([start, end]) => ({ start, end }))
+
+      function reflow() {
+        // visible paths get compact sequential bands starting at row 2
+        let cursor = 2
+        const newStarts = []
+        ORIGINAL.forEach((band, i) => {
+          const name = routeNames[i]
+          if (!hidden.has(name)) { newStarts[i] = cursor; cursor += band.end - band.start + 1 }
+          else newStarts[i] = null
+        })
+        ;[...laneGrid.children].forEach(el => {
+          const ri = el.dataset.routeIndex
+          if (ri === undefined) return
+          const i = Number(ri)
+          const rowStyle = (el.getAttribute('style') || '').match(/grid-row:\s*(\d+)(?:\s*\/\s*span\s*(\d+))?/)
+          if (!rowStyle) return
+          const span = rowStyle[2] ? Number(rowStyle[2]) : 1
+          const oldStart = ORIGINAL[i].start
+          const oldEnd = ORIGINAL[i].end
+          const oldRow = Number(rowStyle[1])
+          if (oldRow < oldStart || oldRow > oldEnd) return
+          if (newStarts[i] == null) { el.style.display = 'none'; return }
+          const newRow = newStarts[i] + (oldRow - oldStart)
+          el.style.display = ''
+          el.style.gridRow = span > 1 ? newRow + ' / span ' + span : String(newRow)
+        })
+      }
+
+      function buildList() {
+        pathList.innerHTML = ''
+        GROUPS.forEach(g => {
+          const vis = g.idx.filter(i => !hidden.has(routeNames[i])).length
+          const groupDiv = document.createElement('div')
+          groupDiv.className = 'cs-group'
+          const h = document.createElement('div')
+          h.className = 'cs-group-h'
+          const t = document.createElement('span')
+          t.textContent = g.label + ' '
+          const c = document.createElement('b')
+          c.className = 'cs-count'
+          c.textContent = vis + '/' + g.idx.length
+          h.appendChild(t); h.appendChild(c)
+          groupDiv.appendChild(h)
+          g.idx.forEach(i => {
+            const name = routeNames[i]
+            const item = document.createElement('label')
+            item.className = 'cs-item'
+            const dot = document.createElement('i')
+            dot.className = 'cs-dot'
+            dot.style.background = g.tone
+            const cb = document.createElement('input')
+            cb.type = 'checkbox'
+            cb.checked = !hidden.has(name)
+            const sp = document.createElement('span')
+            sp.textContent = name
+            item.appendChild(dot); item.appendChild(cb); item.appendChild(sp)
+            cb.addEventListener('change', () => {
+              if (cb.checked) hidden.delete(name); else hidden.add(name)
+              try { if (cb.checked) localStorage.removeItem('cit-hidden-' + keyOf(name)); else localStorage.setItem('cit-hidden-' + keyOf(name), '1') } catch (e) {}
+              reflow(); buildList()
+            })
+            groupDiv.appendChild(item)
+          })
+          pathList.appendChild(groupDiv)
+        })
+      }
+
+      showAllBtn.addEventListener('click', () => {
+        hidden.clear()
+        routeNames.forEach(n => { try { localStorage.removeItem('cit-hidden-' + keyOf(n)) } catch (e) {} })
+        reflow(); buildList()
+      })
+
+      // if the user selects a hidden route from the buttons, reveal it
+      routeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const route = button.dataset.route
+          if (route !== 'all') {
+            const name = routeNames[Number(route)]
+            if (hidden.has(name)) {
+              hidden.delete(name)
+              try { localStorage.removeItem('cit-hidden-' + keyOf(name)) } catch (e) {}
+              reflow(); buildList()
+            }
+          }
+        }, { signal })
+      })
+
+      reflow(); buildList()
     }
 
     return () => {
