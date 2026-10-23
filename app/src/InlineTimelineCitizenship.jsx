@@ -162,6 +162,15 @@ export default function InlineTimelineCitizenship() {
 
       const ORIGINAL = ROUTE_BANDS.map(([start, end]) => ({ start, end }))
 
+      // Capture ORIGINAL grid geometry ONCE (before any rewrite) — the browser re-serializes
+      // grid-column+grid-row into a 'grid-area' shorthand after the first el.style write, so
+      // re-parsing the style string later would find nothing.
+      ;[...laneGrid.children].forEach(el => {
+        if (el.dataset.routeIndex === undefined || el.dataset.origRow) return
+        const gm = (el.getAttribute('style') || '').match(/grid-row:\s*(\d+)(?:\s*\/\s*span\s*(\d+))?/)
+        if (gm) { el.dataset.origRow = gm[1]; el.dataset.origSpan = gm[2] || '1' }
+      })
+
       function reflow() {
         // visible paths get compact sequential bands starting at row 2
         let cursor = 2
@@ -175,12 +184,11 @@ export default function InlineTimelineCitizenship() {
           const ri = el.dataset.routeIndex
           if (ri === undefined) return
           const i = Number(ri)
-          const rowStyle = (el.getAttribute('style') || '').match(/grid-row:\s*(\d+)(?:\s*\/\s*span\s*(\d+))?/)
-          if (!rowStyle) return
-          const span = rowStyle[2] ? Number(rowStyle[2]) : 1
+          if (!el.dataset.origRow) return
+          const span = Number(el.dataset.origSpan || 1)
           const oldStart = ORIGINAL[i].start
           const oldEnd = ORIGINAL[i].end
-          const oldRow = Number(rowStyle[1])
+          const oldRow = Number(el.dataset.origRow)
           if (oldRow < oldStart || oldRow > oldEnd) return
           if (newStarts[i] == null) { el.style.display = 'none'; return }
           const newRow = newStarts[i] + (oldRow - oldStart)
