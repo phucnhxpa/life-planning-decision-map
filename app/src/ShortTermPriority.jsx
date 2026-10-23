@@ -170,7 +170,7 @@ export default function ShortTermPriority() {
         markers: [
           { date: '2027-01-14', label: 'Jan exams' },
         ],
-        detail: 'A-level sittings feeding the 2028-entry UCAS file: Oct 2026 series (P1 9 Oct, M1 13 Oct, P2 15 Oct, S1 19 Oct, P3 21 Oct, M2 22 Oct, P4 28 Oct) and Jan 2027 series (FP1 14 Jan, S2 18 Jan, FP2 20 Jan, FP3 21 Jan, M3 25 Jan).' },
+        detail: 'IAL sittings (Pearson FINAL timetables): Oct 2026 — P1 9 Oct, M1 13, P2 15, S1 19, P3 21, M2 22, P4 28 Oct (results ~mid-Jan 27). Jan 2027 — Maths ×6: P1 8, S1 12, P2 13, M1 14, P3 15, P4 19 Jan; FM: FP1 14, S2 18, FP2 20, FP3 21, M3 25 Jan (results 4 Mar 27). Summer 2027 — WPH11 7 May, WPH12 12, WPH13 19 May; FP1 27 May, FP2 3 Jun, FP3 8 Jun, M3 10 Jun (results 12 Aug 27). Oct 2027 — WPH14 20 Oct, WPH15 29 Oct, WPH16 2 Nov; M2 22 Oct, S2 26 Oct (results ~21 Jan 28). Jan / Summer / Oct 2028 — full series run but unit dates not yet published (Pearson ~1 yr ahead); Oct 2028 is the last sitting usable for a Sep 2029 start.' },
       { group: 'Cambridge/Imperial', title: 'ESAT', rowLabel: 'ESAT · booking & test', start: '2027-09-27', marker: true, markerDate: '2027-09-27', markerLabel: 'booking closes', tone: 'orange',
         markers: [
           { date: '2027-10-11', label: 'test window' },
