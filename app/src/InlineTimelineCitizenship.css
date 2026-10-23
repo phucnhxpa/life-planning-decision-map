@@ -213,10 +213,7 @@
 .inline-timeline .lane-axis-year.is-now{color:#fff;background:#007aff;border-radius:5px;margin:3px 1px}
 
 /* Path-visibility sidebar (mirrors the priority tab) */
-.inline-timeline{display:grid;grid-template-columns:212px minmax(0,1fr);column-gap:16px;align-items:start}
-.inline-timeline .timeline-page-head{grid-column:1/-1}
-.inline-timeline #relationshipCompare{grid-column:1/-1}
-.cit-body{grid-column:2;min-width:0}
+.cit-body{display:flex;gap:16px;align-items:flex-start;min-width:0}
 .cit-sidebar{position:sticky;top:74px;align-self:start;flex:0 0 auto;width:200px;max-height:calc(100vh - 190px);display:flex;flex-direction:column;border:1px solid var(--border,#dfe3eb);border-radius:12px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.05);overflow:hidden}
 .cit-sidebar .cs-head{padding:10px 12px 8px;font-size:10px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:#6e6e73;border-bottom:1px solid var(--border,#eceef2)}
 .cit-sidebar .cs-list{flex:1 1 auto;min-height:0;overflow-y:auto;padding:8px}
