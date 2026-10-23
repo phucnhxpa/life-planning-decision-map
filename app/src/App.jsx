@@ -1,11 +1,12 @@
 import { useState, useMemo, Fragment } from 'react'
 
-const VIEW_KEYS = ['roadmap', 'timeline', 'family', 'homecar', 'priority']
+const VIEW_KEYS = ['roadmap', 'timeline', 'family', 'homecar', 'priority', 'taxrent']
 import './App.css'
 import RelationshipFamilyTimeline from './RelationshipFamilyTimeline'
 import HomeCarTimeline from './HomeCarTimeline'
 import ShortTermPriority from './ShortTermPriority'
 import InlineTimelineCitizenship from './InlineTimelineCitizenship'
+import TaxRentalTimeline from './TaxRentalTimeline'
 
 // ── PHUC'S LIFE DATA ──
 const BIRTH = new Date(2001, 10, 21) // Nov 21, 2001
@@ -1521,6 +1522,12 @@ export default function App() {
         >
           Short-term Priority
         </button>
+        <button
+          className={roadmapView === 'taxrent' ? 'active' : ''}
+          onClick={() => setRoadmapView('taxrent')}
+        >
+          2025 Tax &amp; Rental
+        </button>
       </div>
 
       {roadmapView === 'roadmap' ? (
@@ -1539,6 +1546,8 @@ export default function App() {
         <HomeCarTimeline />
       ) : roadmapView === 'priority' ? (
         <ShortTermPriority />
+      ) : roadmapView === 'taxrent' ? (
+        <TaxRentalTimeline />
       ) : (
         <RelationshipFamilyTimeline />
       )}

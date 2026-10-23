@@ -1,0 +1,24 @@
+.taxrent{margin:0 auto 24px;max-width:1180px}
+.tr-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:18px;padding:26px;border-radius:22px;background:linear-gradient(135deg,#10234f 0%,#193c86 65%,#2757b7 100%);color:#fff;box-shadow:0 14px 38px rgba(16,35,79,.18)}
+.tr-kicker{font-size:10px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:#b9ccff}
+.tr-head h2{margin:6px 0 8px;font-size:clamp(30px,4vw,46px);letter-spacing:-.04em}
+.tr-head p{max-width:700px;margin:0;color:#dce6ff;font-size:14px;line-height:1.55}
+.tr-head-actions span{color:#c9d7f8;font-size:10px}
+.tr-card{border:1px solid #dfe3eb;border-radius:20px;background:#fff;padding:24px;box-shadow:0 8px 28px rgba(0,0,0,.045)}
+.tr-lane{position:relative;height:64px;border:1px solid #eceef2;border-radius:10px;background:#fafbfc}
+.tr-grid{position:absolute;inset:0}
+.tr-grid i{position:absolute;top:0;bottom:0;width:1px;background:#e6e9ef}
+.tr-grid i span{position:absolute;top:3px;left:4px;font-size:8px;color:#9aa0ab;font-weight:700}
+.tr-seg{position:absolute;top:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tr-seg span{font-size:8.5px;font-weight:750;color:#fff;white-space:nowrap;padding:0 6px}
+.tr-seg.wait{background:#c98a20}
+.tr-seg.find{background:#2f7fd1}
+.tr-dot{position:absolute;top:33px;width:11px;height:11px;border-radius:50%;background:#1d1d1f;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.25);transform:translate(-50%,-50%)}
+.tr-dot.red{background:#e03131}
+.tr-captions{display:grid;gap:4px;margin-top:12px}
+.tr-captions div{font-size:10.5px;color:#405173}
+.tr-captions b{color:#1d1d1f;margin-right:4px}
+.tr-notes{display:grid;gap:8px;margin-top:14px;border-top:1px solid #eceef2;padding-top:12px}
+.tr-notes div{border-left:3px solid #dfe3eb;padding:2px 10px;font-size:10.5px;color:#5a6474;line-height:1.5}
+.tr-notes strong{color:#1d1d1f}
+@media(max-width:650px){.tr-head{display:block;padding:20px}.tr-card{padding:16px}.tr-lane{height:58px}.tr-seg span{font-size:7.5px}}

@@ -514,53 +514,6 @@ export default function ShortTermPriority() {
 
     renderVacationRows()
 
-    // ── 2028 feasibility — concrete calculation card (inside the grid) ──
-    function renderFeasibility() {
-      const grid3 = root.querySelector('#stpGrid')
-      if (!grid3) return
-      const W = [
-        ['Jan 2027: Maths ×6 (papers only)', '9 Oct 26 → 18 Jan 27', 180, '132–176', '6–8 papers × 6 units × 3.67h'],
-        ['Jun 2027: FM ×4 + WPH11–13', '20 Jan → 9 Jun 27', 212, '162–206', 'papers + WPH12 Ch 15–17 (9 lessons ≈ 20h)'],
-        ['Oct 2027: M2 S2 + WPH14–16', '11 Jun → 6 Oct 27', 281, '167–197', 'papers + 15 new chapters (32 lessons ≈ 69h)'],
-        ['Jan 2028: resit only', '31 Oct 27 → 10 Jan 28', 183, '1 unit', 'results 4–18 Mar 2028'],
-      ]
-      const rowsHtml = W.map(w => `<div class="feas-line">${w[0]} <span class="feas-dates">${w[1]}</span><br><strong>${w[2]}h</strong> vs need ${w[3]}h <span class="feas-dates">(${w[4]})</span></div>`).join('')
-      grid3.insertAdjacentHTML('beforeend', `
-        <div class="row feas-row"><div class="row-label"><div class="group">Sep 2028 verdict</div><div class="name">feasibility math</div></div>
-        <div class="track feas-track">
-          <div class="feas-grid">
-            <div class="feas-card">
-              <div class="feas-h">1 · Your capacity rule</div>
-              <div class="feas-line">4h per weekday incl. class + 2h per weekend day</div>
-              <div class="feas-line">intensive week (09–13 class): <strong>4h</strong></div>
-              <div class="feas-line">semi week (Mon/Tue/Thu 3h): <strong>15h</strong></div>
-              <div class="feas-line">break week: <strong>24h</strong></div>
-              <div class="feas-sub">your breaks after A1, A2, B1 are where the A-level hours come from</div>
-            </div>
-            <div class="feas-card">
-              <div class="feas-h">2 · Hours per sitting</div>
-              ${rowsHtml}
-              <div class="feas-sub">maths/FM: content done → past papers only (3.67h each incl. wrong-Q redo, from your 168h plan) · physics: 18 chapters left (Ch 15–17, Y2 Ch 1–15) = 41 Lampros lessons × 2.17h + 8 theory / 4 practical papers per unit</div>
-            </div>
-            <div class="feas-card">
-              <div class="feas-h">3 · French (your breaks plan)</div>
-              <div class="feas-line">Intensive A1→B1 with a month break after each level, semi B2</div>
-              <div class="feas-line">B2 done <strong>Thu 16 Dec 2027</strong> → <strong>59 days</strong> before TCF last chance (13 Feb 2028)</div>
-              <div class="feas-line">Register TCF DAP by 15 Dec 2027 · sit late Jan – early Feb 2028</div>
-              <div class="feas-sub">still to pay: 5 intensive × €1,460 + 6 semi × €730 = €11,680</div>
-            </div>
-            <div class="feas-card">
-              <div class="feas-h">4 · Clashes to manage</div>
-              <div class="feas-line">Jan 2027: all 6 maths exams (8–19 Jan) fall in <strong>A2.1 intensive</strong> (4–29 Jan) → ~6 missed mornings</div>
-              <div class="feas-line">May 2027: WPH11 7, WPH12 12, WPH13 19, FP1 27 May fall in <strong>B1.2 intensive</strong> → 4 missed mornings</div>
-              <div class="feas-line">FP2 3, FP3 8, M3 10 Jun fall in the B1 break ✓</div>
-              <div class="feas-sub">exams are at ICS Valbonne (near Nice) — ask Ruth/AF early; a Paris exam centre would remove the travel</div>
-            </div>
-          </div>
-          <div class="feas-verdict"><strong>YES — Sep 2028 holds</strong> · total need 461–578h vs 673h capacity · Jan 2027 Maths: 7 papers/unit = 154h of 180h (8/unit = 176h, only if the A1 break is pure study) · physics new content ≈ 89h, 78% of it in the Oct 2027 window · act now: Jan 2027 entry closes 16 Oct 2026</div>
-        </div></div>`)
-    }
-    renderFeasibility()
 
     buildSidebar()
     root.querySelector('#stpShowAll')?.addEventListener('click', () => {
