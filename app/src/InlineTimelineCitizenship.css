@@ -211,3 +211,23 @@
 .inline-timeline .lane-axis-years{display:grid;height:100%;will-change:transform}
 .inline-timeline .lane-axis-year{display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(23,54,117,.12);font:700 8px/1 var(--mono);color:#3a3a3c}
 .inline-timeline .lane-axis-year.is-now{color:#fff;background:#007aff;border-radius:5px;margin:3px 1px}
+
+/* Path-visibility sidebar (mirrors the priority tab) */
+.inline-timeline{display:grid;grid-template-columns:212px minmax(0,1fr);column-gap:16px;align-items:start}
+.inline-timeline .timeline-page-head{grid-column:1/-1}
+.inline-timeline #relationshipCompare{grid-column:1/-1}
+.cit-body{grid-column:2;min-width:0}
+.cit-sidebar{position:sticky;top:74px;align-self:start;flex:0 0 auto;width:200px;max-height:calc(100vh - 190px);display:flex;flex-direction:column;border:1px solid var(--border,#dfe3eb);border-radius:12px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.05);overflow:hidden}
+.cit-sidebar .cs-head{padding:10px 12px 8px;font-size:10px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:#6e6e73;border-bottom:1px solid var(--border,#eceef2)}
+.cit-sidebar .cs-list{flex:1 1 auto;min-height:0;overflow-y:auto;padding:8px}
+.cit-sidebar .cs-group{margin-bottom:8px}
+.cit-sidebar .cs-group-h{display:flex;justify-content:space-between;align-items:baseline;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#5a6474;padding:4px 4px 5px}
+.cit-sidebar .cs-count{font-weight:800;color:#9a9aa0;letter-spacing:0}
+.cit-sidebar .cs-item{display:flex;align-items:center;gap:7px;padding:5px 4px;border-radius:7px;font-size:10.5px;color:#1d1d1f;cursor:pointer}
+.cit-sidebar .cs-item:hover{background:#f4f6fa}
+.cit-sidebar .cs-item input{accent-color:#2b57b5;margin:0}
+.cit-sidebar .cs-dot{width:8px;height:8px;border-radius:50%;flex:none}
+.cit-sidebar .cs-foot{flex:0 0 auto;padding:8px 10px;border-top:1px solid var(--border,#eceef2);background:#fff}
+.cit-sidebar .cs-showall{border:1px solid #d8d8dd;border-radius:999px;background:#f5f5f7;padding:5px 11px;font-size:10px;font-weight:750;color:#1d1d1f;cursor:pointer}
+.cit-sidebar .cs-showall:hover{background:#e8e8ed}
+@media(max-width:900px){.inline-timeline{display:block}.cit-sidebar{position:static;width:100%;max-height:none;margin-bottom:14px}}
